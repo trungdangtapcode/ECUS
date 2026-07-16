@@ -1,0 +1,13 @@
+node_modules
+**/dist
+**/.venv
+**/__pycache__
+packages/api-client/openapi.json
+packages/api-client/src/schema.d.ts
+package-lock.json
+example
+statements
+plan
+.data
+test-results
+playwright-report
