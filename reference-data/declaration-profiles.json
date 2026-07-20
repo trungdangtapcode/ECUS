@@ -1,0 +1,9 @@
+{
+  "version": "sample-v2",
+  "source": "Profiles observed in the supplied declarations and supporting receipts; not an authoritative legal dataset.",
+  "profiles": [
+    { "code": "A11", "name": "Import for domestic consumption", "enabled": true },
+    { "code": "A12", "name": "Import for production", "enabled": true },
+    { "code": "B11", "name": "Business export", "enabled": true }
+  ]
+}
