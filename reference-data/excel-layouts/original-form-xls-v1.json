@@ -1,0 +1,1450 @@
+{
+  "id": "original-form-xls-v1",
+  "name_key": "integration.originalExportForm",
+  "version": "native-form-v1",
+  "caption_cells": {
+    "TKX": [
+      "AA1",
+      "AA145",
+      "AA82",
+      "C112",
+      "C12",
+      "C146",
+      "C148",
+      "C149",
+      "C150",
+      "C151",
+      "C152",
+      "C153",
+      "C155",
+      "C157",
+      "C158",
+      "C163",
+      "C164",
+      "C170",
+      "C171",
+      "C172",
+      "C175",
+      "C176",
+      "C22",
+      "C28",
+      "C37",
+      "C39",
+      "C4",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C49",
+      "C5",
+      "C57",
+      "C58",
+      "C59",
+      "C6",
+      "C63",
+      "C64",
+      "C66",
+      "C69",
+      "C7",
+      "C8",
+      "C83",
+      "C85",
+      "C86",
+      "C87",
+      "C88",
+      "C89",
+      "C9",
+      "C90",
+      "C93",
+      "C94",
+      "C95",
+      "C96",
+      "C97",
+      "C99",
+      "D114",
+      "D115",
+      "D118",
+      "D121",
+      "D124",
+      "D127",
+      "D13",
+      "D130",
+      "D133",
+      "D136",
+      "D139",
+      "D14",
+      "D142",
+      "D16",
+      "D165",
+      "D166",
+      "D167",
+      "D168",
+      "D169",
+      "D17",
+      "D19",
+      "D23",
+      "D24",
+      "D26",
+      "D27",
+      "D29",
+      "D30",
+      "D32",
+      "D33",
+      "D35",
+      "D70",
+      "D71",
+      "D72",
+      "D73",
+      "D75",
+      "D78",
+      "E172",
+      "E173",
+      "E174",
+      "E2",
+      "G114",
+      "G153",
+      "G9",
+      "G90",
+      "H175",
+      "I150",
+      "I6",
+      "I87",
+      "J153",
+      "J63",
+      "J9",
+      "J90",
+      "K148",
+      "K4",
+      "K57",
+      "K74",
+      "K85",
+      "L157",
+      "L171",
+      "L49",
+      "L50",
+      "L51",
+      "L52",
+      "L53",
+      "L54",
+      "L55",
+      "L56",
+      "M114",
+      "M74",
+      "M75",
+      "M76",
+      "M77",
+      "O161",
+      "O162",
+      "O163",
+      "O165",
+      "O166",
+      "O167",
+      "O168",
+      "O172",
+      "O61",
+      "P150",
+      "P151",
+      "P152",
+      "P57",
+      "P58",
+      "P6",
+      "P7",
+      "P8",
+      "P87",
+      "P88",
+      "P89",
+      "Q49",
+      "Q63",
+      "Q75",
+      "Q76",
+      "Q77",
+      "R172",
+      "R173",
+      "R174",
+      "R66",
+      "R74",
+      "R75",
+      "R76",
+      "R77",
+      "T148",
+      "T165",
+      "T4",
+      "T53",
+      "T54",
+      "T85",
+      "U148",
+      "U4",
+      "U85",
+      "V163",
+      "V61",
+      "W37",
+      "X163",
+      "X55",
+      "X57",
+      "X63",
+      "Y152",
+      "Y8",
+      "Y89",
+      "Z53",
+      "Z56"
+    ],
+    "HANG": [
+      "AA30",
+      "AA54",
+      "C1",
+      "C13",
+      "C14",
+      "C19",
+      "C2",
+      "C20",
+      "C26",
+      "C27",
+      "C28",
+      "C31",
+      "C32",
+      "C37",
+      "C38",
+      "C4",
+      "C43",
+      "C44",
+      "C5",
+      "C50",
+      "C51",
+      "C52",
+      "C55",
+      "C56",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "D21",
+      "D22",
+      "D23",
+      "D24",
+      "D25",
+      "D45",
+      "D46",
+      "D47",
+      "D48",
+      "D49",
+      "E28",
+      "E29",
+      "E30",
+      "E52",
+      "E53",
+      "E54",
+      "F8",
+      "G9",
+      "I6",
+      "J9",
+      "K4",
+      "K47",
+      "L13",
+      "L23",
+      "L27",
+      "L37",
+      "L51",
+      "M30",
+      "M54",
+      "O17",
+      "O18",
+      "O19",
+      "O21",
+      "O22",
+      "O23",
+      "O24",
+      "O28",
+      "O41",
+      "O42",
+      "O43",
+      "O45",
+      "O46",
+      "O47",
+      "O48",
+      "O52",
+      "P6",
+      "P7",
+      "P8",
+      "R28",
+      "R29",
+      "R30",
+      "R52",
+      "R53",
+      "R54",
+      "S13",
+      "S37",
+      "T21",
+      "T4",
+      "T45",
+      "V19",
+      "V43",
+      "X19",
+      "X43",
+      "Y8"
+    ]
+  },
+  "headings": {},
+  "fields": [
+    {
+      "field": "exporter_tax_id",
+      "label": "integration.fields.exporter_tax_id",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F13"
+        }
+      ],
+      "normalization": "identifier"
+    },
+    {
+      "field": "exporter_name",
+      "label": "integration.fields.exporter_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F14"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "exporter_postcode",
+      "label": "integration.fields.exporter_postcode",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F16"
+        }
+      ]
+    },
+    {
+      "field": "exporter_address",
+      "label": "integration.fields.exporter_address",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F17"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "exporter_phone",
+      "label": "integration.fields.exporter_phone",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F19"
+        }
+      ]
+    },
+    {
+      "field": "entrusted_exporter_tax_id",
+      "label": "integration.fields.entrusted_exporter_tax_id",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F23"
+        }
+      ],
+      "normalization": "identifier"
+    },
+    {
+      "field": "entrusted_exporter_name",
+      "label": "integration.fields.entrusted_exporter_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F24"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "importer_tax_id",
+      "label": "integration.fields.importer_tax_id",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F29"
+        }
+      ],
+      "normalization": "identifier"
+    },
+    {
+      "field": "importer_name",
+      "label": "integration.fields.importer_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F30"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "importer_postcode",
+      "label": "integration.fields.importer_postcode",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F32"
+        }
+      ]
+    },
+    {
+      "field": "importer_address",
+      "label": "integration.fields.importer_address",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F33"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "importer_country",
+      "label": "integration.fields.importer_country",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F35"
+        }
+      ]
+    },
+    {
+      "field": "bill_of_lading",
+      "label": "integration.fields.bill_of_lading",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "H39"
+        }
+      ],
+      "normalization": "identifier"
+    },
+    {
+      "field": "package_quantity",
+      "label": "integration.fields.package_quantity",
+      "value_type": "decimal",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "H40"
+        }
+      ]
+    },
+    {
+      "field": "package_unit",
+      "label": "integration.fields.package_unit",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "M40"
+        }
+      ]
+    },
+    {
+      "field": "gross_weight",
+      "label": "integration.fields.gross_weight",
+      "value_type": "decimal",
+      "unit": "KG",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "H41"
+        }
+      ]
+    },
+    {
+      "field": "weight_unit",
+      "label": "integration.fields.weight_unit",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "M41"
+        }
+      ]
+    },
+    {
+      "field": "warehouse_code",
+      "label": "integration.fields.warehouse_code",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "I42"
+        }
+      ]
+    },
+    {
+      "field": "warehouse_name",
+      "label": "integration.fields.warehouse_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "M42"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "destination_port_code",
+      "label": "integration.fields.destination_port_code",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "I43"
+        }
+      ]
+    },
+    {
+      "field": "destination_port_name",
+      "label": "integration.fields.destination_port_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "M43"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "loading_port_code",
+      "label": "integration.fields.loading_port_code",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "I44"
+        }
+      ]
+    },
+    {
+      "field": "loading_port_name",
+      "label": "integration.fields.loading_port_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "M44"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "vessel_code",
+      "label": "integration.fields.vessel_code",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "I45"
+        }
+      ]
+    },
+    {
+      "field": "vessel_name",
+      "label": "integration.fields.vessel_name",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "M45"
+        }
+      ],
+      "normalization": "text"
+    },
+    {
+      "field": "departure_date",
+      "label": "integration.fields.departure_date",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "I46"
+        }
+      ],
+      "normalization": "date"
+    },
+    {
+      "field": "shipping_marks",
+      "label": "integration.fields.shipping_marks",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "H47"
+        }
+      ]
+    },
+    {
+      "field": "invoice_number",
+      "label": "integration.fields.invoice_number",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "R49"
+        }
+      ]
+    },
+    {
+      "field": "electronic_invoice_ref",
+      "label": "integration.fields.electronic_invoice_ref",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "S50"
+        }
+      ]
+    },
+    {
+      "field": "invoice_date",
+      "label": "integration.fields.invoice_date",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "S51"
+        }
+      ],
+      "normalization": "date"
+    },
+    {
+      "field": "payment_method",
+      "label": "integration.fields.payment_method",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "S52"
+        }
+      ]
+    },
+    {
+      "field": "invoice_currency",
+      "label": "integration.fields.invoice_currency",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "Q53"
+        }
+      ],
+      "normalization": "currency"
+    },
+    {
+      "field": "invoice_total",
+      "label": "integration.fields.invoice_total",
+      "value_type": "decimal",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "U53"
+        }
+      ]
+    },
+    {
+      "field": "customs_value",
+      "label": "integration.fields.customs_value",
+      "value_type": "decimal",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "U54"
+        }
+      ]
+    },
+    {
+      "field": "exchange_rate",
+      "label": "integration.fields.exchange_rate",
+      "value_type": "decimal",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "S55"
+        }
+      ]
+    },
+    {
+      "field": "allocation_factor",
+      "label": "integration.fields.allocation_factor",
+      "value_type": "decimal",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "R56"
+        }
+      ]
+    },
+    {
+      "field": "notes",
+      "label": "integration.fields.notes",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F64"
+        }
+      ]
+    },
+    {
+      "field": "internal_reference",
+      "label": "integration.fields.internal_reference",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "I66"
+        }
+      ]
+    },
+    {
+      "field": "declaration_number",
+      "label": "integration.fields.declaration_number",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "normalization": "identifier",
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "E4"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "E85"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "E148"
+        },
+        {
+          "sheet": "HANG",
+          "cell": "E4"
+        }
+      ]
+    },
+    {
+      "field": "declaration_procedure",
+      "label": "integration.fields.declaration_procedure",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "normalization": "identifier",
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "L6"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "L87"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "L150"
+        },
+        {
+          "sheet": "HANG",
+          "cell": "L6"
+        }
+      ]
+    },
+    {
+      "field": "declaration_office",
+      "label": "integration.fields.declaration_office",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "normalization": "text",
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "J7"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "J88"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "J151"
+        },
+        {
+          "sheet": "HANG",
+          "cell": "J7"
+        }
+      ]
+    },
+    {
+      "field": "declaration_registration_date",
+      "label": "integration.fields.declaration_registration_date",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "normalization": "date",
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F8"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "F89"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "F152"
+        },
+        {
+          "sheet": "HANG",
+          "cell": "F8"
+        }
+      ]
+    },
+    {
+      "field": "declaration_inspection",
+      "label": "integration.fields.declaration_inspection",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "normalization": "identifier",
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "F6"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "F87"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "F150"
+        },
+        {
+          "sheet": "HANG",
+          "cell": "F6"
+        }
+      ]
+    },
+    {
+      "field": "declaration_department",
+      "label": "integration.fields.declaration_department",
+      "value_type": "text",
+      "unit": "",
+      "required": false,
+      "normalization": "identifier",
+      "targets": [
+        {
+          "sheet": "TKX",
+          "cell": "Y7"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "Y88"
+        },
+        {
+          "sheet": "TKX",
+          "cell": "Y151"
+        },
+        {
+          "sheet": "HANG",
+          "cell": "Y7"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "key": "goods",
+      "maximum": 3,
+      "fields": [
+        {
+          "field": "hs_code",
+          "label": "integration.fields.hs_code",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "F13"
+            }
+          ]
+        },
+        {
+          "field": "description",
+          "label": "integration.fields.description",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "F14"
+            }
+          ]
+        },
+        {
+          "field": "management_code",
+          "label": "integration.fields.management_code",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "P13"
+            }
+          ]
+        },
+        {
+          "field": "quantity",
+          "label": "integration.fields.quantity",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "Q17"
+            }
+          ]
+        },
+        {
+          "field": "quantity_unit",
+          "label": "integration.fields.quantity_unit",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "X17"
+            }
+          ]
+        },
+        {
+          "field": "quantity_secondary",
+          "label": "integration.fields.quantity_secondary",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "Q18"
+            }
+          ]
+        },
+        {
+          "field": "quantity_secondary_unit",
+          "label": "integration.fields.quantity_secondary_unit",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "X18"
+            }
+          ]
+        },
+        {
+          "field": "invoice_amount",
+          "label": "integration.fields.invoice_amount",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "F19"
+            }
+          ]
+        },
+        {
+          "field": "unit_price",
+          "label": "integration.fields.unit_price",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "R19"
+            }
+          ]
+        },
+        {
+          "field": "currency",
+          "label": "integration.fields.currency",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "V19"
+            }
+          ],
+          "normalization": "currency"
+        },
+        {
+          "field": "price_unit",
+          "label": "integration.fields.price_unit",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "X19"
+            }
+          ]
+        },
+        {
+          "field": "taxable_value",
+          "label": "integration.fields.taxable_value",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "F21"
+            }
+          ]
+        },
+        {
+          "field": "tax_quantity",
+          "label": "integration.fields.tax_quantity",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "G22"
+            }
+          ]
+        },
+        {
+          "field": "tax_rate",
+          "label": "integration.fields.tax_rate",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "F23"
+            }
+          ]
+        },
+        {
+          "field": "tax_amount",
+          "label": "integration.fields.tax_amount",
+          "value_type": "decimal",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "HANG",
+              "cell": "G24"
+            }
+          ]
+        }
+      ],
+      "slots": [
+        {
+          "sheet": "TKX",
+          "row_offset": 144
+        },
+        {
+          "sheet": "HANG",
+          "row_offset": 0
+        },
+        {
+          "sheet": "HANG",
+          "row_offset": 24
+        }
+      ]
+    },
+    {
+      "key": "containers",
+      "maximum": 50,
+      "fields": [
+        {
+          "field": "number",
+          "label": "integration.fields.number",
+          "value_type": "text",
+          "unit": "",
+          "required": false,
+          "targets": [
+            {
+              "sheet": "TKX",
+              "cell": "A1"
+            }
+          ]
+        }
+      ],
+      "slots": [
+        {
+          "sheet": "TKX",
+          "row_offset": 99,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 100,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 101,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 102,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 103,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 104,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 105,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 106,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 107,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 108,
+          "column_offset": 4
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 99,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 100,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 101,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 102,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 103,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 104,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 105,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 106,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 107,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 108,
+          "column_offset": 8
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 99,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 100,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 101,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 102,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 103,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 104,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 105,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 106,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 107,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 108,
+          "column_offset": 13
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 99,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 100,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 101,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 102,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 103,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 104,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 105,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 106,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 107,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 108,
+          "column_offset": 18
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 99,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 100,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 101,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 102,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 103,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 104,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 105,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 106,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 107,
+          "column_offset": 23
+        },
+        {
+          "sheet": "TKX",
+          "row_offset": 108,
+          "column_offset": 23
+        }
+      ]
+    }
+  ],
+  "page_breaks": {},
+  "file_format": "xls"
+}

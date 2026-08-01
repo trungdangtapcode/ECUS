@@ -1,0 +1,69 @@
+{
+  "version": "commercial-sea-documents-v1",
+  "name": "Commercial sea import — document requirements",
+  "status": "project_baseline",
+  "procedures": [
+    "A11",
+    "A12"
+  ],
+  "document_requirements": [
+    {
+      "key": "invoice",
+      "label": "Commercial invoice",
+      "any_of": [
+        "INVOICE"
+      ],
+      "when": "always"
+    },
+    {
+      "key": "packing_list",
+      "label": "Packing list",
+      "any_of": [
+        "PACKING_LIST"
+      ],
+      "when": "always"
+    },
+    {
+      "key": "transport",
+      "label": "Bill of lading or sea waybill",
+      "any_of": [
+        "BILL_OF_LADING",
+        "SEA_WAYBILL"
+      ],
+      "when": "always"
+    },
+    {
+      "key": "arrival_notice",
+      "label": "Arrival notice",
+      "any_of": [
+        "ARRIVAL_NOTICE"
+      ],
+      "when": "arrival_confirmed"
+    },
+    {
+      "key": "origin",
+      "label": "Certificate of origin",
+      "any_of": [
+        "CERTIFICATE_OF_ORIGIN"
+      ],
+      "when": "applicable"
+    },
+    {
+      "key": "license",
+      "label": "Import license",
+      "any_of": [
+        "IMPORT_LICENSE"
+      ],
+      "when": "applicable"
+    },
+    {
+      "key": "inspection",
+      "label": "Specialized inspection",
+      "any_of": [
+        "SPECIALIZED_INSPECTION"
+      ],
+      "when": "applicable"
+    }
+  ],
+  "fields": []
+}

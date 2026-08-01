@@ -1,0 +1,725 @@
+{
+  "version": "field-catalog-v1",
+  "fields": {
+    "integration.fields.exporter_tax_id": {
+      "label": "Exporter tax ID",
+      "description": ""
+    },
+    "integration.fields.exporter_name": {
+      "label": "Exporter name",
+      "description": "Seller or exporter explicitly identified for this shipment. A manufacturer or certificate-of-origin exporter may have a different role; do not silently substitute those parties."
+    },
+    "integration.fields.exporter_postcode": {
+      "label": "Exporter postal code",
+      "description": ""
+    },
+    "integration.fields.exporter_address": {
+      "label": "Exporter address",
+      "description": ""
+    },
+    "integration.fields.exporter_phone": {
+      "label": "Exporter phone",
+      "description": ""
+    },
+    "integration.fields.entrusted_exporter_tax_id": {
+      "label": "Entrusted exporter tax ID",
+      "description": ""
+    },
+    "integration.fields.entrusted_exporter_name": {
+      "label": "Entrusted exporter name",
+      "description": ""
+    },
+    "integration.fields.importer_tax_id": {
+      "label": "Importer identifier",
+      "description": ""
+    },
+    "integration.fields.importer_name": {
+      "label": "Importer name",
+      "description": "Buyer, importer or consignee explicitly identified for this shipment. Do not substitute an agent or carrier."
+    },
+    "integration.fields.importer_postcode": {
+      "label": "Importer postal code",
+      "description": ""
+    },
+    "integration.fields.importer_address": {
+      "label": "Importer address",
+      "description": ""
+    },
+    "integration.fields.importer_country": {
+      "label": "Importer country",
+      "description": ""
+    },
+    "integration.fields.bill_of_lading": {
+      "label": "Bill of lading number",
+      "description": "Bill identifier printed in an uploaded supporting document. Copy its representation exactly; never add a date prefix or reconstruct a longer identifier from another source."
+    },
+    "integration.fields.declaration_bill_of_lading": {
+      "label": "Bill of lading number",
+      "description": "Bill identifier printed in an uploaded supporting document. Copy its representation exactly; never add a date prefix or reconstruct a longer identifier from another source."
+    },
+    "integration.fields.package_quantity": {
+      "label": "Package quantity",
+      "description": ""
+    },
+    "integration.fields.package_unit": {
+      "label": "Package unit",
+      "description": ""
+    },
+    "integration.fields.gross_weight": {
+      "label": "Gross weight (KG)",
+      "description": "Explicit gross cargo weight including packing. Return the printed numeric quote and original weight unit; do not substitute net weight."
+    },
+    "integration.fields.weight_unit": {
+      "label": "Weight unit",
+      "description": ""
+    },
+    "integration.fields.warehouse_code": {
+      "label": "Warehouse code",
+      "description": ""
+    },
+    "integration.fields.warehouse_name": {
+      "label": "Warehouse",
+      "description": ""
+    },
+    "integration.fields.destination_port_code": {
+      "label": "Destination port code",
+      "description": ""
+    },
+    "integration.fields.destination_port_name": {
+      "label": "Destination port",
+      "description": ""
+    },
+    "integration.fields.loading_port_code": {
+      "label": "Loading port code",
+      "description": ""
+    },
+    "integration.fields.loading_port_name": {
+      "label": "Loading port",
+      "description": ""
+    },
+    "integration.fields.vessel_code": {
+      "label": "Transport code",
+      "description": ""
+    },
+    "integration.fields.vessel_name": {
+      "label": "Vessel / transport",
+      "description": "The vessel name for the transport leg stated on this source. Exclude the voyage identifier; do not combine names from different legs."
+    },
+    "integration.fields.departure_date": {
+      "label": "Expected departure",
+      "description": "The source explicitly labelled departure date. Do not substitute issue, arrival, registration or delivery date."
+    },
+    "integration.fields.shipping_marks": {
+      "label": "Shipping marks",
+      "description": ""
+    },
+    "integration.fields.invoice_number": {
+      "label": "Invoice number",
+      "description": ""
+    },
+    "integration.fields.electronic_invoice_ref": {
+      "label": "Electronic invoice reference",
+      "description": ""
+    },
+    "integration.fields.invoice_date": {
+      "label": "Invoice date",
+      "description": ""
+    },
+    "integration.fields.payment_method": {
+      "label": "Payment method",
+      "description": ""
+    },
+    "integration.fields.invoice_currency": {
+      "label": "Invoice currency",
+      "description": "Currency explicitly associated with the commercial invoice price or total. Quote the original currency text; do not infer from country, parties or payment method."
+    },
+    "integration.fields.invoice_total": {
+      "label": "Invoice total",
+      "description": "The explicitly printed monetary invoice total, not a quantity, unit price, tax or freight charge. If the number also appears as a line amount, anchor this occurrence to its total label."
+    },
+    "integration.fields.customs_value": {
+      "label": "Customs value",
+      "description": ""
+    },
+    "integration.fields.exchange_rate": {
+      "label": "Declared exchange rate",
+      "description": ""
+    },
+    "integration.fields.allocation_factor": {
+      "label": "Allocation factor",
+      "description": ""
+    },
+    "integration.fields.notes": {
+      "label": "Notes",
+      "description": ""
+    },
+    "integration.fields.internal_reference": {
+      "label": "Internal reference",
+      "description": ""
+    },
+    "integration.fields.hs_code": {
+      "label": "HS code from documents",
+      "description": "An explicitly printed HS classification on the source for this goods line. Copy all printed digits; do not predict, expand or truncate the code."
+    },
+    "integration.fields.description": {
+      "label": "Goods description",
+      "description": "Exact description of the requested goods line in the primary invoice; preserve relevant product specifications. In secondary documents, require the supplied unique invoice-line identity."
+    },
+    "integration.fields.management_code": {
+      "label": "Management code",
+      "description": "An explicitly labelled declaration management code for this goods line. A product SKU or model is not automatically a declaration management code."
+    },
+    "integration.fields.quantity": {
+      "label": "Quantity",
+      "description": "Quantity of the requested goods line in the primary invoice. Preserve the printed number and original unit. Do not substitute package count, weight or invoice TOTAL quantity."
+    },
+    "integration.fields.quantity_unit": {
+      "label": "Quantity unit",
+      "description": ""
+    },
+    "integration.fields.quantity_secondary": {
+      "label": "Secondary quantity",
+      "description": ""
+    },
+    "integration.fields.quantity_secondary_unit": {
+      "label": "Secondary quantity unit",
+      "description": ""
+    },
+    "integration.fields.invoice_amount": {
+      "label": "Invoice amount",
+      "description": "The explicitly printed monetary amount of the requested invoice goods line. Do not calculate quantity multiplied by price or copy an unrelated total."
+    },
+    "integration.fields.unit_price": {
+      "label": "Invoice unit price",
+      "description": "The printed unit price of the requested invoice goods line. Preserve all printed decimal digits and the original price unit. Do not adjust the price to make arithmetic agree."
+    },
+    "integration.fields.currency": {
+      "label": "Currency",
+      "description": "Currency explicitly associated with this goods line amount or unit price. Keep the original text as printed."
+    },
+    "integration.fields.price_unit": {
+      "label": "Price unit",
+      "description": ""
+    },
+    "integration.fields.taxable_value": {
+      "label": "Taxable value from documents",
+      "description": ""
+    },
+    "integration.fields.tax_quantity": {
+      "label": "Tax quantity",
+      "description": ""
+    },
+    "integration.fields.tax_rate": {
+      "label": "Tax rate from documents",
+      "description": ""
+    },
+    "integration.fields.tax_amount": {
+      "label": "Tax amount from documents",
+      "description": ""
+    },
+    "integration.fields.number": {
+      "label": "Container number",
+      "description": ""
+    },
+    "integration.fields.summary_goods_quantity": {
+      "label": "Total goods quantity",
+      "description": "Explicit total goods quantity in the source. Preserve a printed TOTAL quantity even if it disagrees with a line quantity; do not calculate a total."
+    },
+    "integration.fields.net_weight": {
+      "label": "Net weight (KG)",
+      "description": "Explicit net cargo weight, excluding packing. Return the printed numeric quote and original weight unit; do not use gross weight or calculate a difference."
+    },
+    "integration.fields.transport_seal": {
+      "label": "Container seal",
+      "description": ""
+    },
+    "integration.fields.transport_voyage": {
+      "label": "Vessel voyage",
+      "description": "The printed voyage identifier for the transport leg stated on this source. Exclude the vessel name; retain differences between legs."
+    },
+    "integration.fields.invoice_incoterm": {
+      "label": "Delivery term (Incoterm)",
+      "description": ""
+    },
+    "integration.fields.declaration_number": {
+      "label": "Declaration number",
+      "description": "An explicitly labelled customs declaration number. Do not substitute an arrival notice, freight forwarder, invoice or agent reference number."
+    },
+    "integration.fields.declaration_procedure": {
+      "label": "Declaration procedure",
+      "description": ""
+    },
+    "integration.fields.declaration_office": {
+      "label": "Customs office",
+      "description": ""
+    },
+    "integration.fields.declaration_registration_date": {
+      "label": "Registration date",
+      "description": ""
+    },
+    "integration.fields.declaration_inspection": {
+      "label": "Inspection classification",
+      "description": ""
+    },
+    "integration.fields.declaration_department": {
+      "label": "Processing department",
+      "description": ""
+    },
+    "integration.fields.first_declaration_number": {
+      "label": "First declaration number",
+      "description": ""
+    },
+    "integration.fields.temporary_declaration_number": {
+      "label": "Corresponding temporary declaration",
+      "description": ""
+    },
+    "integration.fields.representative_tax_code": {
+      "label": "Representative tax code",
+      "description": ""
+    },
+    "integration.fields.registration_changed_at": {
+      "label": "Registration amendment date",
+      "description": ""
+    },
+    "integration.fields.temporary_period_start": {
+      "label": "Temporary period start",
+      "description": ""
+    },
+    "integration.fields.temporary_period_end": {
+      "label": "Temporary period end",
+      "description": ""
+    },
+    "integration.fields.importer_address_line_2": {
+      "label": "Importer address, continuation",
+      "description": "An explicit continuation of the importer address. Do not repeat the complete address in every continuation field."
+    },
+    "integration.fields.importer_address_right_1": {
+      "label": "Importer address, right column",
+      "description": ""
+    },
+    "integration.fields.importer_address_right_2": {
+      "label": "Importer address, right continuation",
+      "description": ""
+    },
+    "integration.fields.customs_agent_code": {
+      "label": "Customs agent identifier",
+      "description": ""
+    },
+    "integration.fields.customs_agent_name": {
+      "label": "Customs agent name",
+      "description": ""
+    },
+    "integration.fields.customs_employee_code": {
+      "label": "Customs employee identifier",
+      "description": ""
+    },
+    "integration.fields.invoice_value_classification": {
+      "label": "Invoice value classification",
+      "description": ""
+    },
+    "integration.fields.customs_value_currency": {
+      "label": "Customs value currency",
+      "description": ""
+    },
+    "integration.fields.exchange_rate_currency": {
+      "label": "Exchange-rate currency",
+      "description": ""
+    },
+    "integration.fields.exchange_rate_secondary": {
+      "label": "Secondary exchange rate",
+      "description": ""
+    },
+    "integration.fields.allocation_classification": {
+      "label": "Allocation classification",
+      "description": ""
+    },
+    "integration.fields.vnd_conversion_classification": {
+      "label": "VND conversion classification",
+      "description": ""
+    },
+    "integration.fields.taxpayer_classification": {
+      "label": "Taxpayer classification",
+      "description": ""
+    },
+    "integration.fields.tax_payment_deadline_code": {
+      "label": "Tax-payment deadline code",
+      "description": ""
+    },
+    "integration.fields.tax_payment_classification": {
+      "label": "Tax-payment classification",
+      "description": ""
+    },
+    "integration.fields.total_export_tax": {
+      "label": "Export tax recorded in documents",
+      "description": ""
+    },
+    "integration.fields.total_export_tax_currency": {
+      "label": "Export-tax currency",
+      "description": ""
+    },
+    "integration.fields.total_fees": {
+      "label": "Total fees recorded in documents",
+      "description": ""
+    },
+    "integration.fields.total_fees_currency": {
+      "label": "Fee currency",
+      "description": ""
+    },
+    "integration.fields.guaranteed_amount": {
+      "label": "Guaranteed amount",
+      "description": ""
+    },
+    "integration.fields.guaranteed_amount_currency": {
+      "label": "Guarantee currency",
+      "description": ""
+    },
+    "integration.fields.declaration_page_count": {
+      "label": "Source declaration page count",
+      "description": ""
+    },
+    "integration.fields.declaration_goods_count": {
+      "label": "Source declaration goods count",
+      "description": ""
+    },
+    "integration.fields.user_reference": {
+      "label": "User reference",
+      "description": ""
+    },
+    "integration.fields.customs_unit_head": {
+      "label": "Customs unit head recorded in documents",
+      "description": ""
+    },
+    "integration.fields.inspection_completed_on": {
+      "label": "Source inspection completion date",
+      "description": ""
+    },
+    "integration.fields.export_import_permitted_on": {
+      "label": "Source export/import permission date",
+      "description": ""
+    },
+    "integration.fields.bonded_transport_start": {
+      "label": "Bonded transport departure deadline",
+      "description": ""
+    },
+    "integration.fields.bonded_transport_end": {
+      "label": "Bonded transport deadline",
+      "description": ""
+    },
+    "integration.fields.bonded_destination_code": {
+      "label": "Bonded transport destination code",
+      "description": ""
+    },
+    "integration.fields.bonded_destination_name": {
+      "label": "Bonded transport destination name",
+      "description": ""
+    },
+    "integration.fields.vanning_location_code": {
+      "label": "Vanning location code",
+      "description": ""
+    },
+    "integration.fields.vanning_location_name": {
+      "label": "Vanning location name",
+      "description": ""
+    },
+    "integration.fields.vanning_location_address": {
+      "label": "Vanning location address",
+      "description": ""
+    },
+    "integration.fields.export_license_1_code": {
+      "label": "Export license 1: code",
+      "description": ""
+    },
+    "integration.fields.export_license_1_number": {
+      "label": "Export license 1: number",
+      "description": ""
+    },
+    "integration.fields.export_license_2_code": {
+      "label": "Export license 2: code",
+      "description": ""
+    },
+    "integration.fields.export_license_2_number": {
+      "label": "Export license 2: number",
+      "description": ""
+    },
+    "integration.fields.export_license_3_code": {
+      "label": "Export license 3: code",
+      "description": ""
+    },
+    "integration.fields.export_license_3_number": {
+      "label": "Export license 3: number",
+      "description": ""
+    },
+    "integration.fields.export_license_4_code": {
+      "label": "Export license 4: code",
+      "description": ""
+    },
+    "integration.fields.export_license_4_number": {
+      "label": "Export license 4: number",
+      "description": ""
+    },
+    "integration.fields.export_license_5_code": {
+      "label": "Export license 5: code",
+      "description": ""
+    },
+    "integration.fields.export_license_5_number": {
+      "label": "Export license 5: number",
+      "description": ""
+    },
+    "integration.fields.electronic_attachment_1": {
+      "label": "Electronic attachment 1",
+      "description": ""
+    },
+    "integration.fields.electronic_attachment_2": {
+      "label": "Electronic attachment 2",
+      "description": ""
+    },
+    "integration.fields.electronic_attachment_3": {
+      "label": "Electronic attachment 3",
+      "description": ""
+    },
+    "integration.fields.transit_1_location": {
+      "label": "Transit 1: location",
+      "description": ""
+    },
+    "integration.fields.transit_1_arrived": {
+      "label": "Transit 1: arrival date",
+      "description": ""
+    },
+    "integration.fields.transit_1_departed": {
+      "label": "Transit 1: departure date",
+      "description": ""
+    },
+    "integration.fields.transit_2_location": {
+      "label": "Transit 2: location",
+      "description": ""
+    },
+    "integration.fields.transit_2_arrived": {
+      "label": "Transit 2: arrival date",
+      "description": ""
+    },
+    "integration.fields.transit_2_departed": {
+      "label": "Transit 2: departure date",
+      "description": ""
+    },
+    "integration.fields.transit_3_location": {
+      "label": "Transit 3: location",
+      "description": ""
+    },
+    "integration.fields.transit_3_arrived": {
+      "label": "Transit 3: arrival date",
+      "description": ""
+    },
+    "integration.fields.transit_3_departed": {
+      "label": "Transit 3: departure date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_1_date": {
+      "label": "Customs notification 1: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_1_name": {
+      "label": "Customs notification 1: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_1_content": {
+      "label": "Customs notification 1: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_2_date": {
+      "label": "Customs notification 2: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_2_name": {
+      "label": "Customs notification 2: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_2_content": {
+      "label": "Customs notification 2: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_3_date": {
+      "label": "Customs notification 3: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_3_name": {
+      "label": "Customs notification 3: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_3_content": {
+      "label": "Customs notification 3: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_4_date": {
+      "label": "Customs notification 4: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_4_name": {
+      "label": "Customs notification 4: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_4_content": {
+      "label": "Customs notification 4: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_5_date": {
+      "label": "Customs notification 5: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_5_name": {
+      "label": "Customs notification 5: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_5_content": {
+      "label": "Customs notification 5: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_6_date": {
+      "label": "Customs notification 6: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_6_name": {
+      "label": "Customs notification 6: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_6_content": {
+      "label": "Customs notification 6: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_7_date": {
+      "label": "Customs notification 7: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_7_name": {
+      "label": "Customs notification 7: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_7_content": {
+      "label": "Customs notification 7: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_8_date": {
+      "label": "Customs notification 8: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_8_name": {
+      "label": "Customs notification 8: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_8_content": {
+      "label": "Customs notification 8: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_9_date": {
+      "label": "Customs notification 9: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_9_name": {
+      "label": "Customs notification 9: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_9_content": {
+      "label": "Customs notification 9: content",
+      "description": ""
+    },
+    "integration.fields.customs_notification_10_date": {
+      "label": "Customs notification 10: date",
+      "description": ""
+    },
+    "integration.fields.customs_notification_10_name": {
+      "label": "Customs notification 10: name",
+      "description": ""
+    },
+    "integration.fields.customs_notification_10_content": {
+      "label": "Customs notification 10: content",
+      "description": ""
+    },
+    "integration.fields.taxable_value_currency": {
+      "label": "Taxable-value currency",
+      "description": ""
+    },
+    "integration.fields.taxable_value_alternative": {
+      "label": "Alternative taxable value from documents",
+      "description": ""
+    },
+    "integration.fields.tax_quantity_unit": {
+      "label": "Tax quantity unit",
+      "description": ""
+    },
+    "integration.fields.tax_unit_price": {
+      "label": "Tax unit price from documents",
+      "description": ""
+    },
+    "integration.fields.tax_unit_price_currency": {
+      "label": "Tax unit-price currency",
+      "description": ""
+    },
+    "integration.fields.tax_unit_price_unit": {
+      "label": "Tax unit-price unit",
+      "description": ""
+    },
+    "integration.fields.tax_amount_currency": {
+      "label": "Tax-amount currency",
+      "description": ""
+    },
+    "integration.fields.tax_exempt_amount": {
+      "label": "Exempted tax amount from documents",
+      "description": ""
+    },
+    "integration.fields.tax_exempt_currency": {
+      "label": "Exempted-tax currency",
+      "description": ""
+    },
+    "integration.fields.temporary_line_number": {
+      "label": "Corresponding temporary declaration line",
+      "description": ""
+    },
+    "integration.fields.export_exemption_list": {
+      "label": "Export exemption list",
+      "description": ""
+    },
+    "integration.fields.export_exemption_line": {
+      "label": "Export exemption list line",
+      "description": ""
+    },
+    "integration.fields.fee_unit_price": {
+      "label": "Fee unit price from documents",
+      "description": ""
+    },
+    "integration.fields.fee_quantity": {
+      "label": "Fee quantity from documents",
+      "description": ""
+    },
+    "integration.fields.fee_amount": {
+      "label": "Fee amount from documents",
+      "description": ""
+    },
+    "integration.fields.insurance_unit_price": {
+      "label": "Insurance unit price from documents",
+      "description": ""
+    },
+    "integration.fields.insurance_quantity": {
+      "label": "Insurance quantity from documents",
+      "description": ""
+    },
+    "integration.fields.insurance_amount": {
+      "label": "Insurance amount from documents",
+      "description": ""
+    },
+    "integration.fields.legal_document_code": {
+      "label": "Other legal-document code from documents",
+      "description": ""
+    },
+    "integration.fields.legal_document_classification": {
+      "label": "Other legal-document classification",
+      "description": ""
+    },
+    "integration.fields.export_tax_exemption": {
+      "label": "Export-tax exemption classification",
+      "description": ""
+    },
+    "integration.fields.export_tax_exemption_reason": {
+      "label": "Export-tax exemption reason",
+      "description": ""
+    }
+  }
+}
