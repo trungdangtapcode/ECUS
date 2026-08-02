@@ -1,0 +1,1699 @@
+{
+  "schema_version": "design-contract-v1",
+  "status": "implementation_baseline_not_runtime_configuration",
+  "current_api_compatible": false,
+  "current_api_limitation": "Requires repeated collections, metadata and formula-ownership support; do not submit directly to the scalar template API.",
+  "template_file": "internal-review-v1.xlsx",
+  "template_version": "internal-review-v1",
+  "template_sha256": "3b24b2650f3835bef75795f50d37ee8c6fe57efae9f24bbcede5df8a97fe73f3",
+  "mapping_version": "internal-review-map-v1",
+  "policy_version": "business-v1",
+  "profile_version": "commercial-sea-import-v1",
+  "canonical_currency_precision": {
+    "USD": 2,
+    "VND": 0
+  },
+  "rounding": "ROUND_HALF_UP",
+  "cross_document_absolute_tolerance": "0",
+  "invoice_arithmetic_tolerance_minor_units": 1,
+  "text_write_policy": "literal_string_never_formula",
+  "empty_input_policy": "blank_never_copy_from_prior_export",
+  "scalar_mappings": [
+    {
+      "field": "case_id",
+      "sheet": "Shipment",
+      "cell": "D6",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "case_revision",
+      "sheet": "Shipment",
+      "cell": "D7",
+      "type": "integer",
+      "requirement": "required"
+    },
+    {
+      "field": "profile_version",
+      "sheet": "Shipment",
+      "cell": "D8",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "rule_version",
+      "sheet": "Shipment",
+      "cell": "D9",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "procedure_code",
+      "sheet": "Shipment",
+      "cell": "D10",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "stage",
+      "sheet": "Shipment",
+      "cell": "D11",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "transport_mode",
+      "sheet": "Shipment",
+      "cell": "D12",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "containerized",
+      "sheet": "Shipment",
+      "cell": "D13",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "invoice_number",
+      "sheet": "Shipment",
+      "cell": "D14",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "invoice_date",
+      "sheet": "Shipment",
+      "cell": "D15",
+      "type": "date",
+      "requirement": "required"
+    },
+    {
+      "field": "seller_name",
+      "sheet": "Shipment",
+      "cell": "D16",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "seller_address",
+      "sheet": "Shipment",
+      "cell": "D17",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "buyer_name",
+      "sheet": "Shipment",
+      "cell": "D18",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "buyer_address",
+      "sheet": "Shipment",
+      "cell": "D19",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "importer_tax_id",
+      "sheet": "Shipment",
+      "cell": "D20",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "currency",
+      "sheet": "Shipment",
+      "cell": "D21",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "currency_minor_digits",
+      "sheet": "Shipment",
+      "cell": "D22",
+      "type": "integer",
+      "requirement": "required"
+    },
+    {
+      "field": "invoice_goods_subtotal",
+      "sheet": "Shipment",
+      "cell": "D23",
+      "type": "money",
+      "requirement": "required"
+    },
+    {
+      "field": "invoice_adjustments_total",
+      "sheet": "Shipment",
+      "cell": "D24",
+      "type": "money",
+      "requirement": "required"
+    },
+    {
+      "field": "invoice_payable_total",
+      "sheet": "Shipment",
+      "cell": "D25",
+      "type": "money",
+      "requirement": "required"
+    },
+    {
+      "field": "transport_reference",
+      "sheet": "Shipment",
+      "cell": "D26",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "transport_leg",
+      "sheet": "Shipment",
+      "cell": "D27",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "loading_port",
+      "sheet": "Shipment",
+      "cell": "D28",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "intended_discharge_port",
+      "sheet": "Shipment",
+      "cell": "D29",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "shipped_vessel_voyage",
+      "sheet": "Shipment",
+      "cell": "D30",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "arrival_vessel_voyage",
+      "sheet": "Shipment",
+      "cell": "D31",
+      "type": "text",
+      "requirement": "arrival_confirmed"
+    },
+    {
+      "field": "arrival_port",
+      "sheet": "Shipment",
+      "cell": "D32",
+      "type": "text",
+      "requirement": "arrival_confirmed"
+    },
+    {
+      "field": "arrival_date",
+      "sheet": "Shipment",
+      "cell": "D33",
+      "type": "date",
+      "requirement": "arrival_confirmed"
+    },
+    {
+      "field": "arrival_date_kind",
+      "sheet": "Shipment",
+      "cell": "D34",
+      "type": "text",
+      "requirement": "arrival_confirmed"
+    },
+    {
+      "field": "total_packages",
+      "sheet": "Shipment",
+      "cell": "D35",
+      "type": "integer",
+      "requirement": "required"
+    },
+    {
+      "field": "package_unit",
+      "sheet": "Shipment",
+      "cell": "D36",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "total_net_weight_kg",
+      "sheet": "Shipment",
+      "cell": "D37",
+      "type": "decimal",
+      "requirement": "required"
+    },
+    {
+      "field": "total_gross_weight_kg",
+      "sheet": "Shipment",
+      "cell": "D38",
+      "type": "decimal",
+      "requirement": "required"
+    },
+    {
+      "field": "origin_preference",
+      "sheet": "Shipment",
+      "cell": "D39",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "licence_applicability",
+      "sheet": "Shipment",
+      "cell": "D40",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "inspection_applicability",
+      "sheet": "Shipment",
+      "cell": "D41",
+      "type": "text",
+      "requirement": "required"
+    },
+    {
+      "field": "origin_evidence_reference",
+      "sheet": "Shipment",
+      "cell": "D42",
+      "type": "text",
+      "requirement": "origin_preference_applicable"
+    },
+    {
+      "field": "licence_reference",
+      "sheet": "Shipment",
+      "cell": "D43",
+      "type": "text",
+      "requirement": "licence_applicable"
+    },
+    {
+      "field": "inspection_reference",
+      "sheet": "Shipment",
+      "cell": "D44",
+      "type": "text",
+      "requirement": "inspection_applicable"
+    },
+    {
+      "field": "prepared_by",
+      "sheet": "Shipment",
+      "cell": "D45",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "reviewed_by",
+      "sheet": "Shipment",
+      "cell": "D46",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "approved_at",
+      "sheet": "Shipment",
+      "cell": "D47",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "export_id",
+      "sheet": "Shipment",
+      "cell": "D48",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "exported_at",
+      "sheet": "Shipment",
+      "cell": "D49",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "template_version",
+      "sheet": "Shipment",
+      "cell": "D50",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "mapping_version",
+      "sheet": "Shipment",
+      "cell": "D51",
+      "type": "metadata",
+      "requirement": "required"
+    },
+    {
+      "field": "template_sha256",
+      "sheet": "Shipment",
+      "cell": "D52",
+      "type": "metadata",
+      "requirement": "required"
+    }
+  ],
+  "collections": [
+    {
+      "collection": "goods",
+      "sheet": "Goods",
+      "start_row": 6,
+      "capacity": 100,
+      "overflow": "reject",
+      "columns": [
+        {
+          "field": "line_id",
+          "column": "A",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "supplier_item_code",
+          "column": "B",
+          "type": "text",
+          "requirement": "optional"
+        },
+        {
+          "field": "description",
+          "column": "C",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "origin_country",
+          "column": "D",
+          "type": "text",
+          "requirement": "origin_preference_applicable"
+        },
+        {
+          "field": "quantity",
+          "column": "E",
+          "type": "decimal",
+          "requirement": "required"
+        },
+        {
+          "field": "unit",
+          "column": "F",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "unit_price",
+          "column": "G",
+          "type": "money",
+          "requirement": "required"
+        },
+        {
+          "field": "price_basis_quantity",
+          "column": "H",
+          "type": "decimal",
+          "requirement": "required_positive"
+        },
+        {
+          "field": "currency",
+          "column": "I",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "stated_line_amount",
+          "column": "J",
+          "type": "money",
+          "requirement": "required"
+        },
+        {
+          "field": "calculated_line_amount",
+          "column": "K",
+          "type": "formula",
+          "requirement": "formula_owned"
+        },
+        {
+          "field": "arithmetic_difference",
+          "column": "L",
+          "type": "formula",
+          "requirement": "formula_owned"
+        },
+        {
+          "field": "net_weight_kg",
+          "column": "M",
+          "type": "decimal",
+          "requirement": "optional"
+        },
+        {
+          "field": "gross_weight_kg",
+          "column": "N",
+          "type": "decimal",
+          "requirement": "optional"
+        },
+        {
+          "field": "source_reference",
+          "column": "O",
+          "type": "text",
+          "requirement": "required"
+        }
+      ]
+    },
+    {
+      "collection": "containers",
+      "sheet": "Containers",
+      "start_row": 6,
+      "capacity": 50,
+      "overflow": "reject",
+      "columns": [
+        {
+          "field": "container_id",
+          "column": "A",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "seal_id",
+          "column": "B",
+          "type": "text",
+          "requirement": "sealed"
+        },
+        {
+          "field": "seal_state",
+          "column": "C",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "transport_leg",
+          "column": "D",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "source_reference",
+          "column": "E",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "decision_id",
+          "column": "F",
+          "type": "text",
+          "requirement": "not_sealed"
+        }
+      ]
+    },
+    {
+      "collection": "selected_evidence",
+      "sheet": "Evidence",
+      "start_row": 6,
+      "capacity": 1000,
+      "overflow": "reject",
+      "columns": [
+        {
+          "field": "field_path",
+          "column": "A",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "observation_id",
+          "column": "B",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "document_id",
+          "column": "C",
+          "type": "text",
+          "requirement": "document_source"
+        },
+        {
+          "field": "logical_document_type",
+          "column": "D",
+          "type": "text",
+          "requirement": "document_source"
+        },
+        {
+          "field": "page_location",
+          "column": "E",
+          "type": "text",
+          "requirement": "document_source"
+        },
+        {
+          "field": "raw_value",
+          "column": "F",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "normalized_value",
+          "column": "G",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "unit",
+          "column": "H",
+          "type": "text",
+          "requirement": "when_relevant"
+        },
+        {
+          "field": "external_reference_version",
+          "column": "I",
+          "type": "text",
+          "requirement": "external_source"
+        },
+        {
+          "field": "verified_by",
+          "column": "J",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "verified_at",
+          "column": "K",
+          "type": "text",
+          "requirement": "required"
+        }
+      ]
+    },
+    {
+      "collection": "decisions",
+      "sheet": "Decisions",
+      "start_row": 6,
+      "capacity": 200,
+      "overflow": "reject",
+      "columns": [
+        {
+          "field": "decision_id",
+          "column": "A",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "field_path",
+          "column": "B",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "reason_code",
+          "column": "C",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "previous_value",
+          "column": "D",
+          "type": "text",
+          "requirement": "override"
+        },
+        {
+          "field": "selected_value",
+          "column": "E",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "previous_source",
+          "column": "F",
+          "type": "text",
+          "requirement": "override"
+        },
+        {
+          "field": "selected_source",
+          "column": "G",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "explanation",
+          "column": "H",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "proposed_by",
+          "column": "I",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "proposed_at",
+          "column": "J",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "reviewed_by",
+          "column": "K",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "reviewed_at",
+          "column": "L",
+          "type": "text",
+          "requirement": "required"
+        },
+        {
+          "field": "resolution",
+          "column": "M",
+          "type": "text",
+          "requirement": "required"
+        }
+      ]
+    }
+  ],
+  "formula_cells": [
+    {
+      "sheet": "Goods",
+      "cell": "K6",
+      "formula": "=IF(OR(E6=\"\",G6=\"\",H6=\"\",Shipment!$D$22=\"\"),\"\",IF(H6<=0,\"INVALID BASIS\",ROUND(E6*G6/H6,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L6",
+      "formula": "=IF(OR(J6=\"\",NOT(ISNUMBER(K6))),\"\",ROUND(J6-K6,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K7",
+      "formula": "=IF(OR(E7=\"\",G7=\"\",H7=\"\",Shipment!$D$22=\"\"),\"\",IF(H7<=0,\"INVALID BASIS\",ROUND(E7*G7/H7,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L7",
+      "formula": "=IF(OR(J7=\"\",NOT(ISNUMBER(K7))),\"\",ROUND(J7-K7,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K8",
+      "formula": "=IF(OR(E8=\"\",G8=\"\",H8=\"\",Shipment!$D$22=\"\"),\"\",IF(H8<=0,\"INVALID BASIS\",ROUND(E8*G8/H8,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L8",
+      "formula": "=IF(OR(J8=\"\",NOT(ISNUMBER(K8))),\"\",ROUND(J8-K8,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K9",
+      "formula": "=IF(OR(E9=\"\",G9=\"\",H9=\"\",Shipment!$D$22=\"\"),\"\",IF(H9<=0,\"INVALID BASIS\",ROUND(E9*G9/H9,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L9",
+      "formula": "=IF(OR(J9=\"\",NOT(ISNUMBER(K9))),\"\",ROUND(J9-K9,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K10",
+      "formula": "=IF(OR(E10=\"\",G10=\"\",H10=\"\",Shipment!$D$22=\"\"),\"\",IF(H10<=0,\"INVALID BASIS\",ROUND(E10*G10/H10,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L10",
+      "formula": "=IF(OR(J10=\"\",NOT(ISNUMBER(K10))),\"\",ROUND(J10-K10,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K11",
+      "formula": "=IF(OR(E11=\"\",G11=\"\",H11=\"\",Shipment!$D$22=\"\"),\"\",IF(H11<=0,\"INVALID BASIS\",ROUND(E11*G11/H11,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L11",
+      "formula": "=IF(OR(J11=\"\",NOT(ISNUMBER(K11))),\"\",ROUND(J11-K11,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K12",
+      "formula": "=IF(OR(E12=\"\",G12=\"\",H12=\"\",Shipment!$D$22=\"\"),\"\",IF(H12<=0,\"INVALID BASIS\",ROUND(E12*G12/H12,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L12",
+      "formula": "=IF(OR(J12=\"\",NOT(ISNUMBER(K12))),\"\",ROUND(J12-K12,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K13",
+      "formula": "=IF(OR(E13=\"\",G13=\"\",H13=\"\",Shipment!$D$22=\"\"),\"\",IF(H13<=0,\"INVALID BASIS\",ROUND(E13*G13/H13,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L13",
+      "formula": "=IF(OR(J13=\"\",NOT(ISNUMBER(K13))),\"\",ROUND(J13-K13,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K14",
+      "formula": "=IF(OR(E14=\"\",G14=\"\",H14=\"\",Shipment!$D$22=\"\"),\"\",IF(H14<=0,\"INVALID BASIS\",ROUND(E14*G14/H14,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L14",
+      "formula": "=IF(OR(J14=\"\",NOT(ISNUMBER(K14))),\"\",ROUND(J14-K14,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K15",
+      "formula": "=IF(OR(E15=\"\",G15=\"\",H15=\"\",Shipment!$D$22=\"\"),\"\",IF(H15<=0,\"INVALID BASIS\",ROUND(E15*G15/H15,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L15",
+      "formula": "=IF(OR(J15=\"\",NOT(ISNUMBER(K15))),\"\",ROUND(J15-K15,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K16",
+      "formula": "=IF(OR(E16=\"\",G16=\"\",H16=\"\",Shipment!$D$22=\"\"),\"\",IF(H16<=0,\"INVALID BASIS\",ROUND(E16*G16/H16,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L16",
+      "formula": "=IF(OR(J16=\"\",NOT(ISNUMBER(K16))),\"\",ROUND(J16-K16,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K17",
+      "formula": "=IF(OR(E17=\"\",G17=\"\",H17=\"\",Shipment!$D$22=\"\"),\"\",IF(H17<=0,\"INVALID BASIS\",ROUND(E17*G17/H17,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L17",
+      "formula": "=IF(OR(J17=\"\",NOT(ISNUMBER(K17))),\"\",ROUND(J17-K17,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K18",
+      "formula": "=IF(OR(E18=\"\",G18=\"\",H18=\"\",Shipment!$D$22=\"\"),\"\",IF(H18<=0,\"INVALID BASIS\",ROUND(E18*G18/H18,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L18",
+      "formula": "=IF(OR(J18=\"\",NOT(ISNUMBER(K18))),\"\",ROUND(J18-K18,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K19",
+      "formula": "=IF(OR(E19=\"\",G19=\"\",H19=\"\",Shipment!$D$22=\"\"),\"\",IF(H19<=0,\"INVALID BASIS\",ROUND(E19*G19/H19,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L19",
+      "formula": "=IF(OR(J19=\"\",NOT(ISNUMBER(K19))),\"\",ROUND(J19-K19,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K20",
+      "formula": "=IF(OR(E20=\"\",G20=\"\",H20=\"\",Shipment!$D$22=\"\"),\"\",IF(H20<=0,\"INVALID BASIS\",ROUND(E20*G20/H20,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L20",
+      "formula": "=IF(OR(J20=\"\",NOT(ISNUMBER(K20))),\"\",ROUND(J20-K20,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K21",
+      "formula": "=IF(OR(E21=\"\",G21=\"\",H21=\"\",Shipment!$D$22=\"\"),\"\",IF(H21<=0,\"INVALID BASIS\",ROUND(E21*G21/H21,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L21",
+      "formula": "=IF(OR(J21=\"\",NOT(ISNUMBER(K21))),\"\",ROUND(J21-K21,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K22",
+      "formula": "=IF(OR(E22=\"\",G22=\"\",H22=\"\",Shipment!$D$22=\"\"),\"\",IF(H22<=0,\"INVALID BASIS\",ROUND(E22*G22/H22,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L22",
+      "formula": "=IF(OR(J22=\"\",NOT(ISNUMBER(K22))),\"\",ROUND(J22-K22,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K23",
+      "formula": "=IF(OR(E23=\"\",G23=\"\",H23=\"\",Shipment!$D$22=\"\"),\"\",IF(H23<=0,\"INVALID BASIS\",ROUND(E23*G23/H23,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L23",
+      "formula": "=IF(OR(J23=\"\",NOT(ISNUMBER(K23))),\"\",ROUND(J23-K23,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K24",
+      "formula": "=IF(OR(E24=\"\",G24=\"\",H24=\"\",Shipment!$D$22=\"\"),\"\",IF(H24<=0,\"INVALID BASIS\",ROUND(E24*G24/H24,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L24",
+      "formula": "=IF(OR(J24=\"\",NOT(ISNUMBER(K24))),\"\",ROUND(J24-K24,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K25",
+      "formula": "=IF(OR(E25=\"\",G25=\"\",H25=\"\",Shipment!$D$22=\"\"),\"\",IF(H25<=0,\"INVALID BASIS\",ROUND(E25*G25/H25,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L25",
+      "formula": "=IF(OR(J25=\"\",NOT(ISNUMBER(K25))),\"\",ROUND(J25-K25,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K26",
+      "formula": "=IF(OR(E26=\"\",G26=\"\",H26=\"\",Shipment!$D$22=\"\"),\"\",IF(H26<=0,\"INVALID BASIS\",ROUND(E26*G26/H26,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L26",
+      "formula": "=IF(OR(J26=\"\",NOT(ISNUMBER(K26))),\"\",ROUND(J26-K26,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K27",
+      "formula": "=IF(OR(E27=\"\",G27=\"\",H27=\"\",Shipment!$D$22=\"\"),\"\",IF(H27<=0,\"INVALID BASIS\",ROUND(E27*G27/H27,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L27",
+      "formula": "=IF(OR(J27=\"\",NOT(ISNUMBER(K27))),\"\",ROUND(J27-K27,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K28",
+      "formula": "=IF(OR(E28=\"\",G28=\"\",H28=\"\",Shipment!$D$22=\"\"),\"\",IF(H28<=0,\"INVALID BASIS\",ROUND(E28*G28/H28,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L28",
+      "formula": "=IF(OR(J28=\"\",NOT(ISNUMBER(K28))),\"\",ROUND(J28-K28,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K29",
+      "formula": "=IF(OR(E29=\"\",G29=\"\",H29=\"\",Shipment!$D$22=\"\"),\"\",IF(H29<=0,\"INVALID BASIS\",ROUND(E29*G29/H29,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L29",
+      "formula": "=IF(OR(J29=\"\",NOT(ISNUMBER(K29))),\"\",ROUND(J29-K29,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K30",
+      "formula": "=IF(OR(E30=\"\",G30=\"\",H30=\"\",Shipment!$D$22=\"\"),\"\",IF(H30<=0,\"INVALID BASIS\",ROUND(E30*G30/H30,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L30",
+      "formula": "=IF(OR(J30=\"\",NOT(ISNUMBER(K30))),\"\",ROUND(J30-K30,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K31",
+      "formula": "=IF(OR(E31=\"\",G31=\"\",H31=\"\",Shipment!$D$22=\"\"),\"\",IF(H31<=0,\"INVALID BASIS\",ROUND(E31*G31/H31,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L31",
+      "formula": "=IF(OR(J31=\"\",NOT(ISNUMBER(K31))),\"\",ROUND(J31-K31,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K32",
+      "formula": "=IF(OR(E32=\"\",G32=\"\",H32=\"\",Shipment!$D$22=\"\"),\"\",IF(H32<=0,\"INVALID BASIS\",ROUND(E32*G32/H32,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L32",
+      "formula": "=IF(OR(J32=\"\",NOT(ISNUMBER(K32))),\"\",ROUND(J32-K32,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K33",
+      "formula": "=IF(OR(E33=\"\",G33=\"\",H33=\"\",Shipment!$D$22=\"\"),\"\",IF(H33<=0,\"INVALID BASIS\",ROUND(E33*G33/H33,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L33",
+      "formula": "=IF(OR(J33=\"\",NOT(ISNUMBER(K33))),\"\",ROUND(J33-K33,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K34",
+      "formula": "=IF(OR(E34=\"\",G34=\"\",H34=\"\",Shipment!$D$22=\"\"),\"\",IF(H34<=0,\"INVALID BASIS\",ROUND(E34*G34/H34,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L34",
+      "formula": "=IF(OR(J34=\"\",NOT(ISNUMBER(K34))),\"\",ROUND(J34-K34,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K35",
+      "formula": "=IF(OR(E35=\"\",G35=\"\",H35=\"\",Shipment!$D$22=\"\"),\"\",IF(H35<=0,\"INVALID BASIS\",ROUND(E35*G35/H35,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L35",
+      "formula": "=IF(OR(J35=\"\",NOT(ISNUMBER(K35))),\"\",ROUND(J35-K35,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K36",
+      "formula": "=IF(OR(E36=\"\",G36=\"\",H36=\"\",Shipment!$D$22=\"\"),\"\",IF(H36<=0,\"INVALID BASIS\",ROUND(E36*G36/H36,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L36",
+      "formula": "=IF(OR(J36=\"\",NOT(ISNUMBER(K36))),\"\",ROUND(J36-K36,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K37",
+      "formula": "=IF(OR(E37=\"\",G37=\"\",H37=\"\",Shipment!$D$22=\"\"),\"\",IF(H37<=0,\"INVALID BASIS\",ROUND(E37*G37/H37,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L37",
+      "formula": "=IF(OR(J37=\"\",NOT(ISNUMBER(K37))),\"\",ROUND(J37-K37,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K38",
+      "formula": "=IF(OR(E38=\"\",G38=\"\",H38=\"\",Shipment!$D$22=\"\"),\"\",IF(H38<=0,\"INVALID BASIS\",ROUND(E38*G38/H38,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L38",
+      "formula": "=IF(OR(J38=\"\",NOT(ISNUMBER(K38))),\"\",ROUND(J38-K38,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K39",
+      "formula": "=IF(OR(E39=\"\",G39=\"\",H39=\"\",Shipment!$D$22=\"\"),\"\",IF(H39<=0,\"INVALID BASIS\",ROUND(E39*G39/H39,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L39",
+      "formula": "=IF(OR(J39=\"\",NOT(ISNUMBER(K39))),\"\",ROUND(J39-K39,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K40",
+      "formula": "=IF(OR(E40=\"\",G40=\"\",H40=\"\",Shipment!$D$22=\"\"),\"\",IF(H40<=0,\"INVALID BASIS\",ROUND(E40*G40/H40,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L40",
+      "formula": "=IF(OR(J40=\"\",NOT(ISNUMBER(K40))),\"\",ROUND(J40-K40,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K41",
+      "formula": "=IF(OR(E41=\"\",G41=\"\",H41=\"\",Shipment!$D$22=\"\"),\"\",IF(H41<=0,\"INVALID BASIS\",ROUND(E41*G41/H41,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L41",
+      "formula": "=IF(OR(J41=\"\",NOT(ISNUMBER(K41))),\"\",ROUND(J41-K41,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K42",
+      "formula": "=IF(OR(E42=\"\",G42=\"\",H42=\"\",Shipment!$D$22=\"\"),\"\",IF(H42<=0,\"INVALID BASIS\",ROUND(E42*G42/H42,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L42",
+      "formula": "=IF(OR(J42=\"\",NOT(ISNUMBER(K42))),\"\",ROUND(J42-K42,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K43",
+      "formula": "=IF(OR(E43=\"\",G43=\"\",H43=\"\",Shipment!$D$22=\"\"),\"\",IF(H43<=0,\"INVALID BASIS\",ROUND(E43*G43/H43,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L43",
+      "formula": "=IF(OR(J43=\"\",NOT(ISNUMBER(K43))),\"\",ROUND(J43-K43,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K44",
+      "formula": "=IF(OR(E44=\"\",G44=\"\",H44=\"\",Shipment!$D$22=\"\"),\"\",IF(H44<=0,\"INVALID BASIS\",ROUND(E44*G44/H44,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L44",
+      "formula": "=IF(OR(J44=\"\",NOT(ISNUMBER(K44))),\"\",ROUND(J44-K44,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K45",
+      "formula": "=IF(OR(E45=\"\",G45=\"\",H45=\"\",Shipment!$D$22=\"\"),\"\",IF(H45<=0,\"INVALID BASIS\",ROUND(E45*G45/H45,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L45",
+      "formula": "=IF(OR(J45=\"\",NOT(ISNUMBER(K45))),\"\",ROUND(J45-K45,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K46",
+      "formula": "=IF(OR(E46=\"\",G46=\"\",H46=\"\",Shipment!$D$22=\"\"),\"\",IF(H46<=0,\"INVALID BASIS\",ROUND(E46*G46/H46,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L46",
+      "formula": "=IF(OR(J46=\"\",NOT(ISNUMBER(K46))),\"\",ROUND(J46-K46,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K47",
+      "formula": "=IF(OR(E47=\"\",G47=\"\",H47=\"\",Shipment!$D$22=\"\"),\"\",IF(H47<=0,\"INVALID BASIS\",ROUND(E47*G47/H47,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L47",
+      "formula": "=IF(OR(J47=\"\",NOT(ISNUMBER(K47))),\"\",ROUND(J47-K47,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K48",
+      "formula": "=IF(OR(E48=\"\",G48=\"\",H48=\"\",Shipment!$D$22=\"\"),\"\",IF(H48<=0,\"INVALID BASIS\",ROUND(E48*G48/H48,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L48",
+      "formula": "=IF(OR(J48=\"\",NOT(ISNUMBER(K48))),\"\",ROUND(J48-K48,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K49",
+      "formula": "=IF(OR(E49=\"\",G49=\"\",H49=\"\",Shipment!$D$22=\"\"),\"\",IF(H49<=0,\"INVALID BASIS\",ROUND(E49*G49/H49,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L49",
+      "formula": "=IF(OR(J49=\"\",NOT(ISNUMBER(K49))),\"\",ROUND(J49-K49,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K50",
+      "formula": "=IF(OR(E50=\"\",G50=\"\",H50=\"\",Shipment!$D$22=\"\"),\"\",IF(H50<=0,\"INVALID BASIS\",ROUND(E50*G50/H50,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L50",
+      "formula": "=IF(OR(J50=\"\",NOT(ISNUMBER(K50))),\"\",ROUND(J50-K50,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K51",
+      "formula": "=IF(OR(E51=\"\",G51=\"\",H51=\"\",Shipment!$D$22=\"\"),\"\",IF(H51<=0,\"INVALID BASIS\",ROUND(E51*G51/H51,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L51",
+      "formula": "=IF(OR(J51=\"\",NOT(ISNUMBER(K51))),\"\",ROUND(J51-K51,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K52",
+      "formula": "=IF(OR(E52=\"\",G52=\"\",H52=\"\",Shipment!$D$22=\"\"),\"\",IF(H52<=0,\"INVALID BASIS\",ROUND(E52*G52/H52,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L52",
+      "formula": "=IF(OR(J52=\"\",NOT(ISNUMBER(K52))),\"\",ROUND(J52-K52,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K53",
+      "formula": "=IF(OR(E53=\"\",G53=\"\",H53=\"\",Shipment!$D$22=\"\"),\"\",IF(H53<=0,\"INVALID BASIS\",ROUND(E53*G53/H53,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L53",
+      "formula": "=IF(OR(J53=\"\",NOT(ISNUMBER(K53))),\"\",ROUND(J53-K53,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K54",
+      "formula": "=IF(OR(E54=\"\",G54=\"\",H54=\"\",Shipment!$D$22=\"\"),\"\",IF(H54<=0,\"INVALID BASIS\",ROUND(E54*G54/H54,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L54",
+      "formula": "=IF(OR(J54=\"\",NOT(ISNUMBER(K54))),\"\",ROUND(J54-K54,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K55",
+      "formula": "=IF(OR(E55=\"\",G55=\"\",H55=\"\",Shipment!$D$22=\"\"),\"\",IF(H55<=0,\"INVALID BASIS\",ROUND(E55*G55/H55,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L55",
+      "formula": "=IF(OR(J55=\"\",NOT(ISNUMBER(K55))),\"\",ROUND(J55-K55,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K56",
+      "formula": "=IF(OR(E56=\"\",G56=\"\",H56=\"\",Shipment!$D$22=\"\"),\"\",IF(H56<=0,\"INVALID BASIS\",ROUND(E56*G56/H56,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L56",
+      "formula": "=IF(OR(J56=\"\",NOT(ISNUMBER(K56))),\"\",ROUND(J56-K56,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K57",
+      "formula": "=IF(OR(E57=\"\",G57=\"\",H57=\"\",Shipment!$D$22=\"\"),\"\",IF(H57<=0,\"INVALID BASIS\",ROUND(E57*G57/H57,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L57",
+      "formula": "=IF(OR(J57=\"\",NOT(ISNUMBER(K57))),\"\",ROUND(J57-K57,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K58",
+      "formula": "=IF(OR(E58=\"\",G58=\"\",H58=\"\",Shipment!$D$22=\"\"),\"\",IF(H58<=0,\"INVALID BASIS\",ROUND(E58*G58/H58,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L58",
+      "formula": "=IF(OR(J58=\"\",NOT(ISNUMBER(K58))),\"\",ROUND(J58-K58,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K59",
+      "formula": "=IF(OR(E59=\"\",G59=\"\",H59=\"\",Shipment!$D$22=\"\"),\"\",IF(H59<=0,\"INVALID BASIS\",ROUND(E59*G59/H59,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L59",
+      "formula": "=IF(OR(J59=\"\",NOT(ISNUMBER(K59))),\"\",ROUND(J59-K59,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K60",
+      "formula": "=IF(OR(E60=\"\",G60=\"\",H60=\"\",Shipment!$D$22=\"\"),\"\",IF(H60<=0,\"INVALID BASIS\",ROUND(E60*G60/H60,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L60",
+      "formula": "=IF(OR(J60=\"\",NOT(ISNUMBER(K60))),\"\",ROUND(J60-K60,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K61",
+      "formula": "=IF(OR(E61=\"\",G61=\"\",H61=\"\",Shipment!$D$22=\"\"),\"\",IF(H61<=0,\"INVALID BASIS\",ROUND(E61*G61/H61,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L61",
+      "formula": "=IF(OR(J61=\"\",NOT(ISNUMBER(K61))),\"\",ROUND(J61-K61,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K62",
+      "formula": "=IF(OR(E62=\"\",G62=\"\",H62=\"\",Shipment!$D$22=\"\"),\"\",IF(H62<=0,\"INVALID BASIS\",ROUND(E62*G62/H62,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L62",
+      "formula": "=IF(OR(J62=\"\",NOT(ISNUMBER(K62))),\"\",ROUND(J62-K62,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K63",
+      "formula": "=IF(OR(E63=\"\",G63=\"\",H63=\"\",Shipment!$D$22=\"\"),\"\",IF(H63<=0,\"INVALID BASIS\",ROUND(E63*G63/H63,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L63",
+      "formula": "=IF(OR(J63=\"\",NOT(ISNUMBER(K63))),\"\",ROUND(J63-K63,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K64",
+      "formula": "=IF(OR(E64=\"\",G64=\"\",H64=\"\",Shipment!$D$22=\"\"),\"\",IF(H64<=0,\"INVALID BASIS\",ROUND(E64*G64/H64,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L64",
+      "formula": "=IF(OR(J64=\"\",NOT(ISNUMBER(K64))),\"\",ROUND(J64-K64,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K65",
+      "formula": "=IF(OR(E65=\"\",G65=\"\",H65=\"\",Shipment!$D$22=\"\"),\"\",IF(H65<=0,\"INVALID BASIS\",ROUND(E65*G65/H65,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L65",
+      "formula": "=IF(OR(J65=\"\",NOT(ISNUMBER(K65))),\"\",ROUND(J65-K65,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K66",
+      "formula": "=IF(OR(E66=\"\",G66=\"\",H66=\"\",Shipment!$D$22=\"\"),\"\",IF(H66<=0,\"INVALID BASIS\",ROUND(E66*G66/H66,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L66",
+      "formula": "=IF(OR(J66=\"\",NOT(ISNUMBER(K66))),\"\",ROUND(J66-K66,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K67",
+      "formula": "=IF(OR(E67=\"\",G67=\"\",H67=\"\",Shipment!$D$22=\"\"),\"\",IF(H67<=0,\"INVALID BASIS\",ROUND(E67*G67/H67,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L67",
+      "formula": "=IF(OR(J67=\"\",NOT(ISNUMBER(K67))),\"\",ROUND(J67-K67,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K68",
+      "formula": "=IF(OR(E68=\"\",G68=\"\",H68=\"\",Shipment!$D$22=\"\"),\"\",IF(H68<=0,\"INVALID BASIS\",ROUND(E68*G68/H68,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L68",
+      "formula": "=IF(OR(J68=\"\",NOT(ISNUMBER(K68))),\"\",ROUND(J68-K68,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K69",
+      "formula": "=IF(OR(E69=\"\",G69=\"\",H69=\"\",Shipment!$D$22=\"\"),\"\",IF(H69<=0,\"INVALID BASIS\",ROUND(E69*G69/H69,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L69",
+      "formula": "=IF(OR(J69=\"\",NOT(ISNUMBER(K69))),\"\",ROUND(J69-K69,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K70",
+      "formula": "=IF(OR(E70=\"\",G70=\"\",H70=\"\",Shipment!$D$22=\"\"),\"\",IF(H70<=0,\"INVALID BASIS\",ROUND(E70*G70/H70,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L70",
+      "formula": "=IF(OR(J70=\"\",NOT(ISNUMBER(K70))),\"\",ROUND(J70-K70,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K71",
+      "formula": "=IF(OR(E71=\"\",G71=\"\",H71=\"\",Shipment!$D$22=\"\"),\"\",IF(H71<=0,\"INVALID BASIS\",ROUND(E71*G71/H71,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L71",
+      "formula": "=IF(OR(J71=\"\",NOT(ISNUMBER(K71))),\"\",ROUND(J71-K71,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K72",
+      "formula": "=IF(OR(E72=\"\",G72=\"\",H72=\"\",Shipment!$D$22=\"\"),\"\",IF(H72<=0,\"INVALID BASIS\",ROUND(E72*G72/H72,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L72",
+      "formula": "=IF(OR(J72=\"\",NOT(ISNUMBER(K72))),\"\",ROUND(J72-K72,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K73",
+      "formula": "=IF(OR(E73=\"\",G73=\"\",H73=\"\",Shipment!$D$22=\"\"),\"\",IF(H73<=0,\"INVALID BASIS\",ROUND(E73*G73/H73,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L73",
+      "formula": "=IF(OR(J73=\"\",NOT(ISNUMBER(K73))),\"\",ROUND(J73-K73,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K74",
+      "formula": "=IF(OR(E74=\"\",G74=\"\",H74=\"\",Shipment!$D$22=\"\"),\"\",IF(H74<=0,\"INVALID BASIS\",ROUND(E74*G74/H74,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L74",
+      "formula": "=IF(OR(J74=\"\",NOT(ISNUMBER(K74))),\"\",ROUND(J74-K74,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K75",
+      "formula": "=IF(OR(E75=\"\",G75=\"\",H75=\"\",Shipment!$D$22=\"\"),\"\",IF(H75<=0,\"INVALID BASIS\",ROUND(E75*G75/H75,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L75",
+      "formula": "=IF(OR(J75=\"\",NOT(ISNUMBER(K75))),\"\",ROUND(J75-K75,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K76",
+      "formula": "=IF(OR(E76=\"\",G76=\"\",H76=\"\",Shipment!$D$22=\"\"),\"\",IF(H76<=0,\"INVALID BASIS\",ROUND(E76*G76/H76,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L76",
+      "formula": "=IF(OR(J76=\"\",NOT(ISNUMBER(K76))),\"\",ROUND(J76-K76,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K77",
+      "formula": "=IF(OR(E77=\"\",G77=\"\",H77=\"\",Shipment!$D$22=\"\"),\"\",IF(H77<=0,\"INVALID BASIS\",ROUND(E77*G77/H77,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L77",
+      "formula": "=IF(OR(J77=\"\",NOT(ISNUMBER(K77))),\"\",ROUND(J77-K77,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K78",
+      "formula": "=IF(OR(E78=\"\",G78=\"\",H78=\"\",Shipment!$D$22=\"\"),\"\",IF(H78<=0,\"INVALID BASIS\",ROUND(E78*G78/H78,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L78",
+      "formula": "=IF(OR(J78=\"\",NOT(ISNUMBER(K78))),\"\",ROUND(J78-K78,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K79",
+      "formula": "=IF(OR(E79=\"\",G79=\"\",H79=\"\",Shipment!$D$22=\"\"),\"\",IF(H79<=0,\"INVALID BASIS\",ROUND(E79*G79/H79,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L79",
+      "formula": "=IF(OR(J79=\"\",NOT(ISNUMBER(K79))),\"\",ROUND(J79-K79,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K80",
+      "formula": "=IF(OR(E80=\"\",G80=\"\",H80=\"\",Shipment!$D$22=\"\"),\"\",IF(H80<=0,\"INVALID BASIS\",ROUND(E80*G80/H80,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L80",
+      "formula": "=IF(OR(J80=\"\",NOT(ISNUMBER(K80))),\"\",ROUND(J80-K80,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K81",
+      "formula": "=IF(OR(E81=\"\",G81=\"\",H81=\"\",Shipment!$D$22=\"\"),\"\",IF(H81<=0,\"INVALID BASIS\",ROUND(E81*G81/H81,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L81",
+      "formula": "=IF(OR(J81=\"\",NOT(ISNUMBER(K81))),\"\",ROUND(J81-K81,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K82",
+      "formula": "=IF(OR(E82=\"\",G82=\"\",H82=\"\",Shipment!$D$22=\"\"),\"\",IF(H82<=0,\"INVALID BASIS\",ROUND(E82*G82/H82,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L82",
+      "formula": "=IF(OR(J82=\"\",NOT(ISNUMBER(K82))),\"\",ROUND(J82-K82,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K83",
+      "formula": "=IF(OR(E83=\"\",G83=\"\",H83=\"\",Shipment!$D$22=\"\"),\"\",IF(H83<=0,\"INVALID BASIS\",ROUND(E83*G83/H83,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L83",
+      "formula": "=IF(OR(J83=\"\",NOT(ISNUMBER(K83))),\"\",ROUND(J83-K83,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K84",
+      "formula": "=IF(OR(E84=\"\",G84=\"\",H84=\"\",Shipment!$D$22=\"\"),\"\",IF(H84<=0,\"INVALID BASIS\",ROUND(E84*G84/H84,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L84",
+      "formula": "=IF(OR(J84=\"\",NOT(ISNUMBER(K84))),\"\",ROUND(J84-K84,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K85",
+      "formula": "=IF(OR(E85=\"\",G85=\"\",H85=\"\",Shipment!$D$22=\"\"),\"\",IF(H85<=0,\"INVALID BASIS\",ROUND(E85*G85/H85,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L85",
+      "formula": "=IF(OR(J85=\"\",NOT(ISNUMBER(K85))),\"\",ROUND(J85-K85,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K86",
+      "formula": "=IF(OR(E86=\"\",G86=\"\",H86=\"\",Shipment!$D$22=\"\"),\"\",IF(H86<=0,\"INVALID BASIS\",ROUND(E86*G86/H86,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L86",
+      "formula": "=IF(OR(J86=\"\",NOT(ISNUMBER(K86))),\"\",ROUND(J86-K86,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K87",
+      "formula": "=IF(OR(E87=\"\",G87=\"\",H87=\"\",Shipment!$D$22=\"\"),\"\",IF(H87<=0,\"INVALID BASIS\",ROUND(E87*G87/H87,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L87",
+      "formula": "=IF(OR(J87=\"\",NOT(ISNUMBER(K87))),\"\",ROUND(J87-K87,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K88",
+      "formula": "=IF(OR(E88=\"\",G88=\"\",H88=\"\",Shipment!$D$22=\"\"),\"\",IF(H88<=0,\"INVALID BASIS\",ROUND(E88*G88/H88,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L88",
+      "formula": "=IF(OR(J88=\"\",NOT(ISNUMBER(K88))),\"\",ROUND(J88-K88,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K89",
+      "formula": "=IF(OR(E89=\"\",G89=\"\",H89=\"\",Shipment!$D$22=\"\"),\"\",IF(H89<=0,\"INVALID BASIS\",ROUND(E89*G89/H89,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L89",
+      "formula": "=IF(OR(J89=\"\",NOT(ISNUMBER(K89))),\"\",ROUND(J89-K89,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K90",
+      "formula": "=IF(OR(E90=\"\",G90=\"\",H90=\"\",Shipment!$D$22=\"\"),\"\",IF(H90<=0,\"INVALID BASIS\",ROUND(E90*G90/H90,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L90",
+      "formula": "=IF(OR(J90=\"\",NOT(ISNUMBER(K90))),\"\",ROUND(J90-K90,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K91",
+      "formula": "=IF(OR(E91=\"\",G91=\"\",H91=\"\",Shipment!$D$22=\"\"),\"\",IF(H91<=0,\"INVALID BASIS\",ROUND(E91*G91/H91,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L91",
+      "formula": "=IF(OR(J91=\"\",NOT(ISNUMBER(K91))),\"\",ROUND(J91-K91,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K92",
+      "formula": "=IF(OR(E92=\"\",G92=\"\",H92=\"\",Shipment!$D$22=\"\"),\"\",IF(H92<=0,\"INVALID BASIS\",ROUND(E92*G92/H92,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L92",
+      "formula": "=IF(OR(J92=\"\",NOT(ISNUMBER(K92))),\"\",ROUND(J92-K92,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K93",
+      "formula": "=IF(OR(E93=\"\",G93=\"\",H93=\"\",Shipment!$D$22=\"\"),\"\",IF(H93<=0,\"INVALID BASIS\",ROUND(E93*G93/H93,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L93",
+      "formula": "=IF(OR(J93=\"\",NOT(ISNUMBER(K93))),\"\",ROUND(J93-K93,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K94",
+      "formula": "=IF(OR(E94=\"\",G94=\"\",H94=\"\",Shipment!$D$22=\"\"),\"\",IF(H94<=0,\"INVALID BASIS\",ROUND(E94*G94/H94,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L94",
+      "formula": "=IF(OR(J94=\"\",NOT(ISNUMBER(K94))),\"\",ROUND(J94-K94,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K95",
+      "formula": "=IF(OR(E95=\"\",G95=\"\",H95=\"\",Shipment!$D$22=\"\"),\"\",IF(H95<=0,\"INVALID BASIS\",ROUND(E95*G95/H95,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L95",
+      "formula": "=IF(OR(J95=\"\",NOT(ISNUMBER(K95))),\"\",ROUND(J95-K95,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K96",
+      "formula": "=IF(OR(E96=\"\",G96=\"\",H96=\"\",Shipment!$D$22=\"\"),\"\",IF(H96<=0,\"INVALID BASIS\",ROUND(E96*G96/H96,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L96",
+      "formula": "=IF(OR(J96=\"\",NOT(ISNUMBER(K96))),\"\",ROUND(J96-K96,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K97",
+      "formula": "=IF(OR(E97=\"\",G97=\"\",H97=\"\",Shipment!$D$22=\"\"),\"\",IF(H97<=0,\"INVALID BASIS\",ROUND(E97*G97/H97,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L97",
+      "formula": "=IF(OR(J97=\"\",NOT(ISNUMBER(K97))),\"\",ROUND(J97-K97,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K98",
+      "formula": "=IF(OR(E98=\"\",G98=\"\",H98=\"\",Shipment!$D$22=\"\"),\"\",IF(H98<=0,\"INVALID BASIS\",ROUND(E98*G98/H98,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L98",
+      "formula": "=IF(OR(J98=\"\",NOT(ISNUMBER(K98))),\"\",ROUND(J98-K98,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K99",
+      "formula": "=IF(OR(E99=\"\",G99=\"\",H99=\"\",Shipment!$D$22=\"\"),\"\",IF(H99<=0,\"INVALID BASIS\",ROUND(E99*G99/H99,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L99",
+      "formula": "=IF(OR(J99=\"\",NOT(ISNUMBER(K99))),\"\",ROUND(J99-K99,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K100",
+      "formula": "=IF(OR(E100=\"\",G100=\"\",H100=\"\",Shipment!$D$22=\"\"),\"\",IF(H100<=0,\"INVALID BASIS\",ROUND(E100*G100/H100,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L100",
+      "formula": "=IF(OR(J100=\"\",NOT(ISNUMBER(K100))),\"\",ROUND(J100-K100,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K101",
+      "formula": "=IF(OR(E101=\"\",G101=\"\",H101=\"\",Shipment!$D$22=\"\"),\"\",IF(H101<=0,\"INVALID BASIS\",ROUND(E101*G101/H101,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L101",
+      "formula": "=IF(OR(J101=\"\",NOT(ISNUMBER(K101))),\"\",ROUND(J101-K101,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K102",
+      "formula": "=IF(OR(E102=\"\",G102=\"\",H102=\"\",Shipment!$D$22=\"\"),\"\",IF(H102<=0,\"INVALID BASIS\",ROUND(E102*G102/H102,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L102",
+      "formula": "=IF(OR(J102=\"\",NOT(ISNUMBER(K102))),\"\",ROUND(J102-K102,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K103",
+      "formula": "=IF(OR(E103=\"\",G103=\"\",H103=\"\",Shipment!$D$22=\"\"),\"\",IF(H103<=0,\"INVALID BASIS\",ROUND(E103*G103/H103,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L103",
+      "formula": "=IF(OR(J103=\"\",NOT(ISNUMBER(K103))),\"\",ROUND(J103-K103,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K104",
+      "formula": "=IF(OR(E104=\"\",G104=\"\",H104=\"\",Shipment!$D$22=\"\"),\"\",IF(H104<=0,\"INVALID BASIS\",ROUND(E104*G104/H104,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L104",
+      "formula": "=IF(OR(J104=\"\",NOT(ISNUMBER(K104))),\"\",ROUND(J104-K104,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "K105",
+      "formula": "=IF(OR(E105=\"\",G105=\"\",H105=\"\",Shipment!$D$22=\"\"),\"\",IF(H105<=0,\"INVALID BASIS\",ROUND(E105*G105/H105,Shipment!$D$22)))"
+    },
+    {
+      "sheet": "Goods",
+      "cell": "L105",
+      "formula": "=IF(OR(J105=\"\",NOT(ISNUMBER(K105))),\"\",ROUND(J105-K105,Shipment!$D$22))"
+    },
+    {
+      "sheet": "Shipment",
+      "cell": "D53",
+      "field": "calculated_goods_subtotal",
+      "formula": "=IF(COUNT(Goods!J6:J105)=0,\"\",SUM(Goods!J6:J105))"
+    },
+    {
+      "sheet": "Shipment",
+      "cell": "D54",
+      "field": "goods_subtotal_difference",
+      "formula": "=IF(OR(D23=\"\",D53=\"\"),\"\",ROUND(D23-D53,D22))"
+    },
+    {
+      "sheet": "Shipment",
+      "cell": "D55",
+      "field": "calculated_payable_total",
+      "formula": "=IF(OR(D53=\"\",D24=\"\"),\"\",ROUND(D53+D24,D22))"
+    },
+    {
+      "sheet": "Shipment",
+      "cell": "D56",
+      "field": "payable_total_difference",
+      "formula": "=IF(OR(D25=\"\",D55=\"\"),\"\",ROUND(D25-D55,D22))"
+    }
+  ],
+  "export_rules": [
+    "Use the approved immutable case snapshot and independently validated metadata.",
+    "Validate requiredness against business-v1; worksheet blanks are not the policy engine.",
+    "Validate joins, one invoice and one currency, line units and positive price bases.",
+    "Reject collection overflow; never truncate or insert rows implicitly.",
+    "Amounts use configured currency precision; unit prices preserve source precision.",
+    "Optional input cells and unused mapped rows remain blank.",
+    "Preserve formula cells, formatting, merged ranges, widths and page settings.",
+    "Backend verifies calculations before export; Excel recalculation is presentation only.",
+    "No macros, external links or user-controlled formula evaluation.",
+    "Approval state must be enforced through authenticated distinct actors, never typed workbook names."
+  ],
+  "sheet_protection": "Shipment and Goods guard accidental edits without a password; server formula ownership is authoritative, not Excel protection."
+}
