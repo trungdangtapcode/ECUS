@@ -1,0 +1,226 @@
+.upload-zone {
+  border: 1px dashed color-mix(in srgb, var(--accent) 38%, var(--border));
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  background: color-mix(in srgb, var(--accent-soft) 30%, var(--surface));
+}
+.upload-zone.dragging {
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+.upload-zone > div {
+  flex: 1;
+}
+.upload-zone h2 {
+  font-size: 14px;
+}
+.upload-zone p {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.upload-zone small {
+  font-size: 8px;
+  color: var(--muted);
+  display: block;
+  margin-top: 6px;
+}
+.upload-zone .button {
+  font-size: 9px;
+}
+.upload-icon {
+  width: 52px;
+  height: 53px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.document-list {
+  padding: 0 22px;
+}
+.document-row {
+  padding: var(--density) 0;
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.document-row:last-child {
+  border-bottom: 0;
+}
+.document-row:hover .document-name strong {
+  color: var(--accent);
+}
+.document-icon {
+  width: 38px;
+  height: 46px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--muted);
+  background: var(--canvas);
+  flex-shrink: 0;
+}
+.document-icon small {
+  font-size: 6px;
+  letter-spacing: 1px;
+}
+.document-name {
+  flex: 1;
+  min-width: 0;
+}
+.document-name strong {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+}
+.document-name > span {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.document-name > small {
+  display: block;
+  font-size: 8px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.document-number {
+  font-size: 8px;
+  color: var(--muted);
+  padding: 0 5px;
+}
+.document-row > svg {
+  color: var(--muted);
+}
+.document-name strong {
+  font-size: 12px;
+}
+.document-name > span {
+  font-size: 11px;
+}
+.document-name > small {
+  font-size: 10px;
+}
+@media (max-width: 1350px) {
+  .upload-zone {
+    padding: 20px 17px;
+    gap: 12px;
+  }
+}
+@media (max-width: 1350px) {
+  .upload-icon {
+    width: 44px;
+    height: 45px;
+  }
+}
+@media (max-width: 1350px) {
+  .upload-zone h2 {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1350px) {
+  .upload-zone .button {
+    padding: 9px;
+  }
+}
+@media (max-width: 540px) {
+  .upload-zone {
+    flex-wrap: wrap;
+    padding: 18px;
+  }
+}
+@media (max-width: 540px) {
+  .upload-zone > div {
+    min-width: 175px;
+  }
+}
+@media (max-width: 540px) {
+  .upload-zone .button {
+    margin-left: 57px;
+  }
+}
+@media (max-width: 540px) {
+  .document-list {
+    padding-inline: 15px;
+  }
+}
+@media (max-width: 540px) {
+  .document-row {
+    gap: 9px;
+  }
+}
+@media (max-width: 540px) {
+  .document-row > .badge {
+    font-size: 7px;
+    padding: 4px;
+  }
+}
+@media (max-width: 540px) {
+  .document-row > .document-number {
+    display: none;
+  }
+}
+@media (max-width: 540px) {
+  .document-name strong {
+    font-size: 10px;
+  }
+}
+@media (max-width: 540px) {
+  .document-name > span,
+  .document-name > small {
+    font-size: 7px;
+  }
+}
+@media (max-width: 540px) {
+  .document-row > svg {
+    display: none;
+  }
+}
+.upload-zone {
+  background: linear-gradient(
+    120deg,
+    var(--accent-soft),
+    var(--surface) 65%,
+    var(--secondary-soft)
+  );
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+}
+.upload-icon {
+  background: var(--accent);
+  color: white;
+  box-shadow: 5px 5px 0 var(--secondary-soft);
+}
+.document-icon {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 15%, var(--border));
+}
+.document-row:nth-child(2n) .document-icon {
+  background: var(--secondary-soft);
+  color: #895c31;
+}
+.document-name strong {
+  font-size: 13px;
+}
+.document-name > span,
+.document-name > small {
+  font-size: 11px;
+}
