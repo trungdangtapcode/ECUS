@@ -1,0 +1,30 @@
+# Use an isolated project and distinct ports; never send paid AI requests in browser tests.
+services:
+  ai-stub:
+    image: python:3.12-slim-bookworm
+    command: ["python", "/tests/ai_stub.py"]
+    volumes:
+      - ../tests/support:/tests:ro
+  api:
+    environment:
+      APP_ENV: test
+      AI_API_KEY: ""
+      AI_EXTRACTION_MODEL: synthetic-test-only
+      AI_BASE_URL: http://ai-stub:8001/v1
+      AI_TEST_TRANSPORT: "true"
+      AI_TRACE_ENABLED: "true"
+  migrate:
+    volumes:
+      - ../tests/support:/test-support:ro
+    command:
+      - sh
+      - -ec
+      - >-
+        alembic -c services/api/alembic.ini upgrade head &&
+        python scripts/seed_reference.py reference-data/declaration-profiles.json &&
+        python /test-support/seed_templates.py
+    environment:
+      APP_ENV: test
+      AI_TEST_TRANSPORT: "true"
+      AI_API_KEY: ""
+      AI_EXTRACTION_MODEL: ""

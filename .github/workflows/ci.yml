@@ -1,0 +1,58 @@
+name: Verify application
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+          enable-cache: true
+      - run: cp .env.example .env
+      - run: make setup
+      - run: python3 scripts/check_git_safety.py
+      - run: make check
+      - run: make test
+      - run: npm run build
+
+  browser:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+          enable-cache: true
+      - run: npm ci
+      - run: uv sync --project services/api --frozen
+      - run: cp .env.example .env
+      - run: npx playwright install --with-deps chromium
+      - run: docker compose --env-file .env -p ecus-e2e -f infra/compose.yaml -f infra/compose.e2e.yaml --profile app up -d --build --wait
+      - run: npm run test:e2e
+      - if: failure()
+        run: docker compose --env-file .env -p ecus-e2e -f infra/compose.yaml -f infra/compose.e2e.yaml logs --tail=100
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-results
+          path: test-results/
+          if-no-files-found: ignore
+      - if: always()
+        run: docker compose --env-file .env -p ecus-e2e -f infra/compose.yaml -f infra/compose.e2e.yaml --profile app down -v
