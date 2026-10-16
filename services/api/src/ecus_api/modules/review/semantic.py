@@ -71,7 +71,9 @@ def unit_key(unit: str) -> str:
     )
 
 
-def equivalence_guard(field: str, sources: list[Observation]) -> str | None:
+def equivalence_guard(
+    field: str, sources: list[Observation], *, port_scope_supported: bool = False
+) -> str | None:
     if len({unit_key(item.unit) for item in sources}) != 1:
         return "unit_difference"
     if len({item.value_type for item in sources}) != 1:
@@ -94,6 +96,10 @@ def equivalence_guard(field: str, sources: list[Observation]) -> str | None:
         )
         or field == "bill_of_lading"
     )
-    if critical and len({re.sub(r"\W", "", item.normalized).casefold() for item in sources}) != 1:
+    if (
+        critical
+        and not port_scope_supported
+        and len({re.sub(r"\W", "", item.normalized).casefold() for item in sources}) != 1
+    ):
         return "critical_fact_difference"
     return None

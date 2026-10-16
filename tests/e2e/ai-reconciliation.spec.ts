@@ -105,7 +105,7 @@ test("One AI call groups equivalent values, supports text C, and leaves real dif
   await expect(
     panel.getByRole("button", { name: en.reconciliation.cached, exact: true }),
   ).toBeDisabled({ timeout: 20000 });
-  await expect(panel.locator(".ai-equivalent-row")).toHaveCount(5);
+  await expect(panel.locator(".ai-equivalent-row")).toHaveCount(7);
   const issues = page.locator(".harbor-issue-list");
   await expect(issues).toContainText("total_fees");
   await expect(issues).toContainText("loading_port_name");
@@ -121,12 +121,30 @@ test("One AI call groups equivalent values, supports text C, and leaves real dif
   const suggestion = page.getByRole("region", { name: en.reconciliation.proposal });
   await expect(suggestion).toContainText(en.reconciliation.standardizedProposal);
   await expect(suggestion).toContainText("Example Company, Joint Stock Company");
+  await panel
+    .locator(".ai-equivalent-row")
+    .filter({ hasText: "exporter_address" })
+    .getByRole("button", { name: en.reconciliation.inspect })
+    .click();
+  await expect(
+    suggestion.getByRole("link", { name: /Administrative address reference/ }),
+  ).toHaveAttribute("href", /^https:\/\/cuordang\.daklak\.gov\.vn\//);
+  await expect(suggestion).toContainText("Plot 11, Map 22, Maple Hamlet, Cuor Dang Commune");
+  await panel
+    .locator(".ai-equivalent-row")
+    .filter({ hasText: "destination_port_name" })
+    .getByRole("button", { name: en.reconciliation.inspect })
+    .click();
+  await expect(suggestion).toContainText("LONG BEACH, CA, USA");
+  await expect(
+    suggestion.getByRole("link", { name: en.reconciliation.portReference }),
+  ).toHaveAttribute("href", /^https:\/\/ww2\.arb\.ca\.gov\//);
   await expect(page.locator(".source-dock .review-pdf")).toHaveAttribute(
     "data-render-status",
     "ready",
   );
   await panel
-    .getByRole("button", { name: en.reconciliation.confirmEquivalent.replace("{{count}}", "5") })
+    .getByRole("button", { name: en.reconciliation.confirmEquivalent.replace("{{count}}", "7") })
     .click();
   const confirmation = panel.locator(".ai-reconciliation-confirm");
   await expect(confirmation.getByRole("button", { name: en.integration.saveValue })).toBeDisabled();
@@ -148,6 +166,10 @@ test("One AI call groups equivalent values, supports text C, and leaves real dif
   );
   expect(confirmed.workspace.canonical_values.company_name.ai_reconciliation_id).toBe(batch.id);
   expect(confirmed.workspace.canonical_values.package_quantity.unit).toBe("BOX");
+  expect(confirmed.workspace.canonical_values.destination_port_name.value).toBe(
+    "LONG BEACH, CA, USA",
+  );
+  expect(confirmed.workspace.canonical_values.exporter_address.source_observation_id).toBeNull();
   expect(confirmed.workspace.observations).toEqual(originalSources);
   await page.reload();
   await expect(
@@ -184,6 +206,6 @@ test("One AI call groups equivalent values, supports text C, and leaves real dif
   const trace = traces.items[0];
   const detail = await (await request.get(`${root}/ai-traces/${trace.id}/content`)).json();
   const input = JSON.parse(detail.request.body.messages[1].content[0].text);
-  expect(input.fields).toHaveLength(7);
+  expect(input.fields).toHaveLength(9);
   expect(detail.response.choices).toBeDefined();
 });

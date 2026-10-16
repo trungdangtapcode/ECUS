@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -23,6 +25,7 @@ jobs:
       - run: cp .env.example .env
       - run: make setup
       - run: python3 scripts/check_git_safety.py
+      - run: python3 scripts/check_git_safety.py --history
       - run: make check
       - run: make test
       - run: npm run build

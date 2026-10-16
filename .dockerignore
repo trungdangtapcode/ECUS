@@ -9,5 +9,8 @@
 .data
 example
 statements
+plan
+prototypes
+image[0-9]*.*
 test-results
 playwright-report

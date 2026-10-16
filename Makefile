@@ -1,4 +1,6 @@
 .PHONY: setup db api web migrate seed import-form check format test openapi up down review-config review-up review-down
+FORM_PATH ?=
+FORM_LAYOUT ?= reference-data/excel-layouts/original-form-xls-v9.json
 setup:
 	npm ci
 	uv sync --project services/api --frozen
@@ -9,7 +11,8 @@ migrate:
 seed:
 	uv run --project services/api python scripts/seed_reference.py reference-data/declaration-profiles.json
 import-form:
-	uv run --project services/api python scripts/import_excel_form.py "example/FORM MẪU EXCEL LÀM WEB_V2.xls" reference-data/excel-layouts/original-form-xls-v9.json --retire-profile original-form-xls-v8 --retire-profile original-form-xls-v7 --retire-profile original-form-xls-v6 --retire-profile original-form-xls-v5 --retire-profile original-form-xls-v4
+	@test -n "$(FORM_PATH)" || { echo 'Set FORM_PATH to an authorized local Excel form.' >&2; exit 1; }
+	uv run --project services/api python scripts/import_excel_form.py "$(FORM_PATH)" "$(FORM_LAYOUT)" --retire-profile original-form-xls-v8 --retire-profile original-form-xls-v7 --retire-profile original-form-xls-v6 --retire-profile original-form-xls-v5 --retire-profile original-form-xls-v4
 api:
 	uv run --project services/api uvicorn ecus_api.main:create_app --factory --reload --host 127.0.0.1 --port 8000
 web:

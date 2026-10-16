@@ -13,22 +13,28 @@ def semantic_decisions(prompt):
         keys = {aliases.get(item["value"].upper(), item["value"].upper()) for item in sources}
         same = len(keys) == 1
         company = field["field"] == "company_name"
+        address = bool(field.get("address_references"))
+        port = bool(field.get("port_references"))
         if "phone" in field["field"]:
             same = len({re.sub(r"\D", "", item["value"]) for item in sources}) == 1
         source = sources[-1]
         decisions.append(
             {
                 "field": field["field"],
-                "classification": "equivalent" if same or company else "different",
+                "classification": "equivalent" if same or company or address or port else "different",
                 "source_ids": [item["id"] for item in sources],
-                "source_observation_id": source["id"] if same and not company else None,
+                "source_observation_id": source["id"] if same and not (company or address or port) else None,
                 "proposed_value": "Example Company, Joint Stock Company"
                 if company
+                else source["value"]
+                if address
+                else field["port_references"][0]["canonical_value"]
+                if port
                 else source["value"]
                 if same
                 else None,
                 "reason": "Synthetic equivalent wording."
-                if same or company
+                if same or company or address or port
                 else "Synthetic sources describe different facts.",
             }
         )

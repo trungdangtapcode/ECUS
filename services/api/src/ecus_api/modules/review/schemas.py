@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import Literal
 from uuid import UUID
 
@@ -266,9 +266,34 @@ class ReconciliationDecision(Contract):
     reason: str = Field(min_length=1, max_length=2000)
 
 
+class AddressTransition(Contract):
+    id: str
+    region_aliases: list[str] = Field(min_length=1)
+    old_aliases: list[str] = Field(min_length=1)
+    new_aliases: list[str] = Field(min_length=1)
+    effective_from: date
+    source_url: str = Field(pattern=r"^https://")
+
+
+class PortRelation(Contract):
+    id: str
+    fields: list[str] = Field(min_length=1)
+    port_aliases: list[str] = Field(min_length=1)
+    terminal_aliases: list[str] = Field(min_length=1)
+    canonical_value: str
+    source_url: str = Field(pattern=r"^https://")
+
+
+class ReconciliationReferences(Contract):
+    addresses: list[AddressTransition] = Field(default_factory=list)
+    ports: list[PortRelation] = Field(default_factory=list)
+
+
 class ReviewedReconciliationDecision(ReconciliationDecision):
     source_fingerprint: str
     guard_code: str | None = None
+    address_references: list[AddressTransition] = Field(default_factory=list)
+    port_references: list[PortRelation] = Field(default_factory=list)
 
 
 class ReconciliationBatch(Contract):

@@ -1,6 +1,59 @@
 {
   "components": {
     "schemas": {
+      "AddressTransition": {
+        "additionalProperties": false,
+        "properties": {
+          "effective_from": {
+            "format": "date",
+            "title": "Effective From",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "new_aliases": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "New Aliases",
+            "type": "array"
+          },
+          "old_aliases": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Old Aliases",
+            "type": "array"
+          },
+          "region_aliases": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Region Aliases",
+            "type": "array"
+          },
+          "source_url": {
+            "pattern": "^https://",
+            "title": "Source Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "region_aliases",
+          "old_aliases",
+          "new_aliases",
+          "effective_from",
+          "source_url"
+        ],
+        "title": "AddressTransition",
+        "type": "object"
+      },
       "Applicability": {
         "additionalProperties": false,
         "properties": {
@@ -1933,6 +1986,58 @@
         "title": "PolicyInput",
         "type": "object"
       },
+      "PortRelation": {
+        "additionalProperties": false,
+        "properties": {
+          "canonical_value": {
+            "title": "Canonical Value",
+            "type": "string"
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Fields",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "port_aliases": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Port Aliases",
+            "type": "array"
+          },
+          "source_url": {
+            "pattern": "^https://",
+            "title": "Source Url",
+            "type": "string"
+          },
+          "terminal_aliases": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Terminal Aliases",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "fields",
+          "port_aliases",
+          "terminal_aliases",
+          "canonical_value",
+          "source_url"
+        ],
+        "title": "PortRelation",
+        "type": "object"
+      },
       "ProcessingInput": {
         "additionalProperties": false,
         "properties": {
@@ -2567,6 +2672,13 @@
       "ReviewedReconciliationDecision": {
         "additionalProperties": false,
         "properties": {
+          "address_references": {
+            "items": {
+              "$ref": "#/components/schemas/AddressTransition"
+            },
+            "title": "Address References",
+            "type": "array"
+          },
           "classification": {
             "enum": [
               "equivalent",
@@ -2591,6 +2703,13 @@
               }
             ],
             "title": "Guard Code"
+          },
+          "port_references": {
+            "items": {
+              "$ref": "#/components/schemas/PortRelation"
+            },
+            "title": "Port References",
+            "type": "array"
           },
           "proposed_value": {
             "anyOf": [

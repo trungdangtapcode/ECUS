@@ -1296,6 +1296,16 @@
   overscroll-behavior: contain;
   font-size: 0.7rem;
 }
+
+.ai-address-references a,
+.ai-proposal-sources a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
 .ai-reconciliation-confirm {
   display: grid;
   gap: 12px;

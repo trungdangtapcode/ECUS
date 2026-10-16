@@ -150,6 +150,7 @@
     "ai_trace_unavailable": "Private AI log storage is unavailable.",
     "ai_trace_not_found": "This AI call log was not found in the case.",
     "reconciliation_not_needed": "No differing mapped values need AI comparison.",
+    "reconciliation_reference_unavailable": "Comparison reference data is unavailable. Check the reference configuration before running AI review.",
     "reconciliation_stale": "The evidence or proposal changed. Reload the case before confirming.",
     "reconciliation_review_required": "Confirm that you have reviewed the source evidence.",
     "reconciliation_value_already_reviewed": "An operator choice already exists. Edit or withdraw it explicitly before using another proposal."
@@ -999,7 +1000,10 @@
   "reconciliation": {
     "title": "AI comparison of source values",
     "description": "Separate equivalent wording from differences that need a decision. AI may propose a source value or standardized text.",
-    "budget": "One request for the full set of differences. Unchanged evidence reuses the saved result; viewing, confirming and exporting make no extra AI calls.",
+    "budget": "One request for the full set of differences. Unchanged evidence and comparison rules reuse the saved result; viewing, confirming and exporting make no extra AI calls.",
+    "rulesUpdated": "The evidence or comparison rules have changed. Run a new comparison to update the saved proposals.",
+    "addressReference": "Administrative address reference · effective {{date}}",
+    "portReference": "Reference for the port and its terminal",
     "start": "Compare all differences · 1 AI call",
     "cached": "Saved AI review",
     "running": "Comparing sources…",
@@ -1022,6 +1026,8 @@
     "confirmReason": "Reviewed the supporting evidence and confirmed the proposed consolidated values.",
     "confirmReview": "I checked the source documents and confirm the selected proposed values.",
     "guards": {
+      "port_scope_changed": "The proposed text changes the supported port. Check the port and terminal evidence before choosing a value.",
+      "address_identity_changed": "The proposed address removes or changes identifying numbers. Review the original addresses before choosing a value.",
       "numeric_difference": "The sources contain different numbers. They remain separate for review.",
       "unit_difference": "The units are not established as equivalent. Check the measurement basis.",
       "value_type_difference": "The sources use incompatible value types. Review the original evidence.",

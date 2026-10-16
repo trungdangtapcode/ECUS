@@ -54,7 +54,7 @@ Session = Annotated[AsyncSession, Depends(get_session)]
     operation_id="listAIReconciliations",
 )
 async def list_reconciliations(
-    case_id: UUID, session: Session
+    case_id: UUID, session: Session, request: Request
 ) -> list[reconciliation.ReconciliationRun]:
     state = await service.load(session, case_id)
     jobs = await session.scalars(
@@ -66,7 +66,7 @@ async def list_reconciliations(
         .order_by(ProcessingJob.created_at.desc())
         .limit(20)
     )
-    return [reconciliation.describe(job, state) for job in jobs]
+    return [reconciliation.describe(job, state, settings_for(request)) for job in jobs]
 
 
 @router.post(
@@ -84,12 +84,12 @@ async def start_reconciliation(
     job_id = await request.app.state.jobs.submit(
         reconciliation.JOB_KIND,
         payload,
-        deduplicate_by=("case_id", "fingerprint", "prompt_version"),
+        deduplicate_by=("case_id", "fingerprint", "context_digest"),
         reuse_finished=True,
     )
     job = await session.get(ProcessingJob, job_id)
     assert job is not None
-    return reconciliation.describe(job, state)
+    return reconciliation.describe(job, state, settings_for(request))
 
 
 @router.post(
@@ -98,9 +98,21 @@ async def start_reconciliation(
     operation_id="confirmAIReconciliation",
 )
 async def confirm_reconciliation(
-    case_id: UUID, job_id: UUID, data: reconciliation.ReconciliationApply, session: Session
+    case_id: UUID,
+    job_id: UUID,
+    data: reconciliation.ReconciliationApply,
+    session: Session,
+    request: Request,
 ) -> WorkspaceRead:
     state = await current(session, case_id, data.revision)
+    job = await session.get(ProcessingJob, job_id)
+    if (
+        job is None
+        or job.kind != reconciliation.JOB_KIND
+        or job.payload.get("case_id") != str(case_id)
+        or not reconciliation.describe(job, state, settings_for(request)).current
+    ):
+        raise AppError("reconciliation_stale", "Choose the current AI review.", 409)
     reconciliation.apply(state, job_id, data)
     await service.save(session, case_id, state, data.revision)
     return output(state)

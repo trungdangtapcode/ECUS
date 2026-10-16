@@ -721,6 +721,24 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AddressTransition */
+        AddressTransition: {
+            /**
+             * Effective From
+             * Format: date
+             */
+            effective_from: string;
+            /** Id */
+            id: string;
+            /** New Aliases */
+            new_aliases: string[];
+            /** Old Aliases */
+            old_aliases: string[];
+            /** Region Aliases */
+            region_aliases: string[];
+            /** Source Url */
+            source_url: string;
+        };
         /** Applicability */
         Applicability: {
             /** Reason */
@@ -1538,6 +1556,21 @@ export interface components {
             /** Revision */
             revision: number;
         };
+        /** PortRelation */
+        PortRelation: {
+            /** Canonical Value */
+            canonical_value: string;
+            /** Fields */
+            fields: string[];
+            /** Id */
+            id: string;
+            /** Port Aliases */
+            port_aliases: string[];
+            /** Source Url */
+            source_url: string;
+            /** Terminal Aliases */
+            terminal_aliases: string[];
+        };
         /** ProcessingInput */
         ProcessingInput: {
             /** Primary Invoice Id */
@@ -1782,6 +1815,8 @@ export interface components {
         };
         /** ReviewedReconciliationDecision */
         ReviewedReconciliationDecision: {
+            /** Address References */
+            address_references?: components["schemas"]["AddressTransition"][];
             /**
              * Classification
              * @enum {string}
@@ -1791,6 +1826,8 @@ export interface components {
             field: string;
             /** Guard Code */
             guard_code?: string | null;
+            /** Port References */
+            port_references?: components["schemas"]["PortRelation"][];
             /** Proposed Value */
             proposed_value?: string | null;
             /** Reason */

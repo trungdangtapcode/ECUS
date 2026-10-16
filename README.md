@@ -27,13 +27,23 @@ for individual source selection or a manual value. AI can propose an exact exist
 or standardized text C. Original evidence and existing operator choices remain unchanged.
 Confirming proposals does not approve the case or override arithmetic validation.
 
-Unchanged evidence reuses the saved request, including after page reload, language changes
+Unchanged evidence and comparison rules reuse the saved request, including after page reload, language changes
 and value confirmation. There are no automatic paid retries. Oversized batches fail before
 calling the provider rather than silently splitting into more calls. Input/output and
 guard rejections use the existing private AI trace viewer. `AI_RECONCILIATION_MODEL` is
 optional and otherwise reuses `AI_EXTRACTION_MODEL`; limits and the versioned prompt are
 configured through settings. Ordinary extraction remains a separate workflow with its own
 document/field batching.
+
+Semantic comparison uses curated, source-linked administrative transitions and scoped
+port/terminal relationships from `RECONCILIATION_REFERENCE_PATH`. The reference file is
+extendable data, not an exhaustive legal or geographical dataset. Relevant references are
+sent in the same request and retained with the proposal. An address may use its current
+administrative form while retaining property identifiers. Port-level fields may consolidate
+a supported terminal to its parent port; terminal-specific fields retain their precision.
+Both standardized text C and source A/B still require operator confirmation. Updating the
+prompt version or reference data makes the older request obsolete; a new request runs only
+when the operator explicitly starts it.
 
 The system does not transmit official customs declarations or certify legal/HS
 correctness. Individual accounts and role-based authorization are not implemented.

@@ -1,0 +1,25 @@
+{
+  "addresses": [
+    {
+      "id": "vn-dak-lak-ea-drong-cuor-dang-2025",
+      "region_aliases": ["Dak Lak", "Đắk Lắk", "Đăk Lăk"],
+      "old_aliases": ["Ea Drong Commune", "Ea Drơng Commune", "xã Ea Drơng"],
+      "new_aliases": ["Cuor Dang Commune", "Cuôr Đăng Commune", "xã Cuôr Đăng", "xã Cuor Đăng"],
+      "effective_from": "2025-07-01",
+      "source_url": "https://cuordang.daklak.gov.vn/gioi-thieu-xa-cuor-dang-19779.html"
+    }
+  ],
+  "ports": [
+    {
+      "id": "us-long-beach-pacific-container-terminal",
+      "fields": ["destination_port_name", "loading_port_name"],
+      "port_aliases": ["Long Beach, CA, USA", "Long Beach, California, USA", "Long Beach"],
+      "terminal_aliases": [
+        "Long Beach / Pacific Container Terminal",
+        "Long Beach / Pacific Container Terminal (PCT)"
+      ],
+      "canonical_value": "LONG BEACH, CA, USA",
+      "source_url": "https://ww2.arb.ca.gov/our-work/programs/ocean-going-vessels-berth-regulation/terminal-and-port-plan-submissions"
+    }
+  ]
+}

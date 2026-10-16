@@ -16,7 +16,9 @@ from ecus_api.ai.contracts import AIResult
 from ecus_api.ai.openai_compatible import OpenAICompatible
 from ecus_api.core.config import Settings
 from ecus_api.core.errors import AppError
+from ecus_api.modules.review import semantic_references
 from ecus_api.modules.review.reconciliation import ReconciliationOutput
+from ecus_api.modules.review.schemas import Workspace
 
 VALUES = {
     "package_quantity": [("1250", "BOXES"), ("1250", "BOX")],
@@ -26,6 +28,14 @@ VALUES = {
     "company_name": [("Example Company JSC", ""), ("EXAMPLE COMPANY JOINT STOCK COMPANY", "")],
     "total_fees": [("500000", "VND"), ("87000", "VND")],
     "loading_port_name": [("REGION ALPHA, COUNTRY", ""), ("TERMINAL BETA", "")],
+    "exporter_address": [
+        ("Plot 11, Map 22, Maple Hamlet, Ea Drong Commune, Dak Lak, Vietnam", ""),
+        ("Plot 11, Map 22, Maple Hamlet, Cuor Dang Commune, Dak Lak, Vietnam", ""),
+    ],
+    "destination_port_name": [
+        ("LONG BEACH, CA, USA", ""),
+        ("Long Beach / Pacific Container Terminal", ""),
+    ],
 }
 
 
@@ -114,7 +124,14 @@ def decisions(prompt: dict) -> list[dict]:
     for field in prompt["fields"]:
         source = field["sources"][0]
         different = field["field"] in {"total_fees", "loading_port_name"}
-        standardized = field["field"] == "company_name"
+        standardized_values = {
+            "company_name": "Example Company, Joint Stock Company",
+            "exporter_address": (
+                "Plot 11, Map 22, Maple Hamlet, Cuor Dang Commune, Dak Lak, Vietnam"
+            ),
+            "destination_port_name": "LONG BEACH, CA, USA",
+        }
+        standardized = field["field"] in standardized_values
         result.append(
             {
                 "field": field["field"],
@@ -123,7 +140,7 @@ def decisions(prompt: dict) -> list[dict]:
                 "source_observation_id": None if different or standardized else source["id"],
                 "proposed_value": None
                 if different
-                else "Example Company, Joint Stock Company"
+                else standardized_values[field["field"]]
                 if standardized
                 else source["value"],
                 "reason": "Synthetic evidence supports this comparison.",
@@ -181,6 +198,12 @@ async def test_one_call_caches_across_concurrency_locale_confirmation_and_export
     assert run["status"] == "succeeded", run
     assert run["request_count"] == 1 and len(calls) == 1
     assert len(calls[0]["fields"]) == len(VALUES) and "pages" not in calls[0]
+    requested = {item["field"]: item for item in calls[0]["fields"]}
+    assert requested["exporter_address"]["address_references"][0]["effective_from"] == "2025-07-01"
+    assert requested["destination_port_name"]["port_references"][0]["canonical_value"] == (
+        "LONG BEACH, CA, USA"
+    )
+    assert not requested["loading_port_name"]["port_references"]
     data = (await client.get(root)).json()
     state = data["workspace"]
     assert state["observations"] == original and not state["canonical_values"]
@@ -232,6 +255,10 @@ async def test_one_call_caches_across_concurrency_locale_confirmation_and_export
         state["canonical_values"]["company_name"]["value"] == "Example Company, Joint Stock Company"
     )
     assert state["canonical_values"]["company_name"]["source_observation_id"] is None
+    assert state["canonical_values"]["exporter_address"]["value"] == (
+        "Plot 11, Map 22, Maple Hamlet, Cuor Dang Commune, Dak Lak, Vietnam"
+    )
+    assert state["canonical_values"]["destination_port_name"]["value"] == "LONG BEACH, CA, USA"
     assert len(state["canonical_values"]["company_name"]["source_ids"]) == 2
     assert len(state["canonical_values"]["package_quantity"]["source_ids"]) == 1
     assert all(
@@ -254,6 +281,8 @@ async def test_one_call_caches_across_concurrency_locale_confirmation_and_export
     assert book["Review"]["B2"].value == 1250
     assert book["Review"]["B6"].value == "Example Company, Joint Stock Company"
     assert book["Review"]["B7"].value is None
+    assert book["Review"]["B9"].value == state["canonical_values"]["exporter_address"]["value"]
+    assert book["Review"]["B10"].value == "LONG BEACH, CA, USA"
     book.close()
     assert len(calls) == 1
 
@@ -269,6 +298,8 @@ async def test_one_call_caches_across_concurrency_locale_confirmation_and_export
         "invented_numeric",
         "omitted",
         "duplicate",
+        "address_identity",
+        "port_scope",
     ],
 )
 async def test_guard_rejects_unsafe_or_incomplete_model_equivalence(
@@ -280,6 +311,10 @@ async def test_guard_rejects_unsafe_or_incomplete_model_equivalence(
         if scenario in {"numeric", "invented_numeric"}
         else "loading_port_name"
         if scenario == "critical"
+        else "exporter_address"
+        if scenario == "address_identity"
+        else "destination_port_name"
+        if scenario == "port_scope"
         else "package_quantity"
     )
 
@@ -306,6 +341,13 @@ async def test_guard_rejects_unsafe_or_incomplete_model_equivalence(
         elif scenario == "unit":
             # A mismatched proposal cannot redefine the source unit through the response.
             item["proposed_value"] = "1250 KG"
+        elif scenario == "address_identity":
+            item.update(
+                proposed_value="Maple Hamlet, Cuor Dang Commune, Dak Lak, Vietnam",
+                source_observation_id=None,
+            )
+        elif scenario == "port_scope":
+            item.update(proposed_value="LOS ANGELES, CA, USA", source_observation_id=None)
         return AIResult(
             value=schema.model_validate({"decisions": items}),
             model="mock",
@@ -421,6 +463,75 @@ async def test_failed_request_is_not_replayed_and_oversized_input_makes_no_call(
     assert run["status"] == "failed" and run["error_code"] == "ai_timeout"
     second = await client.post(f"{root}/reconciliations", json={"revision": state["revision"]})
     assert second.json()["id"] == first.json()["id"] and len(calls) == 1
+
+
+async def test_reference_scope_does_not_merge_unknown_terminals_or_other_regions(
+    client: httpx.AsyncClient, settings: Settings
+) -> None:
+    _, raw = await configured(client)
+    state = Workspace.model_validate(raw)
+    references = semantic_references.load(settings)
+    sources = [item for item in state.observations if item.field == "destination_port_name"]
+    assert semantic_references.matching_ports("destination_port_name", sources, references)
+    assert not semantic_references.matching_ports("delivery_terminal_name", sources, references)
+    for other in ["Long Beach / Another Terminal", "LOS ANGELES, CA, USA"]:
+        changed = [sources[0], sources[1].model_copy(update={"normalized": other})]
+        assert not semantic_references.matching_ports("destination_port_name", changed, references)
+    addresses = [item for item in state.observations if item.field == "exporter_address"]
+    assert semantic_references.matching_addresses("exporter_address", addresses, references)
+    changed = [
+        item.model_copy(update={"normalized": item.normalized.replace("Dak Lak", "Other Province")})
+        for item in addresses
+    ]
+    assert not semantic_references.matching_addresses("exporter_address", changed, references)
+
+
+async def test_prompt_or_reference_updates_require_an_explicit_new_cached_request(
+    client: httpx.AsyncClient, settings: Settings, monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    root, state = await configured(client)
+    calls = []
+
+    async def fake(_self, text, schema):
+        prompt = json.loads(text)
+        calls.append(prompt)
+        return fake_result(schema, prompt)
+
+    monkeypatch.setattr(OpenAICompatible, "reconcile_values", fake)
+    settings.reconciliation_prompt_version = "v1"
+    await client.post(f"{root}/reconciliations", json={"revision": state["revision"]})
+    previous = await finished(client, root)
+    for change in ["prompt", "reference"]:
+        if change == "prompt":
+            settings.reconciliation_prompt_version = "v2"
+        else:
+            raw = json.loads(settings.reconciliation_reference_path.read_text())
+            raw["addresses"][0]["id"] += "-updated"
+            path = tmp_path / "references.json"
+            path.write_text(json.dumps(raw))
+            settings.reconciliation_reference_path = path
+        runs = (await client.get(f"{root}/reconciliations")).json()
+        assert not any(run["current"] for run in runs)
+        state = (await client.get(root)).json()["workspace"]
+        rejected = await client.post(
+            f"{root}/reconciliations/{previous['id']}/apply",
+            json={
+                "revision": state["revision"],
+                "fields": ["exporter_address"],
+                "reviewed": True,
+                "reason": "Obsolete context cannot be confirmed",
+            },
+        )
+        assert rejected.status_code == 409
+        count = len(calls)
+        assert count == (1 if change == "prompt" else 2)
+        await client.post(f"{root}/reconciliations", json={"revision": state["revision"]})
+        current = await finished(client, root)
+        assert current["current"] and current["id"] != previous["id"] and len(calls) == count + 1
+        state = (await client.get(root)).json()["workspace"]
+        cached = await client.post(f"{root}/reconciliations", json={"revision": state["revision"]})
+        assert cached.json()["id"] == current["id"] and len(calls) == count + 1
+        previous = current
 
 
 @pytest.mark.parametrize("dedicated", [False, True])

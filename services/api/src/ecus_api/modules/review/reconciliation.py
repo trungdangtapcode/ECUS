@@ -20,7 +20,7 @@ from ecus_api.core.errors import AppError
 from ecus_api.db.base import utcnow
 from ecus_api.jobs.models import ProcessingJob
 from ecus_api.jobs.runner import Handler
-from ecus_api.modules.review import service
+from ecus_api.modules.review import semantic_references, service
 from ecus_api.modules.review.domain import comparison_value, effective_pages, normalize_field
 from ecus_api.modules.review.schemas import (
     CanonicalInput,
@@ -28,6 +28,7 @@ from ecus_api.modules.review.schemas import (
     Observation,
     ReconciliationBatch,
     ReconciliationDecision,
+    ReconciliationReferences,
     ReviewedReconciliationDecision,
     Revision,
     Workspace,
@@ -81,6 +82,11 @@ def fingerprint(state: Workspace) -> str:
     ).hexdigest()
 
 
+def context_digest(settings: Settings) -> str:
+    payload = f"{settings.reconciliation_prompt_version}:{semantic_references.digest(settings)}"
+    return hashlib.sha256(payload.encode()).hexdigest()
+
+
 def prepare(state: Workspace, data: ReconciliationInput, settings: Settings) -> dict[str, Any]:
     fields = candidates(state)
     if not fields:
@@ -95,6 +101,7 @@ def prepare(state: Workspace, data: ReconciliationInput, settings: Settings) -> 
     assert state.policy is not None
     definitions = {item.field: item for item in state.policy.fields}
     requested = []
+    references = semantic_references.load(settings)
     for field, sources in fields.items():
         evidence = []
         for source in sources:
@@ -115,7 +122,20 @@ def prepare(state: Workspace, data: ReconciliationInput, settings: Settings) -> 
                     ],
                 }
             )
-        requested.append({**definitions[field].model_dump(), "sources": evidence})
+        requested.append(
+            {
+                **definitions[field].model_dump(),
+                "sources": evidence,
+                "address_references": [
+                    item.model_dump(mode="json")
+                    for item in semantic_references.matching_addresses(field, sources, references)
+                ],
+                "port_references": [
+                    item.model_dump(mode="json")
+                    for item in semantic_references.matching_ports(field, sources, references)
+                ],
+            }
+        )
     text = json.dumps(
         {"task": "reconcile_source_values", "language": data.locale, "fields": requested},
         ensure_ascii=False,
@@ -127,6 +147,7 @@ def prepare(state: Workspace, data: ReconciliationInput, settings: Settings) -> 
         "fingerprint": fingerprint(state),
         "locale": data.locale,
         "prompt_version": settings.reconciliation_prompt_version,
+        "context_digest": context_digest(settings),
         "text": text,
     }
 
@@ -136,9 +157,12 @@ def validate_decision(
     field: str,
     sources: list[Observation],
     proposal: ReconciliationDecision | None,
+    references: ReconciliationReferences | None = None,
 ) -> ReviewedReconciliationDecision:
     ids = [item.id for item in sources]
     guard = None
+    references = references or ReconciliationReferences()
+    ports = semantic_references.matching_ports(field, sources, references)
     if proposal is None:
         guard = "model_omitted"
         proposal = ReconciliationDecision(
@@ -174,12 +198,21 @@ def validate_decision(
                 }
                 if digits - available:
                     guard = "proposed_value_unsupported"
+                if "address" in field and any(
+                    tuple(re.findall(r"\d+", value)) != tuple(re.findall(r"\d+", item.normalized))
+                    for item in sources
+                ):
+                    guard = "address_identity_changed"
+                if ports and semantic_references.text_key(value) not in {
+                    semantic_references.text_key(item.canonical_value) for item in ports
+                }:
+                    guard = "port_scope_changed"
         except AppError:
             guard = "proposed_value_unsupported"
     elif source or proposal.classification == "equivalent":
         guard = "proposed_value_unsupported"
     if proposal.classification == "equivalent":
-        guard = guard or equivalence_guard(field, sources)
+        guard = guard or equivalence_guard(field, sources, port_scope_supported=bool(ports))
     if guard:
         proposal = proposal.model_copy(
             update={
@@ -193,6 +226,8 @@ def validate_decision(
         **proposal.model_dump(),
         source_fingerprint=field_fingerprint(state, field),
         guard_code=guard,
+        address_references=semantic_references.matching_addresses(field, sources, references),
+        port_references=ports,
     )
 
 
@@ -203,7 +238,9 @@ def handler(
         case_id, job_id = UUID(payload["case_id"]), UUID(payload["_job_id"])
         async with sessions() as session:
             state = await service.load(session, case_id)
-        if fingerprint(state) != payload["fingerprint"]:
+        if fingerprint(state) != payload["fingerprint"] or payload.get(
+            "context_digest"
+        ) != context_digest(settings):
             raise AppError("reconciliation_stale", "Evidence changed before the AI request.", 409)
         fields = candidates(state)
         async with sessions() as session:
@@ -219,8 +256,9 @@ def handler(
             result = await ai.reconcile_values(payload["text"], ReconciliationOutput)
         counts = Counter(item.field for item in result.value.decisions)
         proposals = {item.field: item for item in result.value.decisions if counts[item.field] == 1}
+        references = semantic_references.load(settings)
         decisions = [
-            validate_decision(state, key, sources, proposals.get(key))
+            validate_decision(state, key, sources, proposals.get(key), references)
             for key, sources in fields.items()
         ]
         batch = ReconciliationBatch(
@@ -259,7 +297,9 @@ def handler(
             await session.commit()
         async with sessions() as session:
             current = await service.load(session, case_id)
-            if fingerprint(current) == payload["fingerprint"]:
+            if fingerprint(current) == payload["fingerprint"] and payload.get(
+                "context_digest"
+            ) == context_digest(settings):
                 current.ai_reconciliation = batch
                 service.audit(current, "ai_reconciliation_proposed", str(job_id))
                 await service.save(
@@ -274,14 +314,17 @@ def handler(
     return reconcile
 
 
-def describe(job: ProcessingJob, state: Workspace) -> ReconciliationRun:
+def describe(job: ProcessingJob, state: Workspace, settings: Settings) -> ReconciliationRun:
     raw = job.result or {}
     return ReconciliationRun(
         id=job.id,
         status=job.status,
         error_code=job.error_code,
         source_revision=job.payload["revision"],
-        current=job.payload["fingerprint"] == fingerprint(state),
+        current=(
+            job.payload["fingerprint"] == fingerprint(state)
+            and job.payload.get("context_digest") == context_digest(settings)
+        ),
         request_count=raw.get("request_count", 0),
         batch=ReconciliationBatch.model_validate(raw["batch"]) if raw.get("batch") else None,
     )

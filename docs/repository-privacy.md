@@ -29,7 +29,8 @@ git status --short --ignored
 The local pre-commit hook rejects ignored private paths even if force-added, recognizable
 credential formats, and sufficiently long credential values from the local `.env`. It
 prints affected paths and categories only. It never prints secret values. CI checks the
-tracked snapshot without requiring any private configuration.
+tracked snapshot and reachable history without requiring any private configuration.
+The pre-push hook also checks reachable history before transmitting Git objects.
 
 Pattern checks cannot establish that arbitrary document text or screenshots are anonymous.
 Review new fixtures, exports and binaries before tracking them. Do not use `git add -f` to

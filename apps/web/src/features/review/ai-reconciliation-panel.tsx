@@ -104,6 +104,9 @@ export function AIReconciliationPanel({
         </Button>
       </div>
       <p className="review-hint">{t("reconciliation.budget")}</p>
+      {data.workspace.ai_reconciliation && !current && !active && !runs.isPending && (
+        <p className="review-hint">{t("reconciliation.rulesUpdated")}</p>
+      )}
       {runs.error && <ErrorState error={runs.error} />}
       {start.error && <ErrorState error={start.error} />}
       {current?.error_code && (
@@ -196,7 +199,23 @@ export function ReconciliationSuggestion({
           <strong>{decision.proposed_value}</strong>
         </div>
       )}
+      {!!decision.address_references?.length && (
+        <div className="ai-address-references">
+          {decision.address_references.map((reference) => (
+            <a key={reference.id} href={reference.source_url} target="_blank" rel="noreferrer">
+              {t("reconciliation.addressReference", { date: reference.effective_from })}
+              <ArrowUpRight size={13} aria-hidden="true" />
+            </a>
+          ))}
+        </div>
+      )}
       <div className="ai-proposal-sources">
+        {decision.port_references?.map((reference) => (
+          <a key={reference.id} href={reference.source_url} target="_blank" rel="noreferrer">
+            {t("reconciliation.portReference")}
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </a>
+        ))}
         {sources.map((source) => (
           <button key={source.id} type="button" onClick={() => onPreview(source)}>
             {data.workspace.documents?.find((doc) => doc.id === source.document_id)?.filename}

@@ -150,6 +150,7 @@
     "ai_trace_unavailable": "Không thể lưu nhật ký AI. Kiểm tra thư mục lưu trữ.",
     "ai_trace_not_found": "Không tìm thấy nhật ký gọi AI trong hồ sơ này.",
     "reconciliation_not_needed": "Không có giá trị chênh lệch cần AI đối chiếu.",
+    "reconciliation_reference_unavailable": "Chưa đọc được dữ liệu tham chiếu đối chiếu. Kiểm tra cấu hình tham chiếu trước khi chạy AI.",
     "reconciliation_stale": "Chứng từ hoặc đề xuất đã thay đổi. Tải lại hồ sơ trước khi xác nhận.",
     "reconciliation_review_required": "Cần xác nhận đã rà soát chứng từ nguồn.",
     "reconciliation_value_already_reviewed": "Đã có giá trị do người dùng chọn. Hãy chỉnh sửa hoặc thu hồi lựa chọn đó trước khi dùng đề xuất khác."
@@ -999,7 +1000,10 @@
   "reconciliation": {
     "title": "AI đối chiếu cách viết giữa các nguồn",
     "description": "Tách cách viết tương đương khỏi khác biệt cần xử lý. AI có thể đề xuất chọn nguồn hoặc chuẩn hóa thành giá trị khác.",
-    "budget": "Một lần gọi cho toàn bộ chênh lệch. Bộ chứng từ chưa thay đổi sẽ dùng lại kết quả; xem nguồn, xác nhận và xuất Excel không gọi thêm AI.",
+    "budget": "Một lần gọi cho toàn bộ chênh lệch. Chứng từ và quy tắc đối chiếu chưa thay đổi sẽ dùng lại kết quả; xem nguồn, xác nhận và xuất Excel không gọi thêm AI.",
+    "rulesUpdated": "Chứng từ hoặc quy tắc đối chiếu đã thay đổi. Chạy đối chiếu mới để cập nhật các đề xuất đã lưu.",
+    "addressReference": "Tham chiếu thay đổi địa giới · hiệu lực {{date}}",
+    "portReference": "Tham chiếu cảng và terminal trực thuộc",
     "start": "Rà soát toàn bộ · 1 lần gọi AI",
     "cached": "Đã lưu kết quả AI",
     "running": "Đang đối chiếu…",
@@ -1022,6 +1026,8 @@
     "confirmReason": "Đã kiểm tra chứng từ nguồn và xác nhận các giá trị đề xuất cho dữ liệu tổng hợp.",
     "confirmReview": "Tôi đã kiểm tra chứng từ nguồn và xác nhận các giá trị đề xuất đang chọn.",
     "guards": {
+      "port_scope_changed": "Đề xuất đã thay đổi cảng so với dữ liệu tham chiếu. Đối chiếu nguồn cảng và terminal trước khi chọn giá trị.",
+      "address_identity_changed": "Địa chỉ đề xuất đã bỏ hoặc thay đổi số định danh địa điểm. Đối chiếu địa chỉ gốc trước khi chọn giá trị.",
       "numeric_difference": "Các nguồn có số khác nhau. Giữ riêng các giá trị để rà soát.",
       "unit_difference": "Chưa xác định các đơn vị tương đương. Cần kiểm tra cơ sở quy đổi.",
       "value_type_difference": "Các nguồn có kiểu giá trị không tương thích. Cần xem lại chứng từ.",

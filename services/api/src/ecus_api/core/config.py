@@ -43,7 +43,8 @@ class Settings(BaseSettings):
     ai_extraction_model: str = ""
     ai_hs_model: str = ""
     ai_reconciliation_model: str = ""
-    reconciliation_prompt_version: str = Field(default="v1", pattern=r"^[a-zA-Z0-9_-]+$")
+    reconciliation_prompt_version: str = Field(default="v2", pattern=r"^[a-zA-Z0-9_-]+$")
+    reconciliation_reference_path: Path = Path("reference-data/semantic-references.v1.json")
     reconciliation_max_fields: int = Field(default=200, ge=1, le=2000)
     reconciliation_context_chars: int = Field(default=160, ge=0, le=1000)
     ai_supports_vision: bool = True
