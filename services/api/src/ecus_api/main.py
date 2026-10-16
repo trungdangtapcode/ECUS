@@ -15,7 +15,7 @@ from ecus_api.jobs.router import router as jobs_router
 from ecus_api.jobs.runner import JobRunner
 from ecus_api.modules.cases.router import router as cases_router
 from ecus_api.modules.reference.router import router as reference_router
-from ecus_api.modules.review import extraction, processing
+from ecus_api.modules.review import extraction, processing, reconciliation
 from ecus_api.modules.review.router import router as review_router
 
 logger = logging.getLogger(__name__)
@@ -46,6 +46,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     processing.JOB_KIND,
                     processing.handler(database.sessions, app.state.ai, settings),
                     timeout=settings.processing_timeout_seconds,
+                    include_job_id=True,
+                )
+                runner.register(
+                    reconciliation.JOB_KIND,
+                    reconciliation.handler(database.sessions, app.state.ai, settings),
                     include_job_id=True,
                 )
                 await runner.recover_interrupted()

@@ -574,6 +574,7 @@ async def export_excel(
     output = await asyncio.to_thread(generate_excel, state, content, values)
     key = await asyncio.to_thread(store.put, output)
     record = ExportRecord(
+        ai_reconciliation_snapshot=state.ai_reconciliation,
         kind="draft" if draft else "approved",
         blockers_snapshot=list(readiness.blockers),
         annotation_fields=[],

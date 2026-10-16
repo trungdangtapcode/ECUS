@@ -166,6 +166,7 @@ class CanonicalInput(VerifyInput):
 
 
 class CanonicalValue(Contract):
+    ai_reconciliation_id: UUID | None = None
     reviewed: bool = False
     source_observation_id: UUID | None = None
     value: str
@@ -226,6 +227,7 @@ class Applicability(Contract):
 
 
 class ExportRecord(Contract):
+    ai_reconciliation_snapshot: "ReconciliationBatch | None" = None
     kind: Literal["approved", "draft"] = "approved"
     blockers_snapshot: list[str] = Field(default_factory=list)
     annotation_fields: list[str] = Field(default_factory=list)
@@ -255,7 +257,35 @@ class DraftExportInput(VerifyInput):
     locale: Literal["en", "vi"] = "vi"
 
 
+class ReconciliationDecision(Contract):
+    field: str = Field(pattern=r"^[a-z][a-z0-9_]{0,63}$")
+    classification: Literal["equivalent", "different", "uncertain"]
+    source_ids: list[UUID] = Field(min_length=1, max_length=5000)
+    source_observation_id: UUID | None = None
+    proposed_value: str | None = Field(default=None, min_length=1, max_length=2000)
+    reason: str = Field(min_length=1, max_length=2000)
+
+
+class ReviewedReconciliationDecision(ReconciliationDecision):
+    source_fingerprint: str
+    guard_code: str | None = None
+
+
+class ReconciliationBatch(Contract):
+    id: UUID
+    fingerprint: str
+    source_revision: int
+    locale: Literal["en", "vi"]
+    model: str
+    prompt_version: str
+    trace_id: str | None = None
+    provider_request_id: str | None = None
+    at: datetime
+    decisions: list[ReviewedReconciliationDecision]
+
+
 class Workspace(Contract):
+    ai_reconciliation: ReconciliationBatch | None = None
     canonical_values: dict[str, CanonicalValue] = Field(default_factory=dict)
     canonical_history: list[dict[str, CanonicalValue]] = Field(default_factory=list)
     stage: Literal["pre_arrival", "arrival_confirmed"] = "pre_arrival"
@@ -276,6 +306,7 @@ class Workspace(Contract):
 
 
 class Comparison(Contract):
+    semantic_review: ReviewedReconciliationDecision | None = None
     source_values_differ: bool = False
     consistent: bool = False
     canonical: CanonicalValue | None = None

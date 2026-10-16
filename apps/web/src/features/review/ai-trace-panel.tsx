@@ -97,11 +97,16 @@ export function AITracePanel({
                   </time>
                 </div>
                 <p className="ai-trace-input">
-                  {t("aiTrace.inputSummary", {
-                    fields: call.fields.length,
-                    pages: call.pages.join(", "),
-                    images: call.image_count,
-                  })}{" "}
+                  {t(
+                    call.phase === "reconciliation"
+                      ? "aiTrace.semanticInputSummary"
+                      : "aiTrace.inputSummary",
+                    {
+                      fields: call.fields.length,
+                      pages: call.pages.join(", "),
+                      images: call.image_count,
+                    },
+                  )}{" "}
                   · {(call.duration_ms / 1000).toFixed(1)}s · HTTP {call.http_status ?? "—"}
                 </p>
                 {call.provider_request_id && <code>{call.provider_request_id}</code>}

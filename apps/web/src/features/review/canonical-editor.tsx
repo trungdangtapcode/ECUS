@@ -93,9 +93,11 @@ export function CanonicalEditor({
           {canonical && (
             <small className="canonical-origin">
               {t(
-                canonical.source_observation_id
-                  ? "integration.sourceValue"
-                  : "integration.manualValue",
+                canonical.ai_reconciliation_id
+                  ? "integration.aiConfirmedValue"
+                  : canonical.source_observation_id
+                    ? "integration.sourceValue"
+                    : "integration.manualValue",
               )}
             </small>
           )}

@@ -353,6 +353,18 @@
             "title": "Actor",
             "type": "string"
           },
+          "ai_reconciliation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Reconciliation Id"
+          },
           "at": {
             "format": "date-time",
             "title": "At",
@@ -595,6 +607,16 @@
             "anyOf": [
               {
                 "$ref": "#/components/schemas/Selection"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "semantic_review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewedReconciliationDecision"
               },
               {
                 "type": "null"
@@ -953,6 +975,16 @@
       "ExportRecord": {
         "additionalProperties": false,
         "properties": {
+          "ai_reconciliation_snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReconciliationBatch"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "annotation_fields": {
             "items": {
               "type": "string"
@@ -2148,6 +2180,204 @@
         "title": "Readiness",
         "type": "object"
       },
+      "ReconciliationApply": {
+        "additionalProperties": false,
+        "properties": {
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2000,
+            "minItems": 1,
+            "title": "Fields",
+            "type": "array"
+          },
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "reviewed": {
+            "default": false,
+            "title": "Reviewed",
+            "type": "boolean"
+          },
+          "revision": {
+            "minimum": 0.0,
+            "title": "Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "revision",
+          "reason",
+          "fields"
+        ],
+        "title": "ReconciliationApply",
+        "type": "object"
+      },
+      "ReconciliationBatch": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewedReconciliationDecision"
+            },
+            "title": "Decisions",
+            "type": "array"
+          },
+          "fingerprint": {
+            "title": "Fingerprint",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "vi"
+            ],
+            "title": "Locale",
+            "type": "string"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "prompt_version": {
+            "title": "Prompt Version",
+            "type": "string"
+          },
+          "provider_request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Request Id"
+          },
+          "source_revision": {
+            "title": "Source Revision",
+            "type": "integer"
+          },
+          "trace_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trace Id"
+          }
+        },
+        "required": [
+          "id",
+          "fingerprint",
+          "source_revision",
+          "locale",
+          "model",
+          "prompt_version",
+          "at",
+          "decisions"
+        ],
+        "title": "ReconciliationBatch",
+        "type": "object"
+      },
+      "ReconciliationInput": {
+        "additionalProperties": false,
+        "properties": {
+          "locale": {
+            "default": "vi",
+            "enum": [
+              "en",
+              "vi"
+            ],
+            "title": "Locale",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 0.0,
+            "title": "Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "revision"
+        ],
+        "title": "ReconciliationInput",
+        "type": "object"
+      },
+      "ReconciliationRun": {
+        "additionalProperties": false,
+        "properties": {
+          "batch": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReconciliationBatch"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current": {
+            "title": "Current",
+            "type": "boolean"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "request_count": {
+            "title": "Request Count",
+            "type": "integer"
+          },
+          "source_revision": {
+            "title": "Source Revision",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "error_code",
+          "source_revision",
+          "current",
+          "request_count"
+        ],
+        "title": "ReconciliationRun",
+        "type": "object"
+      },
       "ReplacementInput": {
         "additionalProperties": false,
         "properties": {
@@ -2332,6 +2562,90 @@
           "name"
         ],
         "title": "ReviewPolicy",
+        "type": "object"
+      },
+      "ReviewedReconciliationDecision": {
+        "additionalProperties": false,
+        "properties": {
+          "classification": {
+            "enum": [
+              "equivalent",
+              "different",
+              "uncertain"
+            ],
+            "title": "Classification",
+            "type": "string"
+          },
+          "field": {
+            "pattern": "^[a-z][a-z0-9_]{0,63}$",
+            "title": "Field",
+            "type": "string"
+          },
+          "guard_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Guard Code"
+          },
+          "proposed_value": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Proposed Value"
+          },
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "source_fingerprint": {
+            "title": "Source Fingerprint",
+            "type": "string"
+          },
+          "source_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "maxItems": 5000,
+            "minItems": 1,
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "source_observation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Observation Id"
+          }
+        },
+        "required": [
+          "field",
+          "classification",
+          "source_ids",
+          "reason",
+          "source_fingerprint"
+        ],
+        "title": "ReviewedReconciliationDecision",
         "type": "object"
       },
       "Revision": {
@@ -2936,6 +3250,16 @@
       "Workspace": {
         "additionalProperties": false,
         "properties": {
+          "ai_reconciliation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReconciliationBatch"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "applicability": {
             "additionalProperties": {
               "$ref": "#/components/schemas/Applicability"
@@ -6435,6 +6759,287 @@
           }
         },
         "summary": "Processing Capabilities",
+        "tags": [
+          "document-review"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/review/reconciliations": {
+      "get": {
+        "operationId": "listAIReconciliations",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReconciliationRun"
+                  },
+                  "title": "Response Listaireconciliations",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "List Reconciliations",
+        "tags": [
+          "document-review"
+        ]
+      },
+      "post": {
+        "operationId": "startAIReconciliation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReconciliationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReconciliationRun"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Start Reconciliation",
+        "tags": [
+          "document-review"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/review/reconciliations/{job_id}/apply": {
+      "post": {
+        "operationId": "confirmAIReconciliation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReconciliationApply"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Confirm Reconciliation",
         "tags": [
           "document-review"
         ]

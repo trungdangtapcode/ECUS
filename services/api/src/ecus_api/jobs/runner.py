@@ -73,18 +73,17 @@ class JobRunner:
         *,
         deduplicate: bool = False,
         deduplicate_by: tuple[str, ...] | None = None,
+        reuse_finished: bool = False,
     ) -> UUID:
         async with self._lock:
             if kind not in self._handlers:
                 raise AppError("unknown_job", "This job type is not supported.")
             if deduplicate or deduplicate_by:
                 async with self._sessions() as session:
-                    active = await session.scalars(
-                        select(ProcessingJob).where(
-                            ProcessingJob.kind == kind,
-                            ProcessingJob.status.in_(["pending", "running"]),
-                        )
-                    )
+                    query = select(ProcessingJob).where(ProcessingJob.kind == kind)
+                    if not reuse_finished:
+                        query = query.where(ProcessingJob.status.in_(["pending", "running"]))
+                    active = await session.scalars(query.order_by(ProcessingJob.created_at.desc()))
                     for existing in active:
                         matches = (
                             all(

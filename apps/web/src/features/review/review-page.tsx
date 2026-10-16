@@ -32,6 +32,7 @@ import { CanonicalSheet } from "./canonical-sheet";
 import { ExportCoverage } from "./export-coverage";
 import { EvidenceSourceSwitcher } from "./evidence-source-switcher";
 import { SourceValuePicker } from "./source-value-picker";
+import { AIReconciliationPanel, ReconciliationSuggestion } from "./ai-reconciliation-panel";
 import { PageTranscriptPanel } from "./page-transcript-panel";
 import { useFieldLabel } from "./field-label";
 import "./review.css";
@@ -116,11 +117,13 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
       ? "integration.arithmetic.mismatch"
       : item.resolved
         ? "integration.resolved"
-        : item.source_values_differ
-          ? "processing.sourceConflict"
-          : !item.observations.length
-            ? "integration.missingField"
-            : `workbench.statuses.${item.status}`;
+        : item.semantic_review?.classification === "equivalent"
+          ? "reconciliation.classifications.equivalent"
+          : item.source_values_differ
+            ? "processing.sourceConflict"
+            : !item.observations.length
+              ? "integration.missingField"
+              : `workbench.statuses.${item.status}`;
   const visibleComparisons = readiness.comparisons.filter(
     (item) =>
       !fieldSearch.trim() ||
@@ -136,7 +139,11 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
         comparisonFilter === "all" ||
         (comparisonFilter === "attention" &&
           !item.resolved &&
+          item.semantic_review?.classification !== "equivalent" &&
           (item.observations.length > 0 || item.canonical)) ||
+        (comparisonFilter === "equivalent" &&
+          item.semantic_review?.classification === "equivalent" &&
+          !item.resolved) ||
         (comparisonFilter === "missing" && !item.observations.length && !item.canonical) ||
         (comparisonFilter === "resolved" && item.resolved),
     )
@@ -621,6 +628,19 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
         )}
         {tab === "compare" && (
           <section className="register review-section">
+            <AIReconciliationPanel
+              caseId={caseId}
+              data={data}
+              onInspect={(field) => {
+                setComparisonField(field);
+                const item = readiness.comparisons.find((item) => item.field === field);
+                const source =
+                  item?.observations.find(
+                    (source) => source.id === item.semantic_review?.source_observation_id,
+                  ) ?? item?.observations[0];
+                if (source) openSource(source);
+              }}
+            />
             <ConsistentReviewPanel caseId={caseId} data={data} openSource={openSource} />
             <h2>{t("review.compare")}</h2>
             <p className="review-hint">{t("workbench.meaning")}</p>
@@ -633,7 +653,13 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
               />
             </label>
             <div className="comparison-filters" aria-label={t("processing.filterLabel")}>
-              {["attention", "missing", "resolved", "all"].map((filter) => (
+              {[
+                "attention",
+                ...(workspace.ai_reconciliation ? ["equivalent"] : []),
+                "missing",
+                "resolved",
+                "all",
+              ].map((filter) => (
                 <button
                   key={filter}
                   aria-pressed={comparisonFilter === filter}
@@ -730,12 +756,20 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                       </p>
                     </aside>
                   ))}
+                <ReconciliationSuggestion
+                  caseId={caseId}
+                  data={data}
+                  item={comparison}
+                  onPreview={openSource}
+                />
                 {comparison.canonical && (
                   <p className="info-note">
                     {t(
-                      comparison.canonical.source_observation_id
-                        ? "integration.sourceValue"
-                        : "integration.manualValue",
+                      comparison.canonical.ai_reconciliation_id
+                        ? "integration.aiConfirmedValue"
+                        : comparison.canonical.source_observation_id
+                          ? "integration.sourceValue"
+                          : "integration.manualValue",
                     )}
                     : {comparison.canonical.value} · {comparison.canonical.reason}
                   </p>

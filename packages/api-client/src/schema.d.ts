@@ -546,6 +546,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/cases/{case_id}/review/reconciliations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Reconciliations */
+        get: operations["listAIReconciliations"];
+        put?: never;
+        /** Start Reconciliation */
+        post: operations["startAIReconciliation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cases/{case_id}/review/reconciliations/{job_id}/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Confirm Reconciliation */
+        post: operations["confirmAIReconciliation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/cases/{case_id}/review/stage": {
         parameters: {
             query?: never;
@@ -827,6 +862,8 @@ export interface components {
              * @default local-operator
              */
             actor: string;
+            /** Ai Reconciliation Id */
+            ai_reconciliation_id?: string | null;
             /**
              * At
              * Format: date-time
@@ -933,6 +970,7 @@ export interface components {
              */
             resolved: boolean;
             selection: components["schemas"]["Selection"] | null;
+            semantic_review?: components["schemas"]["ReviewedReconciliationDecision"] | null;
             /**
              * Source Values Differ
              * @default false
@@ -1075,6 +1113,7 @@ export interface components {
         };
         /** ExportRecord */
         ExportRecord: {
+            ai_reconciliation_snapshot?: components["schemas"]["ReconciliationBatch"] | null;
             /** Annotation Fields */
             annotation_fields?: string[];
             /** Applicability Snapshot */
@@ -1608,6 +1647,82 @@ export interface components {
             /** Warnings */
             warnings?: string[];
         };
+        /** ReconciliationApply */
+        ReconciliationApply: {
+            /** Fields */
+            fields: string[];
+            /** Reason */
+            reason: string;
+            /**
+             * Reviewed
+             * @default false
+             */
+            reviewed: boolean;
+            /** Revision */
+            revision: number;
+        };
+        /** ReconciliationBatch */
+        ReconciliationBatch: {
+            /**
+             * At
+             * Format: date-time
+             */
+            at: string;
+            /** Decisions */
+            decisions: components["schemas"]["ReviewedReconciliationDecision"][];
+            /** Fingerprint */
+            fingerprint: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Locale
+             * @enum {string}
+             */
+            locale: "en" | "vi";
+            /** Model */
+            model: string;
+            /** Prompt Version */
+            prompt_version: string;
+            /** Provider Request Id */
+            provider_request_id?: string | null;
+            /** Source Revision */
+            source_revision: number;
+            /** Trace Id */
+            trace_id?: string | null;
+        };
+        /** ReconciliationInput */
+        ReconciliationInput: {
+            /**
+             * Locale
+             * @default vi
+             * @enum {string}
+             */
+            locale: "en" | "vi";
+            /** Revision */
+            revision: number;
+        };
+        /** ReconciliationRun */
+        ReconciliationRun: {
+            batch?: components["schemas"]["ReconciliationBatch"] | null;
+            /** Current */
+            current: boolean;
+            /** Error Code */
+            error_code: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Request Count */
+            request_count: number;
+            /** Source Revision */
+            source_revision: number;
+            /** Status */
+            status: string;
+        };
         /** ReplacementInput */
         ReplacementInput: {
             /** Content Base64 */
@@ -1664,6 +1779,28 @@ export interface components {
             status: "proposal" | "project_baseline";
             /** Version */
             version: string;
+        };
+        /** ReviewedReconciliationDecision */
+        ReviewedReconciliationDecision: {
+            /**
+             * Classification
+             * @enum {string}
+             */
+            classification: "equivalent" | "different" | "uncertain";
+            /** Field */
+            field: string;
+            /** Guard Code */
+            guard_code?: string | null;
+            /** Proposed Value */
+            proposed_value?: string | null;
+            /** Reason */
+            reason: string;
+            /** Source Fingerprint */
+            source_fingerprint: string;
+            /** Source Ids */
+            source_ids: string[];
+            /** Source Observation Id */
+            source_observation_id?: string | null;
         };
         /** Revision */
         Revision: {
@@ -1865,6 +2002,7 @@ export interface components {
         };
         /** Workspace */
         Workspace: {
+            ai_reconciliation?: components["schemas"]["ReconciliationBatch"] | null;
             /** Applicability */
             applicability?: {
                 [key: string]: components["schemas"]["Applicability"];
@@ -4342,6 +4480,216 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Capabilities"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    listAIReconciliations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconciliationRun"][];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    startAIReconciliation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReconciliationInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconciliationRun"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    confirmAIReconciliation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReconciliationApply"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WorkspaceRead"];
                 };
             };
             /** @description Bad Request */

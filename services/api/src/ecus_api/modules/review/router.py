@@ -15,6 +15,7 @@ from ecus_api.modules.review import (
     ai_traces,
     extraction,
     processing,
+    reconciliation,
     revisions,
     service,
     template_library,
@@ -45,6 +46,64 @@ from ecus_api.storage.local import LocalBlobStore
 
 router = APIRouter(prefix="/cases/{case_id}/review", tags=["document-review"])
 Session = Annotated[AsyncSession, Depends(get_session)]
+
+
+@router.get(
+    "/reconciliations",
+    response_model=list[reconciliation.ReconciliationRun],
+    operation_id="listAIReconciliations",
+)
+async def list_reconciliations(
+    case_id: UUID, session: Session
+) -> list[reconciliation.ReconciliationRun]:
+    state = await service.load(session, case_id)
+    jobs = await session.scalars(
+        select(ProcessingJob)
+        .where(
+            ProcessingJob.kind == reconciliation.JOB_KIND,
+            ProcessingJob.payload["case_id"].as_string() == str(case_id),
+        )
+        .order_by(ProcessingJob.created_at.desc())
+        .limit(20)
+    )
+    return [reconciliation.describe(job, state) for job in jobs]
+
+
+@router.post(
+    "/reconciliations",
+    response_model=reconciliation.ReconciliationRun,
+    status_code=202,
+    operation_id="startAIReconciliation",
+)
+async def start_reconciliation(
+    case_id: UUID, data: reconciliation.ReconciliationInput, session: Session, request: Request
+) -> reconciliation.ReconciliationRun:
+    state = await current(session, case_id, data.revision)
+    payload = reconciliation.prepare(state, data, settings_for(request))
+    payload["case_id"] = str(case_id)
+    job_id = await request.app.state.jobs.submit(
+        reconciliation.JOB_KIND,
+        payload,
+        deduplicate_by=("case_id", "fingerprint", "prompt_version"),
+        reuse_finished=True,
+    )
+    job = await session.get(ProcessingJob, job_id)
+    assert job is not None
+    return reconciliation.describe(job, state)
+
+
+@router.post(
+    "/reconciliations/{job_id}/apply",
+    response_model=WorkspaceRead,
+    operation_id="confirmAIReconciliation",
+)
+async def confirm_reconciliation(
+    case_id: UUID, job_id: UUID, data: reconciliation.ReconciliationApply, session: Session
+) -> WorkspaceRead:
+    state = await current(session, case_id, data.revision)
+    reconciliation.apply(state, job_id, data)
+    await service.save(session, case_id, state, data.revision)
+    return output(state)
 
 
 @router.get("/ai-traces", response_model=ai_traces.TracePage, operation_id="listReviewAICalls")
@@ -123,6 +182,14 @@ async def process_documents(
     )
     if active:
         return processing.describe(active, state)
+    if await session.scalar(
+        select(ProcessingJob.id).where(
+            ProcessingJob.kind == reconciliation.JOB_KIND,
+            ProcessingJob.payload["case_id"].as_string() == str(case_id),
+            ProcessingJob.status.in_(["pending", "running"]),
+        )
+    ):
+        raise AppError("review_processing_active", "Wait for the current AI review first.", 409)
     payload = processing.prepare(state, settings_for(request), data.primary_invoice_id)
     payload["case_id"] = str(case_id)
     job_id = await request.app.state.jobs.submit(

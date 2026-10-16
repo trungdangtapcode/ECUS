@@ -148,7 +148,11 @@
     "primary_invoice_required": "Có nhiều hóa đơn trong bộ chứng từ. Chọn hóa đơn chính trước khi xử lý các dòng hàng.",
     "ai_model_unavailable": "Tài khoản nhà cung cấp chưa có quyền dùng mô hình AI đang chọn. Kiểm tra quyền truy cập hoặc cấu hình mô hình có sẵn.",
     "ai_trace_unavailable": "Không thể lưu nhật ký AI. Kiểm tra thư mục lưu trữ.",
-    "ai_trace_not_found": "Không tìm thấy nhật ký gọi AI trong hồ sơ này."
+    "ai_trace_not_found": "Không tìm thấy nhật ký gọi AI trong hồ sơ này.",
+    "reconciliation_not_needed": "Không có giá trị chênh lệch cần AI đối chiếu.",
+    "reconciliation_stale": "Chứng từ hoặc đề xuất đã thay đổi. Tải lại hồ sơ trước khi xác nhận.",
+    "reconciliation_review_required": "Cần xác nhận đã rà soát chứng từ nguồn.",
+    "reconciliation_value_already_reviewed": "Đã có giá trị do người dùng chọn. Hãy chỉnh sửa hoặc thu hồi lựa chọn đó trước khi dùng đề xuất khác."
   },
   "notFound": {
     "title": "Không tìm thấy trang",
@@ -896,7 +900,8 @@
     "originalExportFormV2": "Form Excel gốc · V2",
     "originalFormFeedback": "Biểu mẫu Excel V2",
     "adoptProfileRules": "Áp dụng định nghĩa trường của phiên bản form này và rà soát lại các giá trị bị ảnh hưởng",
-    "blankUnreviewed": "Chưa có giá trị được xác nhận. Cần kiểm tra nguồn và trích xuất AI; chưa thể kết luận chứng từ không có thông tin."
+    "blankUnreviewed": "Chưa có giá trị được xác nhận. Cần kiểm tra nguồn và trích xuất AI; chưa thể kết luận chứng từ không có thông tin.",
+    "aiConfirmedValue": "Đã xác nhận đề xuất từ AI"
   },
   "processing": {
     "title": "Xử lý bộ chứng từ",
@@ -941,7 +946,8 @@
       "attention": "Cần xử lý",
       "missing": "Chưa có giá trị",
       "resolved": "Đã xử lý",
-      "all": "Tất cả"
+      "all": "Tất cả",
+      "equivalent": "Cùng ý nghĩa"
     },
     "filterEmpty": "Không có trường thuộc nhóm này. Chọn tất cả để xem cả trường thiếu dữ liệu.",
     "lineIdentity": "Căn cứ ghép dòng hàng: {{value}}",
@@ -970,7 +976,8 @@
     "phases": {
       "classification": "Phân loại chứng từ",
       "extraction": "Trích xuất dữ liệu",
-      "direct": "Gọi trực tiếp"
+      "direct": "Gọi trực tiếp",
+      "reconciliation": "Đối chiếu ý nghĩa giữa các nguồn"
     },
     "status": {
       "running": "Đang gọi",
@@ -986,6 +993,43 @@
     "validationDetails": "Chi tiết kiểm tra · {{count}} mục",
     "acceptedCount": "{{count}} hợp lệ",
     "rejectedCount": "{{count}} bị loại",
-    "notProposedCount": "{{count}} không đề xuất"
+    "notProposedCount": "{{count}} không đề xuất",
+    "semanticInputSummary": "{{fields}} trường chênh lệch · trích dẫn và ngữ cảnh nguồn · một lần gọi"
+  },
+  "reconciliation": {
+    "title": "AI đối chiếu cách viết giữa các nguồn",
+    "description": "Tách cách viết tương đương khỏi khác biệt cần xử lý. AI có thể đề xuất chọn nguồn hoặc chuẩn hóa thành giá trị khác.",
+    "budget": "Một lần gọi cho toàn bộ chênh lệch. Bộ chứng từ chưa thay đổi sẽ dùng lại kết quả; xem nguồn, xác nhận và xuất Excel không gọi thêm AI.",
+    "start": "Rà soát toàn bộ · 1 lần gọi AI",
+    "cached": "Đã lưu kết quả AI",
+    "running": "Đang đối chiếu…",
+    "runningNotice": "Một lượt AI đang rà soát toàn bộ trường có chênh lệch. Bạn có thể tiếp tục xem chứng từ.",
+    "summary": "{{equivalent}} trường cùng ý nghĩa · {{different}} trường khác hoặc chưa rõ",
+    "equivalentGroup": "{{count}} trường tương đương chờ xác nhận",
+    "reviewNotice": "Kiểm tra chứng từ rồi xác nhận các giá trị này cùng lúc. AI không xác nhận hoàn tất hồ sơ.",
+    "inspect": "Xem nguồn",
+    "confirmEquivalent": "Rà soát {{count}} giá trị tương đương",
+    "proposal": "Đề xuất giá trị từ AI",
+    "classifications": {
+      "equivalent": "Cùng ý nghĩa · chờ xác nhận",
+      "different": "Khác biệt thực chất · cần quyết định",
+      "uncertain": "Chưa đủ căn cứ xác định tương đương"
+    },
+    "sourceProposal": "Đề xuất dùng giá trị có sẵn (A/B)",
+    "standardizedProposal": "Đề xuất cách viết chuẩn hóa (C)",
+    "useProposal": "Rà soát đề xuất này",
+    "operatorChoiceKept": "Giữ nguyên giá trị bạn đã chọn. Dùng Sửa giá trị nếu cần thay đổi.",
+    "confirmReason": "Đã kiểm tra chứng từ nguồn và xác nhận các giá trị đề xuất cho dữ liệu tổng hợp.",
+    "confirmReview": "Tôi đã kiểm tra chứng từ nguồn và xác nhận các giá trị đề xuất đang chọn.",
+    "guards": {
+      "numeric_difference": "Các nguồn có số khác nhau. Giữ riêng các giá trị để rà soát.",
+      "unit_difference": "Chưa xác định các đơn vị tương đương. Cần kiểm tra cơ sở quy đổi.",
+      "value_type_difference": "Các nguồn có kiểu giá trị không tương thích. Cần xem lại chứng từ.",
+      "critical_fact_difference": "Số định danh hoặc địa điểm vận tải khác nhau. Có liên quan không đồng nghĩa với cùng một giá trị.",
+      "source_coverage_invalid": "Kết quả chưa bao phủ đúng các nguồn chứng từ. Chưa áp dụng đề xuất.",
+      "proposed_value_unsupported": "Đề xuất chưa được chứng từ hỗ trợ. Chọn nguồn hoặc nhập giá trị đã rà soát.",
+      "model_omitted": "AI chưa đưa ra một kết luận hợp lệ cho trường này. Cần rà soát các nguồn."
+    },
+    "attemptSaved": "Lượt gọi đã được ghi nhận"
   }
 }

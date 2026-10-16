@@ -23,6 +23,8 @@ class AIResult[T: BaseModel]:
 
 
 class StructuredAI(Protocol):
+    async def reconcile_values(self, text: str, schema: type[T]) -> AIResult[T]: ...
+
     async def extract_document(
         self, text: str, schema: type[T], *, images: tuple[ImageInput, ...] = ()
     ) -> AIResult[T]: ...

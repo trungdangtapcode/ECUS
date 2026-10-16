@@ -86,6 +86,18 @@ class OpenAICompatible:
             images=(),
         )
 
+    async def reconcile_values(self, text: str, schema: type[T]) -> AIResult[T]:
+        prompt = files("ecus_api.ai").joinpath(
+            f"prompts/reconcile-values.{self.settings.reconciliation_prompt_version}.txt"
+        )
+        return await self._complete(
+            model=self.settings.ai_reconciliation_model or self.settings.ai_extraction_model,
+            instructions=prompt.read_text(encoding="utf-8"),
+            text=text,
+            schema=schema,
+            images=(),
+        )
+
     async def _complete(
         self,
         *,

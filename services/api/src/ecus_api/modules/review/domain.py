@@ -20,6 +20,7 @@ from ecus_api.modules.review.schemas import (
     Readiness,
     Workspace,
 )
+from ecus_api.modules.review.semantic import current_decision
 
 
 def normalize(quote: str, value_type: str, unit: str, locale: str) -> tuple[str, str]:
@@ -204,6 +205,8 @@ def evaluate(state: Workspace) -> Readiness:
                 blockers.append(f"{required_rule.field}:template_mapping_missing")
     for field in fields:
         observations = [item for item in active if item.field == field]
+        semantic_review = current_decision(state, field)
+        equivalent = bool(semantic_review and semantic_review.classification == "equivalent")
         definition = (
             next((item for item in state.policy.fields if item.field == field), None)
             if state.policy
@@ -252,6 +255,8 @@ def evaluate(state: Workspace) -> Readiness:
                 status = "NEEDS_REVIEW"
             else:
                 status = "MISMATCH"
+            if equivalent:
+                status = "MATCH"
         selection = state.selections.get(field)
         chosen = next(
             (item for item in observations if selection and item.id == selection.observation_id),
@@ -306,10 +311,12 @@ def evaluate(state: Workspace) -> Readiness:
                     blockers.append(f"{field}:source_exception_requires_review")
         comparisons.append(
             Comparison(
+                semantic_review=semantic_review,
                 source_values_differ=len(
                     {comparison_value(item, definition) for item in observations}
                 )
-                > 1,
+                > 1
+                and not equivalent,
                 consistent=consistent,
                 field=field,
                 status=status,

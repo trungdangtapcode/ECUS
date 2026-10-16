@@ -148,7 +148,11 @@
     "primary_invoice_required": "Several invoices were found. Choose the primary invoice before processing goods lines.",
     "ai_model_unavailable": "The selected AI model is unavailable to this provider account. Check model access or configure an available model.",
     "ai_trace_unavailable": "Private AI log storage is unavailable.",
-    "ai_trace_not_found": "This AI call log was not found in the case."
+    "ai_trace_not_found": "This AI call log was not found in the case.",
+    "reconciliation_not_needed": "No differing mapped values need AI comparison.",
+    "reconciliation_stale": "The evidence or proposal changed. Reload the case before confirming.",
+    "reconciliation_review_required": "Confirm that you have reviewed the source evidence.",
+    "reconciliation_value_already_reviewed": "An operator choice already exists. Edit or withdraw it explicitly before using another proposal."
   },
   "notFound": {
     "title": "Page not found",
@@ -896,7 +900,8 @@
     "originalExportFormV2": "Original Excel form · V2",
     "originalFormFeedback": "Excel form V2",
     "adoptProfileRules": "Apply this form version’s field definitions and review affected values again",
-    "blankUnreviewed": "No confirmed value yet. Check the source and AI extraction; this does not establish that the documents lack this information."
+    "blankUnreviewed": "No confirmed value yet. Check the source and AI extraction; this does not establish that the documents lack this information.",
+    "aiConfirmedValue": "AI proposal confirmed by operator"
   },
   "processing": {
     "title": "Process the document set",
@@ -941,7 +946,8 @@
       "attention": "Needs review",
       "missing": "No value yet",
       "resolved": "Reviewed",
-      "all": "All fields"
+      "all": "All fields",
+      "equivalent": "Equivalent"
     },
     "filterEmpty": "No fields match this filter. Choose all fields to inspect missing values.",
     "lineIdentity": "Matched goods identity: {{value}}",
@@ -970,7 +976,8 @@
     "phases": {
       "classification": "Document classification",
       "extraction": "Field extraction",
-      "direct": "Direct call"
+      "direct": "Direct call",
+      "reconciliation": "Semantic source comparison"
     },
     "status": {
       "running": "Running",
@@ -986,6 +993,43 @@
     "validationDetails": "Validation details · {{count}} items",
     "acceptedCount": "{{count}} accepted",
     "rejectedCount": "{{count}} rejected",
-    "notProposedCount": "{{count}} not proposed"
+    "notProposedCount": "{{count}} not proposed",
+    "semanticInputSummary": "{{fields}} differing fields · source quotations and nearby context · one request"
+  },
+  "reconciliation": {
+    "title": "AI comparison of source values",
+    "description": "Separate equivalent wording from differences that need a decision. AI may propose a source value or standardized text.",
+    "budget": "One request for the full set of differences. Unchanged evidence reuses the saved result; viewing, confirming and exporting make no extra AI calls.",
+    "start": "Compare all differences · 1 AI call",
+    "cached": "Saved AI review",
+    "running": "Comparing sources…",
+    "runningNotice": "One AI request is reviewing all differing fields. You can continue reading the evidence.",
+    "summary": "{{equivalent}} equivalent fields · {{different}} different or uncertain fields",
+    "equivalentGroup": "{{count}} equivalent fields awaiting confirmation",
+    "reviewNotice": "Review the evidence, then confirm these values together. AI does not approve the case.",
+    "inspect": "Inspect sources",
+    "confirmEquivalent": "Review {{count}} equivalent values",
+    "proposal": "AI value proposal",
+    "classifications": {
+      "equivalent": "Same meaning · awaiting confirmation",
+      "different": "Different facts · decision required",
+      "uncertain": "Equivalence not established"
+    },
+    "sourceProposal": "Proposed existing source value (A/B)",
+    "standardizedProposal": "Proposed standardized text (C)",
+    "useProposal": "Review this AI proposal",
+    "operatorChoiceKept": "Your existing choice is retained. Use Edit value to change it.",
+    "confirmReason": "Reviewed the supporting evidence and confirmed the proposed consolidated values.",
+    "confirmReview": "I checked the source documents and confirm the selected proposed values.",
+    "guards": {
+      "numeric_difference": "The sources contain different numbers. They remain separate for review.",
+      "unit_difference": "The units are not established as equivalent. Check the measurement basis.",
+      "value_type_difference": "The sources use incompatible value types. Review the original evidence.",
+      "critical_fact_difference": "The identifiers or transport locations differ. A relationship between them does not establish equality.",
+      "source_coverage_invalid": "The response did not cover the exact source set. No proposal was applied.",
+      "proposed_value_unsupported": "The proposed value is not supported by the source evidence. Choose a source or enter a reviewed value.",
+      "model_omitted": "AI did not return a unique supported decision. Review the sources manually."
+    },
+    "attemptSaved": "AI attempt recorded"
   }
 }

@@ -20,6 +20,21 @@ without retyping it, and both reconciliation panels stay synchronized with the P
 Manual consolidated values remain available. Missing or unresolved values remain blank
 and red in review drafts. Completion approval is a separate action.
 
+In **Reconciliation**, **Compare all differences · 1 AI call** sends all differing mapped
+fields, source quotations and nearby context in one text-only request. Equivalent wording
+is grouped for joint confirmation; substantive or uncertain differences remain available
+for individual source selection or a manual value. AI can propose an exact existing value
+or standardized text C. Original evidence and existing operator choices remain unchanged.
+Confirming proposals does not approve the case or override arithmetic validation.
+
+Unchanged evidence reuses the saved request, including after page reload, language changes
+and value confirmation. There are no automatic paid retries. Oversized batches fail before
+calling the provider rather than silently splitting into more calls. Input/output and
+guard rejections use the existing private AI trace viewer. `AI_RECONCILIATION_MODEL` is
+optional and otherwise reuses `AI_EXTRACTION_MODEL`; limits and the versioned prompt are
+configured through settings. Ordinary extraction remains a separate workflow with its own
+document/field batching.
+
 The system does not transmit official customs declarations or certify legal/HS
 correctness. Individual accounts and role-based authorization are not implemented.
 Default network bindings are loopback; do not expose the unauthenticated API publicly.
