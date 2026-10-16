@@ -157,6 +157,8 @@ test("One AI call groups equivalent values, supports text C, and leaves real dif
   await confirmation.getByRole("button", { name: en.integration.saveValue, exact: true }).click();
   expect((await saved).status()).toBe(200);
   await expect(panel.locator(".ai-equivalent-row")).toHaveCount(0);
+  await page.getByLabel(en.integration.findField).fill("company_name");
+  await issues.getByRole("button").first().click();
   await expect(page.locator('.canonical-entry[data-field="company_name"]')).toContainText(
     en.integration.aiConfirmedValue,
   );
