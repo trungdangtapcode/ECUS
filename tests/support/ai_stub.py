@@ -21,9 +21,13 @@ def semantic_decisions(prompt):
         decisions.append(
             {
                 "field": field["field"],
-                "classification": "equivalent" if same or company or address or port else "different",
+                "classification": "equivalent"
+                if same or company or address or port
+                else "different",
                 "source_ids": [item["id"] for item in sources],
-                "source_observation_id": source["id"] if same and not (company or address or port) else None,
+                "source_observation_id": source["id"]
+                if same and not (company or address or port)
+                else None,
                 "proposed_value": "Example Company, Joint Stock Company"
                 if company
                 else source["value"]
@@ -64,6 +68,38 @@ class Handler(BaseHTTPRequestHandler):
                     }
                 )
             for field in prompt["requested_fields"]:
+                currency_header = "Unit Price (EUR/kg) Amount (EUR)"
+                if field["field"] == "invoice_currency" and currency_header in text:
+                    # Reproduce a provider's broad, repeated-code context for guard regression.
+                    fields.append(
+                        dict(
+                            field=field["field"],
+                            document_type=kind,
+                            page=page["page"],
+                            quote="EUR",
+                            source_offset=None,
+                            source_context=currency_header,
+                            unit="",
+                            number_locale="en",
+                            confidence=0.95,
+                        )
+                    )
+                    continue
+                if field["field"] == "invoice_incoterm" and "Incoterm: FOB" in text:
+                    fields.append(
+                        dict(
+                            field=field["field"],
+                            document_type=kind,
+                            page=page["page"],
+                            quote="FOB",
+                            source_offset=None,
+                            source_context="Incoterm: FOB",
+                            unit="",
+                            number_locale="en",
+                            confidence=0.95,
+                        )
+                    )
+                    continue
                 match = re.search(r"(?:Quantity|Total):\s*([0-9,]+(?:\.[0-9]+)?)", text)
                 if field["field"] not in {"invoice_total", "quantity"} or not match:
                     continue

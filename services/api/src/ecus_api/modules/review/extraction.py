@@ -166,7 +166,11 @@ def handler(
             page = effective_pages(document)[proposal.page - 1]
             try:
                 offset = resolve_quote_offset(
-                    page, proposal.quote, proposal.source_offset, proposal.source_context
+                    page,
+                    proposal.quote,
+                    proposal.source_offset,
+                    proposal.source_context,
+                    currency=rule.normalization == "currency",
                 )
                 normalize_field(proposal.quote, rule, proposal.unit, proposal.number_locale)
                 item = ObservationInput(

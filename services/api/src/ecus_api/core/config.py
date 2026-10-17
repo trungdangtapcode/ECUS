@@ -24,8 +24,8 @@ class Settings(BaseSettings):
     extraction_field_batch_size: int = Field(default=40, ge=1, le=50)
     extraction_page_batch_size: int = Field(default=8, ge=1, le=30)
     extraction_field_catalog_path: Path = Path("reference-data/ai-field-catalog.v1.json")
-    review_set_prompt_version: str = Field(default="v3", pattern=r"^[a-zA-Z0-9_-]+$")
-    review_source_prompt_version: str = Field(default="v3", pattern=r"^[a-zA-Z0-9_-]+$")
+    review_set_prompt_version: str = Field(default="v4", pattern=r"^[a-zA-Z0-9_-]+$")
+    review_source_prompt_version: str = Field(default="v4", pattern=r"^[a-zA-Z0-9_-]+$")
     extraction_use_page_images: bool = False
     extraction_image_dpi: int = Field(default=120, ge=72, le=200)
     extraction_image_jpeg_quality: int = Field(default=85, ge=50, le=95)

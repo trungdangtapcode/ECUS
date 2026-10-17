@@ -23,6 +23,14 @@ selection, image support and limits come from settings. Versioned prompts and fi
 descriptions are separate from transport code. Provider output is validated against the
 application schema and source evidence; valid JSON alone does not establish correctness.
 
+Currency proposals retain their exact printed code even when the same code appears in
+both price and amount headers. If a provider supplies one unique exact context containing
+the code multiple times, the source guard can narrow it to one explicitly labeled monetary
+header. Conflicting codes, tied headers, nonunique contexts and ambiguous numeric quotes
+remain subject to rejection. This does not supply missing currencies or confirm proposals
+on the operator's behalf. Versioned extraction prompts request short, single-occurrence
+contexts; previously created exports are never recomputed by this change.
+
 Local Tesseract OCR handles scans and retains word positions. Whole-set processing uses
 a bounded in-process job runner, records progress and imports proposals under revision
 checks. Run one API process/replica. Interrupted jobs require an explicit retry; the

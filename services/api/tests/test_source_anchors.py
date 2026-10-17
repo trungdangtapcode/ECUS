@@ -33,3 +33,39 @@ def test_unsupported_or_ambiguous_evidence_is_rejected(
     with pytest.raises(AppError) as error:
         resolve_quote_offset("Line: 12000\nTotal: 12000", quote, 0, context)
     assert error.value.code == code
+
+
+def test_currency_repeated_in_unique_price_and_amount_context_anchors_to_amount() -> None:
+    context = "Unit Price\n(EUR/kg) Amount (EUR)"
+    page = "Account (EUR)\n" + context + "\n100"
+    offset = resolve_quote_offset(page, "EUR", None, context, currency=True)
+    assert offset == page.rindex("EUR")
+    assert page[offset : offset + 3] == "EUR"
+    with pytest.raises(AppError, match="Repeated quotes"):
+        resolve_quote_offset(page, "EUR", None, context)
+
+
+@pytest.mark.parametrize(
+    "context",
+    [
+        "Currency EUR Unit Price (CAD/kg) Amount (EUR)",
+        "Amount (EUR) Amount (EUR)",
+        "Account (EUR) Beneficiary (EUR)",
+    ],
+)
+def test_currency_fallback_rejects_conflicting_or_unlabeled_anchors(context: str) -> None:
+    page = "Other (EUR)\n" + context
+    with pytest.raises(AppError) as error:
+        resolve_quote_offset(page, "EUR", None, context, currency=True)
+    assert error.value.code == "source_quote_ambiguous"
+
+
+def test_currency_fallback_requires_exact_unique_context_and_never_relaxes_numbers() -> None:
+    context = "Unit Price (EUR/kg) Amount (EUR)"
+    for page, quote, evidence in [
+        (context + "\n" + context, "EUR", context),
+        (context, "EUR", context.replace(" ", "  ")),
+        ("Line: 12000\nTotal: 12000", "12000", "Line: 12000\nTotal: 12000"),
+    ]:
+        with pytest.raises(AppError):
+            resolve_quote_offset(page, quote, None, evidence, currency=True)

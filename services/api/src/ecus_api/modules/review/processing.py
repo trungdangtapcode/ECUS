@@ -484,6 +484,7 @@ def handler(
                         proposal.quote,
                         proposal.source_offset,
                         proposal.source_context,
+                        currency=rule.normalization == "currency",
                     )
                     observation = service.add_observation(
                         state,
