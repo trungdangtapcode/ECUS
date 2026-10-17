@@ -579,3 +579,61 @@
     margin-left: 0;
   }
 }
+
+.case-lifecycle {
+  margin-top: 24px;
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.case-lifecycle > div:first-child {
+  flex: 1 1 320px;
+}
+.case-lifecycle h2 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+.case-lifecycle p {
+  max-width: 660px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.case-lifecycle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.case-lifecycle > .error-state {
+  flex-basis: 100%;
+}
+.theme-root .case-delete-action {
+  color: #a44237;
+}
+.theme-root .case-delete-confirm {
+  background: #a44237;
+  color: white;
+}
+.theme-root .case-delete-confirm:hover:not(:disabled) {
+  background: #88362d;
+}
+.case-delete-name {
+  padding: 12px 16px;
+  background: var(--canvas);
+  border-left: 2px solid #a44237;
+  overflow-wrap: anywhere;
+}
+.case-delete-dialog .field input {
+  font-family: inherit;
+}
+.register-filters > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.register-body:has(> .case-register):not(:has(> .review-agenda)) {
+  grid-template-columns: minmax(0, 1fr);
+}

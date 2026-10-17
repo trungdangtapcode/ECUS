@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { ArrowRight, FolderPlus, Plus, Search } from "lucide-react";
+import { Archive, ArrowRight, FolderPlus, Plus, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { ErrorState } from "../../components/error-state";
 import { casesQuery, pageSize } from "./queries";
@@ -16,9 +16,13 @@ export function CasesPage() {
   const [creating, setCreating] = useState(false);
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState("");
-  const query = useQuery(casesQuery(offset));
+  const [params, setParams] = useSearchParams();
+  const archived = params.get("view") === "archived";
+  const query = useQuery(casesQuery(offset, archived));
   const items = query.data?.items ?? [];
-  const reviews = useQueries({ queries: items.map((item) => reviewQuery(item.id)) });
+  const reviews = useQueries({
+    queries: archived ? [] : items.map((item) => reviewQuery(item.id)),
+  });
   const complete = query.isSuccess && reviews.every((review) => review.isSuccess);
   const pendingReviews = reviews.some((review) => review.isPending);
   const failedReview = reviews.find((review) => review.isError);
@@ -75,8 +79,8 @@ export function CasesPage() {
       <section className="page-heading">
         <div>
           <p className="eyebrow">{t("harborApp.eyebrow")}</p>
-          <h1>{t("harborApp.overview")}</h1>
-          <p>{t("harborApp.overviewDescription")}</p>
+          <h1>{t(archived ? "cases.archivedTitle" : "harborApp.overview")}</h1>
+          <p>{t(archived ? "cases.archiveListDescription" : "harborApp.overviewDescription")}</p>
         </div>
         <Button onClick={() => setCreating(true)}>
           <Plus size={18} />
@@ -84,15 +88,17 @@ export function CasesPage() {
         </Button>
       </section>
       <div className="overview-register">
-        <ShipmentCover item={items[0]} onCreate={() => setCreating(true)} />
-        <dl className="register-totals" aria-label={t("harborApp.pageScope")}>
-          {counts.map((count, index) => (
-            <div key={labels[index]}>
-              <dt>{t(labels[index]!)}</dt>
-              <dd>{count === undefined ? "—" : String(count).padStart(2, "0")}</dd>
-            </div>
-          ))}
-        </dl>
+        {!archived && <ShipmentCover item={items[0]} onCreate={() => setCreating(true)} />}
+        {!archived && (
+          <dl className="register-totals" aria-label={t("harborApp.pageScope")}>
+            {counts.map((count, index) => (
+              <div key={labels[index]}>
+                <dt>{t(labels[index]!)}</dt>
+                <dd>{count === undefined ? "—" : String(count).padStart(2, "0")}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
         <div className="register-body">
           <section className="case-register register" aria-labelledby="register-title">
             <div className="register-heading">
@@ -102,10 +108,21 @@ export function CasesPage() {
               </span>
             </div>
             <div className="register-tools">
-              <div className="register-filters">
-                <button aria-pressed={!search.trim()} onClick={() => setSearch("")}>
-                  {t("harborApp.all")}
-                </button>
+              <div className="register-filters" role="group" aria-label={t("cases.scope")}>
+                {[false, true].map((value) => (
+                  <button
+                    key={String(value)}
+                    aria-pressed={archived === value}
+                    onClick={() => {
+                      setOffset(0);
+                      setSearch("");
+                      setParams(value ? { view: "archived" } : {});
+                    }}
+                  >
+                    {value && <Archive size={14} />}
+                    {t(value ? "cases.archived" : "cases.active")}
+                  </button>
+                ))}
               </div>
               <label className="register-search">
                 <Search size={15} />
@@ -129,11 +146,13 @@ export function CasesPage() {
             {query.isSuccess && !items.length && (
               <div className="empty-state">
                 <FolderPlus size={32} strokeWidth={1.4} />
-                <h3>{t("cases.emptyTitle")}</h3>
-                <p>{t("cases.emptyDescription")}</p>
-                <Button variant="secondary" onClick={() => setCreating(true)}>
-                  {t("cases.emptyAction")}
-                </Button>
+                <h3>{t(archived ? "cases.archiveEmpty" : "cases.emptyTitle")}</h3>
+                <p>{t(archived ? "cases.archiveEmptyDescription" : "cases.emptyDescription")}</p>
+                {!archived && (
+                  <Button variant="secondary" onClick={() => setCreating(true)}>
+                    {t("cases.emptyAction")}
+                  </Button>
+                )}
               </div>
             )}
             {items.length > 0 && (
@@ -179,14 +198,16 @@ export function CasesPage() {
                               }
                             >
                               {t(
-                                `caseWorkflow.${workflowStatus(reviews[items.findIndex((record) => record.id === item.id)]?.data)}`,
+                                archived
+                                  ? "cases.archived"
+                                  : `caseWorkflow.${workflowStatus(reviews[items.findIndex((record) => record.id === item.id)]?.data)}`,
                               )}
                             </span>
                           </td>
                           <td>
                             <Link
                               className="register-open"
-                              to={`/cases/${item.id}/review`}
+                              to={archived ? `/cases/${item.id}` : `/cases/${item.id}/review`}
                               aria-label={`${t("review.open")} · ${item.reference}`}
                             >
                               <ArrowRight size={17} />
@@ -229,42 +250,44 @@ export function CasesPage() {
               <span>{t("app.footer")}</span>
             </div>
           </section>
-          <aside className="review-agenda">
-            <div className="register-heading">
-              <div>
-                <p className="register-caption">{t("harborApp.next")}</p>
-                <h2>{t("harborApp.attention")}</h2>
+          {!archived && (
+            <aside className="review-agenda">
+              <div className="register-heading">
+                <div>
+                  <p className="register-caption">{t("harborApp.next")}</p>
+                  <h2>{t("harborApp.attention")}</h2>
+                </div>
               </div>
-            </div>
-            <ol>
-              {agenda.map(({ item, count }, index) => (
-                <li key={item.id}>
-                  <Link to={`/cases/${item.id}/review?section=compare`}>
-                    <span className="agenda-index">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="agenda-copy">
-                      <small>{item.reference}</small>
-                      <strong>{item.title}</strong>
-                      <span>
-                        {t("harborApp.agendaIssues", { count })}
-                        <ArrowRight size={13} />
+              <ol>
+                {agenda.map(({ item, count }, index) => (
+                  <li key={item.id}>
+                    <Link to={`/cases/${item.id}/review?section=compare`}>
+                      <span className="agenda-index">{String(index + 1).padStart(2, "0")}</span>
+                      <span className="agenda-copy">
+                        <small>{item.reference}</small>
+                        <strong>{item.title}</strong>
+                        <span>
+                          {t("harborApp.agendaIssues", { count })}
+                          <ArrowRight size={13} />
+                        </span>
                       </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-            {pendingReviews && <p role="status">{t("common.loading")}</p>}
-            {failedReview && (
-              <ErrorState
-                error={failedReview.error}
-                onRetry={() => reviews.forEach((review) => void review.refetch())}
-              />
-            )}
-            {complete && !agenda.length && (
-              <p className="agenda-clear">{t("harborApp.emptyAgenda")}</p>
-            )}
-            <p className="agenda-note">{t("studioVisual.reviewNote")}</p>
-          </aside>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+              {pendingReviews && <p role="status">{t("common.loading")}</p>}
+              {failedReview && (
+                <ErrorState
+                  error={failedReview.error}
+                  onRetry={() => reviews.forEach((review) => void review.refetch())}
+                />
+              )}
+              {complete && !agenda.length && (
+                <p className="agenda-clear">{t("harborApp.emptyAgenda")}</p>
+              )}
+              <p className="agenda-note">{t("studioVisual.reviewNote")}</p>
+            </aside>
+          )}
         </div>
       </div>
       {creating && <CreateCaseDialog onClose={() => setCreating(false)} />}

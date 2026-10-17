@@ -5,16 +5,16 @@ import { api } from "../../lib/api";
 
 export const caseKeys = {
   all: ["cases"] as const,
-  list: (offset: number) => ["cases", "list", offset] as const,
+  list: (offset: number, archived: boolean) => ["cases", "list", archived, offset] as const,
 };
 export const pageSize = 20;
 
-export function casesQuery(offset: number) {
+export function casesQuery(offset: number, archived = false) {
   return queryOptions({
-    queryKey: caseKeys.list(offset),
+    queryKey: caseKeys.list(offset, archived),
     queryFn: async ({ signal }) => {
       const { data, error } = await api.GET("/api/v1/cases", {
-        params: { query: { limit: pageSize, offset } },
+        params: { query: { limit: pageSize, offset, archived } },
         signal,
       });
       if (error) throw new ApiError(error);
@@ -55,5 +55,38 @@ export function useCreateCase() {
       return data;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: caseKeys.all }),
+  });
+}
+
+export function useSetCaseArchived(id: string) {
+  const cache = useQueryClient();
+  return useMutation({
+    mutationFn: async (archived: boolean) => {
+      const { data, error } = await api.PUT("/api/v1/cases/{case_id}/archive", {
+        params: { path: { case_id: id } },
+        body: { archived },
+      });
+      if (error) throw new ApiError(error);
+      return data;
+    },
+    onSuccess: () => cache.invalidateQueries({ queryKey: caseKeys.all }),
+  });
+}
+
+export function useDeleteCase(id: string) {
+  const cache = useQueryClient();
+  return useMutation({
+    mutationFn: async (reference: string) => {
+      const { error, response } = await api.DELETE("/api/v1/cases/{case_id}", {
+        params: { path: { case_id: id } },
+        body: { reference },
+      });
+      if (error || !response.ok) throw new ApiError(error);
+    },
+    onSuccess: async () => {
+      cache.removeQueries({ queryKey: ["review", id] });
+      cache.removeQueries({ queryKey: ["cases", "detail", id] });
+      await cache.invalidateQueries({ queryKey: caseKeys.all });
+    },
   });
 }

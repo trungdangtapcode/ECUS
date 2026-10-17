@@ -224,3 +224,14 @@ Khi báo lỗi, gửi **mã hồ sơ, tên trường hoặc file, bước vừa 
 - [ ] Các quyết định chọn/sửa giá trị có căn cứ và đã bấm lưu.
 - [ ] Đã xem các ô còn trống và điều kiện chặn.
 - [ ] Đã tải đúng file, đúng nhãn **bản rà soát** hoặc **bản xuất đã xác nhận**.
+
+
+## Lưu trữ, khôi phục và xóa hồ sơ
+
+Tại **Tổng quan hồ sơ**, chọn **Đang làm việc** để xem các hồ sơ đang xử lý hoặc **Đã lưu trữ** để xem những hồ sơ đã tạm ẩn. Bấm tên hồ sơ để mở trang chi tiết.
+
+- **Lưu trữ hồ sơ**: ẩn khỏi danh sách làm việc, giữ nguyên chứng từ, kết quả rà soát và các bản xuất. Hồ sơ lưu trữ tạm ngừng chỉnh sửa và không chạy xử lý AI mới.
+- **Khôi phục hồ sơ**: tại trang chi tiết của hồ sơ lưu trữ, bấm nút này để đưa hồ sơ trở lại danh sách làm việc và tiếp tục xử lý.
+- **Xóa hồ sơ**: mở hộp xác nhận, nhập chính xác mã hồ sơ đang hiển thị rồi bấm **Xóa vĩnh viễn**. Bấm **Hủy** nếu chưa muốn xóa. Thao tác xóa dữ liệu hồ sơ, kết quả rà soát, lịch sử và liên kết tải các bản xuất khỏi ứng dụng; không thể hoàn tác. Việc này không xóa bản gốc trên máy của bạn và không phải thao tác tẩy xóa an toàn kho lưu trữ dùng chung.
+
+Nếu hồ sơ đang chạy tác vụ, chờ hoàn tất trước khi lưu trữ hoặc xóa. Lưu trữ không có nghĩa là đã hoàn tất rà soát hoặc đã khai báo hải quan.

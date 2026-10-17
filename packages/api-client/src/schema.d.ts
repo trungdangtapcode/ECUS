@@ -28,6 +28,24 @@ export interface paths {
         get: operations["getCase"];
         put?: never;
         post?: never;
+        /** Delete Case */
+        delete: operations["deleteCase"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cases/{case_id}/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set Archived */
+        put: operations["setCaseArchived"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -921,6 +939,11 @@ export interface components {
             /** Test Environment */
             test_environment: boolean;
         };
+        /** CaseArchiveInput */
+        CaseArchiveInput: {
+            /** Archived */
+            archived: boolean;
+        };
         /** CaseCreate */
         CaseCreate: {
             /** Procedure */
@@ -929,6 +952,11 @@ export interface components {
             reference: string;
             /** Title */
             title: string;
+        };
+        /** CaseDeleteInput */
+        CaseDeleteInput: {
+            /** Reference */
+            reference: string;
         };
         /** CasePage */
         CasePage: {
@@ -943,6 +971,8 @@ export interface components {
         };
         /** CaseRead */
         CaseRead: {
+            /** Archived At */
+            archived_at: string | null;
             /**
              * Created At
              * Format: date-time
@@ -2107,6 +2137,7 @@ export interface operations {
             query?: {
                 limit?: number;
                 offset?: number;
+                archived?: boolean;
             };
             header?: never;
             path?: never;
@@ -2249,6 +2280,146 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CaseRead"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteCase: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CaseDeleteInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    setCaseArchived: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CaseArchiveInput"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

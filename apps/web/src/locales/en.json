@@ -68,7 +68,25 @@
         "description": "Reopen your saved case whenever you need it."
       },
       "action": "Start a case"
-    }
+    },
+    "active": "Active",
+    "archived": "Archived",
+    "scope": "Case scope",
+    "manage": "Manage case",
+    "archive": "Archive case",
+    "restore": "Restore case",
+    "archivedTitle": "Archived cases",
+    "archiveDescription": "Hide this case from active work while keeping documents, review decisions and exports. Restore it whenever needed.",
+    "archivedDescription": "This case is archived and editing is paused. Restore it to continue viewing and processing documents.",
+    "archiveListDescription": "Cases with processing paused. Documents and history are preserved; open a case to restore or delete it.",
+    "archiveEmpty": "No archived cases",
+    "archiveEmptyDescription": "Archived cases appear here. Restore a case to continue working.",
+    "delete": "Delete case",
+    "deleteTitle": "Permanently delete this case?",
+    "deleteDescription": "Case data, review decisions, history and export download links will be removed from the application. This cannot be undone. To hide it temporarily, use Archive case.",
+    "deleteConfirmation": "Enter the exact reference {{reference}} to confirm",
+    "deleteForever": "Delete permanently",
+    "deleting": "Deleting…"
   },
   "workflow": {
     "title": "THE REVIEW PROCESS",
@@ -153,7 +171,10 @@
     "reconciliation_reference_unavailable": "Comparison reference data is unavailable. Check the reference configuration before running AI review.",
     "reconciliation_stale": "The evidence or proposal changed. Reload the case before confirming.",
     "reconciliation_review_required": "Confirm that you have reviewed the source evidence.",
-    "reconciliation_value_already_reviewed": "An operator choice already exists. Edit or withdraw it explicitly before using another proposal."
+    "reconciliation_value_already_reviewed": "An operator choice already exists. Edit or withdraw it explicitly before using another proposal.",
+    "case_archived": "This case is archived. Restore it before making changes.",
+    "case_processing_active": "This case is processing. Wait until processing finishes before archiving or deleting it.",
+    "case_reference_mismatch": "The confirmation does not match. Enter the exact reference of the case to delete."
   },
   "notFound": {
     "title": "Page not found",

@@ -10,7 +10,7 @@ from ecus_api.core.config import Settings
 from ecus_api.core.errors import AppError
 from ecus_api.db.session import get_session
 from ecus_api.jobs.models import ProcessingJob
-from ecus_api.modules.cases.service import get_case
+from ecus_api.modules.cases.service import get_case, require_active_case
 from ecus_api.modules.review import (
     ai_traces,
     extraction,
@@ -261,6 +261,7 @@ def output(state: Workspace) -> WorkspaceRead:
 async def current(
     session: AsyncSession, case_id: UUID, revision: int, *, allow_processing: bool = False
 ) -> Workspace:
+    await require_active_case(session, case_id)
     state = await service.load(session, case_id)
     if state.revision != revision:
         raise AppError(

@@ -7,6 +7,7 @@ import { caseQuery } from "./queries";
 import { useDesign } from "../../design/context";
 import { reviewQuery } from "../review/queries";
 import { workflowStatus } from "../review/workflow-status";
+import { CaseActions } from "./case-actions";
 
 export function CaseDetailPage() {
   const { caseId = "" } = useParams();
@@ -17,7 +18,7 @@ export function CaseDetailPage() {
   const item = query.data;
   return (
     <>
-      <Link className="back-link" to={path("/cases")}>
+      <Link className="back-link" to={path(item?.archived_at ? "/cases?view=archived" : "/cases")}>
         <ArrowLeft size={16} />
         {t("common.back")}
       </Link>
@@ -30,13 +31,19 @@ export function CaseDetailPage() {
               <p className="eyebrow">{item.reference}</p>
               <h1>{item.title}</h1>
             </div>
-            <span className="status-badge">{t(`caseWorkflow.${workflowStatus(review.data)}`)}</span>
+            <span className="status-badge">
+              {t(
+                item.archived_at ? "cases.archived" : `caseWorkflow.${workflowStatus(review.data)}`,
+              )}
+            </span>
           </section>
           <section className="register detail-card">
             <h2>{t("cases.detailTitle")}</h2>
-            <Link className="button button-primary" to={path(`/cases/${caseId}/review`)}>
-              {t("review.open")}
-            </Link>
+            {!item.archived_at && (
+              <Link className="button button-primary" to={path(`/cases/${caseId}/review`)}>
+                {t("review.open")}
+              </Link>
+            )}
             <div className="detail-content">
               <dl>
                 <div>
@@ -57,12 +64,15 @@ export function CaseDetailPage() {
                   </dd>
                 </div>
               </dl>
-              <div className="info-note">
-                <Check size={20} />
-                <p>{t("cases.detailDescription")}</p>
-              </div>
+              {!item.archived_at && (
+                <div className="info-note">
+                  <Check size={20} />
+                  <p>{t("cases.detailDescription")}</p>
+                </div>
+              )}
             </div>
           </section>
+          <CaseActions item={item} />
         </>
       )}
     </>

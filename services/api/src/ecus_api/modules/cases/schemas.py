@@ -27,6 +27,19 @@ class CaseRead(BaseModel):
     procedure: str
     status: Literal["draft"]
     created_at: datetime
+    archived_at: datetime | None
+
+
+class CaseArchiveInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    archived: bool
+
+
+class CaseDeleteInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    reference: str = Field(min_length=1, max_length=40)
 
 
 class CasePage(BaseModel):

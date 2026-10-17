@@ -17,3 +17,4 @@ class ShipmentCase(Base):
     procedure: Mapped[str] = mapped_column(ForeignKey("declaration_profiles.code"))
     status: Mapped[str] = mapped_column(String(32), default="draft")
     created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utcnow)
+    archived_at: Mapped[datetime | None] = mapped_column(UTCDateTime(), nullable=True)

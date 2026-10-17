@@ -51,6 +51,11 @@ without retyping it, and both reconciliation panels stay synchronized with the P
 Manual consolidated values remain available. Missing or unresolved values remain blank
 and red in review drafts. Completion approval is a separate action.
 
+Cases can be archived and restored without changing their documents, decisions or exports.
+Permanent application-record deletion requires the exact case reference; pending or
+running jobs block both archiving and deletion. Shared private blob storage is retained
+as described in the [runtime architecture](docs/runtime-architecture.md#case-lifecycle).
+
 In **Reconciliation**, **Compare all differences · 1 AI call** sends all differing mapped
 fields, source quotations and nearby context in one text-only request. Equivalent wording
 is grouped for joint confirmation; substantive or uncertain differences remain available

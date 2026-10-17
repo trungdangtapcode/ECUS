@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { api } from "../../lib/api";
 import { caseQuery } from "../cases/queries";
+import { CaseActions } from "../cases/case-actions";
 import { lazy, Suspense, useState } from "react";
 import type { FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -53,6 +54,22 @@ export function ReviewPage() {
     : `review.${section === "audit" ? "audit" : "rules"}`;
   const { t } = useTranslation();
   const { path } = useDesign();
+  if (record.data?.archived_at) {
+    return (
+      <>
+        <Link className="back-link" to={path(`/cases/${caseId}`)}>
+          {t("review.back")}
+        </Link>
+        <section className="page-heading">
+          <div>
+            <p className="eyebrow">{record.data.reference}</p>
+            <h1>{record.data.title}</h1>
+          </div>
+        </section>
+        <CaseActions item={record.data} />
+      </>
+    );
+  }
   return (
     <>
       <Link className="back-link" to={path(`/cases/${caseId}`)}>
@@ -75,7 +92,9 @@ export function ReviewPage() {
       </section>
       {query.isPending && <p role="status">{t("common.loading")}</p>}
       {query.isError && <ErrorState error={query.error} onRetry={() => void query.refetch()} />}
-      {query.data && <ReviewWorkbench key={caseId} caseId={caseId} data={query.data} />}
+      {query.data && record.isSuccess && (
+        <ReviewWorkbench key={caseId} caseId={caseId} data={query.data} />
+      )}
     </>
   );
 }

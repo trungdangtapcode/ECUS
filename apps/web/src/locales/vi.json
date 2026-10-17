@@ -68,7 +68,25 @@
         "description": "Mở lại hồ sơ đã lưu bất cứ khi nào bạn cần."
       },
       "action": "Bắt đầu hồ sơ"
-    }
+    },
+    "active": "Đang làm việc",
+    "archived": "Đã lưu trữ",
+    "scope": "Phạm vi hồ sơ",
+    "manage": "Quản lý hồ sơ",
+    "archive": "Lưu trữ hồ sơ",
+    "restore": "Khôi phục hồ sơ",
+    "archivedTitle": "Hồ sơ lưu trữ",
+    "archiveDescription": "Ẩn hồ sơ khỏi danh sách làm việc, giữ nguyên chứng từ, kết quả rà soát và các bản xuất. Có thể khôi phục khi cần.",
+    "archivedDescription": "Hồ sơ đang được lưu trữ và tạm ngừng chỉnh sửa. Khôi phục hồ sơ để tiếp tục xem và xử lý chứng từ.",
+    "archiveListDescription": "Các hồ sơ tạm ngừng xử lý. Chứng từ và lịch sử được giữ nguyên; mở hồ sơ để khôi phục hoặc xóa.",
+    "archiveEmpty": "Chưa có hồ sơ lưu trữ",
+    "archiveEmptyDescription": "Hồ sơ được lưu trữ sẽ xuất hiện ở đây. Bạn có thể khôi phục để tiếp tục làm việc.",
+    "delete": "Xóa hồ sơ",
+    "deleteTitle": "Xóa vĩnh viễn hồ sơ?",
+    "deleteDescription": "Dữ liệu hồ sơ, kết quả rà soát, lịch sử và liên kết tải các bản xuất sẽ bị xóa khỏi ứng dụng. Không thể hoàn tác. Nếu chỉ muốn tạm ẩn, hãy dùng Lưu trữ hồ sơ.",
+    "deleteConfirmation": "Nhập đúng mã {{reference}} để xác nhận",
+    "deleteForever": "Xóa vĩnh viễn",
+    "deleting": "Đang xóa…"
   },
   "workflow": {
     "title": "QUY TRÌNH RÀ SOÁT",
@@ -153,7 +171,10 @@
     "reconciliation_reference_unavailable": "Chưa đọc được dữ liệu tham chiếu đối chiếu. Kiểm tra cấu hình tham chiếu trước khi chạy AI.",
     "reconciliation_stale": "Chứng từ hoặc đề xuất đã thay đổi. Tải lại hồ sơ trước khi xác nhận.",
     "reconciliation_review_required": "Cần xác nhận đã rà soát chứng từ nguồn.",
-    "reconciliation_value_already_reviewed": "Đã có giá trị do người dùng chọn. Hãy chỉnh sửa hoặc thu hồi lựa chọn đó trước khi dùng đề xuất khác."
+    "reconciliation_value_already_reviewed": "Đã có giá trị do người dùng chọn. Hãy chỉnh sửa hoặc thu hồi lựa chọn đó trước khi dùng đề xuất khác.",
+    "case_archived": "Hồ sơ đang lưu trữ. Khôi phục hồ sơ trước khi thay đổi.",
+    "case_processing_active": "Hồ sơ đang được xử lý. Chờ hoàn tất trước khi lưu trữ hoặc xóa.",
+    "case_reference_mismatch": "Mã xác nhận chưa khớp. Nhập chính xác mã hồ sơ cần xóa."
   },
   "notFound": {
     "title": "Không tìm thấy trang",

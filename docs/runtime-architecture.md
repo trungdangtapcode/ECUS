@@ -34,6 +34,22 @@ panel synchronizes the candidate value and PDF viewer. Viewing a document alone 
 save a decision. Source-value copies retain the exact observation identifier; manual
 edits remain distinct. Both preserve original proposals and decision history.
 
+## Case lifecycle
+
+Active cases are listed by default. Archiving records `archived_at`, hides the case from
+active work and blocks review mutations, including paid processing and new exports.
+Archived cases remain available through the archived register and can be restored with
+all documents, review revisions, approval state and existing exports unchanged.
+
+Deletion requires the exact case reference in the request body and removes the case,
+its review aggregate and case-scoped job records. Pending or running jobs block both
+archival and deletion. Lifecycle changes and review mutations serialize on the case row.
+Source and export downloads for a deleted case become unavailable. This is application
+record deletion, not secure erasure: immutable content-addressed blobs and private AI
+trace artifacts are retained in private storage. Blobs can be shared with other cases
+or template profiles and must not be unlinked by a case deletion request. Original
+files outside runtime storage are never modified.
+
 ## Excel output
 
 Versioned layouts map fields to workbook cells and repeated goods/container groups.
