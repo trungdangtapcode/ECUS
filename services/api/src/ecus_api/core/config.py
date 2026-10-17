@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     app_env: Literal["development", "test"] = "development"
     database_url: SecretStr
     storage_root: Path = Path(".data/files")
+    default_declaration_profile: str = Field(default="B11", min_length=1, max_length=20)
     review_max_file_bytes: int = Field(default=20_000_000, gt=0, le=25_000_000)
     review_max_pdf_pages: int = Field(default=100, ge=1, le=500)
     review_max_documents: int = Field(default=30, ge=1, le=100)

@@ -103,6 +103,10 @@ not make paid AI requests.
 
 The application imports example procedure references explicitly during startup.
 These are implementation examples, not an authoritative legal dataset.
+New-case forms initially select the enabled profile identified by
+`DEFAULT_DECLARATION_PROFILE` (B11 by default). Operators can select another profile;
+existing cases are unchanged. If the configured profile is unavailable, selection
+remains required rather than falling back to an unrelated procedure.
 
 To start the database and development servers separately:
 

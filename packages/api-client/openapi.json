@@ -2220,6 +2220,11 @@
             "title": "Code",
             "type": "string"
           },
+          "is_default": {
+            "default": false,
+            "title": "Is Default",
+            "type": "boolean"
+          },
           "name": {
             "title": "Name",
             "type": "string"

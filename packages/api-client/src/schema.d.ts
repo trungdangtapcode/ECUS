@@ -1669,6 +1669,11 @@ export interface components {
         ProfileRead: {
             /** Code */
             code: string;
+            /**
+             * Is Default
+             * @default false
+             */
+            is_default: boolean;
             /** Name */
             name: string;
         };

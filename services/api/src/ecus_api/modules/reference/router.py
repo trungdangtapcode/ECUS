@@ -1,10 +1,11 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from ecus_api.core.config import Settings
 from ecus_api.db.session import get_session
 from ecus_api.modules.reference.models import DeclarationProfile
 from ecus_api.modules.review import template_library
@@ -16,18 +17,28 @@ class ProfileRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     code: str
     name: str
+    is_default: bool = False
 
 
 @router.get("/profiles", response_model=list[ProfileRead], operation_id="listProfiles")
 async def list_profiles(
     session: Annotated[AsyncSession, Depends(get_session)],
+    request: Request,
 ) -> list[ProfileRead]:
     rows = await session.scalars(
         select(DeclarationProfile)
         .where(DeclarationProfile.enabled.is_(True))
         .order_by(DeclarationProfile.code)
     )
-    return [ProfileRead.model_validate(row) for row in rows]
+    settings: Settings = request.app.state.settings
+    return [
+        ProfileRead(
+            code=row.code,
+            name=row.name,
+            is_default=row.code == settings.default_declaration_profile,
+        )
+        for row in rows
+    ]
 
 
 @router.get(

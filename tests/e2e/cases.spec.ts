@@ -19,12 +19,19 @@ test("creates a persistent case through the API and switches interface locale", 
     .getByRole("textbox", { name: en.cases.name, exact: true })
     .fill("Integration test shipment");
   const response = await request.get("/api/v1/reference/profiles");
-  const profiles = (await response.json()) as { code: string }[];
+  const profiles = (await response.json()) as { code: string; is_default: boolean }[];
   expect(profiles.length).toBeGreaterThan(0);
+  await expect(dialog.getByRole("combobox", { name: en.cases.procedure })).toHaveValue(
+    profiles.find((profile) => profile.is_default)?.code ?? "",
+  );
   await dialog.getByRole("combobox", { name: en.cases.procedure }).selectOption(profiles[0]!.code);
   await dialog.getByRole("button", { name: en.cases.submit, exact: true }).click();
   await expect(page).toHaveURL(/\/cases\/[a-f0-9-]+$/);
   await expect(page.getByRole("heading", { name: "Integration test shipment" })).toBeVisible();
+  const savedId = page.url().split("/").at(-1)!;
+  expect((await (await request.get(`/api/v1/cases/${savedId}`)).json()).procedure).toBe(
+    profiles[0]!.code,
+  );
   await page.reload();
   await expect(page.getByRole("heading", { name: "Integration test shipment" })).toBeVisible();
   await page.getByRole("link", { name: en.common.back }).click();
@@ -35,6 +42,27 @@ test("creates a persistent case through the API and switches interface locale", 
   await expect(page.getByRole("heading", { name: vi.harborApp.overview })).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "vi");
   expect(errors).toEqual([]);
+});
+
+test("new cases select the configured business-export profile without a manual selection", async ({
+  page,
+  request,
+}) => {
+  const reference = `DEFAULT-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  await page.goto("/cases");
+  await page.getByRole("button", { name: vi.cases.create, exact: true }).click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.getByRole("combobox", { name: vi.cases.procedure })).toHaveValue("B11");
+  await dialog.getByRole("textbox", { name: vi.cases.reference, exact: true }).fill(reference);
+  await dialog
+    .getByRole("textbox", { name: vi.cases.name, exact: true })
+    .fill("Default profile case");
+  await dialog.getByRole("button", { name: vi.cases.submit, exact: true }).click();
+  await expect(page).toHaveURL(/\/cases\/[a-f0-9-]+$/);
+  const id = page.url().split("/").at(-1)!;
+  const saved = await (await request.get(`/api/v1/cases/${id}`)).json();
+  expect(saved.procedure).toBe("B11");
+  expect(saved.reference).toBe(reference);
 });
 
 test("shows an actionable service error instead of an empty case register", async ({ page }) => {

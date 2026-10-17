@@ -1,5 +1,9 @@
 import httpx
 
+from ecus_api.core.config import Settings
+from ecus_api.db.session import Database
+from ecus_api.modules.reference.models import DeclarationProfile
+
 
 async def test_case_persistence_and_reference_conflict(client: httpx.AsyncClient) -> None:
     payload = {"reference": "sample-01", "title": "Test shipment", "procedure": "TEST"}
@@ -22,7 +26,7 @@ async def test_profiles_are_data_driven_and_case_validation_is_authoritative(
     client: httpx.AsyncClient,
 ) -> None:
     profiles = (await client.get("/api/v1/reference/profiles")).json()
-    assert profiles == [{"code": "TEST", "name": "Test profile"}]
+    assert profiles == [{"code": "TEST", "name": "Test profile", "is_default": False}]
     invalid = await client.post(
         "/api/v1/cases", json={"reference": "R1", "title": "Sample", "procedure": "UNKNOWN"}
     )
@@ -43,3 +47,17 @@ async def test_health_and_missing_case(client: httpx.AsyncClient) -> None:
     response = await client.get("/api/v1/cases/00000000-0000-0000-0000-000000000000")
     assert response.status_code == 404
     assert response.json()["error"]["code"] == "case_not_found"
+
+
+async def test_configured_default_is_only_advertised_when_enabled(
+    client: httpx.AsyncClient, database: Database, settings: Settings
+) -> None:
+    settings.default_declaration_profile = "TEST"
+    profiles = (await client.get("/api/v1/reference/profiles")).json()
+    assert profiles == [{"code": "TEST", "name": "Test profile", "is_default": True}]
+    async with database.sessions() as session:
+        profile = await session.get(DeclarationProfile, "TEST")
+        assert profile is not None
+        profile.enabled = False
+        await session.commit()
+    assert (await client.get("/api/v1/reference/profiles")).json() == []

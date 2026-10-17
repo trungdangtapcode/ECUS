@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -15,6 +15,9 @@ export function CreateCaseDialog({ onClose }: { onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const referenceInput = useRef<HTMLInputElement>(null);
   const profiles = useQuery(profilesQuery);
+  const [procedure, setProcedure] = useState<string | null>(null);
+  const selectedProcedure =
+    procedure ?? profiles.data?.find((profile) => profile.is_default)?.code ?? "";
   const mutation = useCreateCase();
   const navigate = useNavigate();
 
@@ -73,7 +76,13 @@ export function CreateCaseDialog({ onClose }: { onClose: () => void }) {
         </label>
         <label className="field">
           {t("cases.procedure")}
-          <select name="procedure" required defaultValue="" disabled={!profiles.data?.length}>
+          <select
+            name="procedure"
+            required
+            value={selectedProcedure}
+            onChange={(event) => setProcedure(event.target.value)}
+            disabled={!profiles.data?.length}
+          >
             <option value="" disabled>
               {t("cases.selectProfile")}
             </option>

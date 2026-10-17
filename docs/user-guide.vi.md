@@ -24,6 +24,8 @@ AI chuẩn bị đề xuất để bạn kiểm tra. **“Xử lý xong” chưa
 
 4. Bấm **Tạo hồ sơ**, sau đó **Mở rà soát chứng từ**.
 
+**Loại hình khai báo** được chọn sẵn **B11 — Xuất kinh doanh** khi loại hình này đang khả dụng. Bạn vẫn có thể đổi sang loại hình phù hợp trước khi tạo. Lựa chọn mặc định không làm thay đổi loại hình của hồ sơ đã có.
+
 Nếu hồ sơ đã có, mở lại từ **Tổng quan hồ sơ**; không cần tạo thêm hồ sơ để làm tiếp.
 
 ## 2. Chọn biểu mẫu Excel
