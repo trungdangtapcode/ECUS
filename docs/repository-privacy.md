@@ -17,6 +17,14 @@ These files are preserved in the workspace. Ignoring them does not delete them. 
 clone will intentionally omit them. The two templates under `docs/templates/` are generic
 blank review examples, not original customer workbooks.
 
+The four reviewed PNGs under `docs/screenshots/` show the running application with
+fictional cases and generated documents in an isolated environment. They contain no
+operational shipment data or AI request/response logs. Additional screenshots remain
+ignored until explicitly reviewed and allowlisted.
+
+`docs/brand/` contains generated logo and cover artwork. These conceptual illustrations
+are separate from application screenshots and contain no operational evidence.
+
 ## Before committing or publishing
 
 ```bash

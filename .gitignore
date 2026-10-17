@@ -77,6 +77,16 @@ test-results/
 /docs/templates/*
 !/docs/templates/internal-review-v1.xlsx
 !/docs/templates/internal-review-v1.mapping.json
+!/docs/screenshots/
+/docs/screenshots/*
+!/docs/screenshots/landing.png
+!/docs/screenshots/workspace.png
+!/docs/screenshots/reconciliation.png
+!/docs/screenshots/excel-export.png
+!/docs/brand/
+/docs/brand/*
+!/docs/brand/precheck-logo.png
+!/docs/brand/precheck-cover.png
 
 # Editor and OS state.
 .DS_Store

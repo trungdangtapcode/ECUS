@@ -1,9 +1,38 @@
+<p align="center">
+  <img src="docs/brand/precheck-logo.png" alt="precheck. — Customs workspace" width="440">
+</p>
+
 # Customs pre-declaration workspace
 
 An internal workspace for checking supporting documents before preparing a customs
 Excel form. The workflow is **create a case → upload documents → extract sourced
 proposals → reconcile differences → confirm consolidated values → export Excel**.
 The product uses the Harbor interface and supports Vietnamese and English.
+
+![Precheck Harbor brand illustration with shipping documents and a port](docs/brand/precheck-cover.png)
+
+Brand artwork generated with imagegen:
+[transparent logo](docs/brand/precheck-logo.png) · [repository cover](docs/brand/precheck-cover.png).
+
+## Interface
+
+Captured from the running application with fictional cases and generated supporting
+documents. These screenshots contain no operational shipment data; they illustrate
+the interface rather than AI extraction accuracy.
+
+![Workspace overview with case status and review priorities](docs/screenshots/workspace.png)
+
+| Source reconciliation | Excel export history |
+| --- | --- |
+| Compare document values beside the highlighted PDF and select an existing source value. | Download an immutable workbook from its own export record. |
+| [![Source values synchronized with PDF evidence](docs/screenshots/reconciliation.png)](docs/screenshots/reconciliation.png) | [![Confirmed workbook records with download actions](docs/screenshots/excel-export.png)](docs/screenshots/excel-export.png) |
+
+<details>
+<summary>Product landing page</summary>
+
+![Harbor landing page and document review workflow](docs/screenshots/landing.png)
+
+</details>
 
 ## Stack and scope
 
@@ -185,7 +214,7 @@ Use `down -v` only for disposable test projects. Preserve the main application v
 - `infra/`: Compose environments, reverse proxy and optional review gateway.
 - `scripts/`: reference imports, form imports, contract generation and Git safety checks.
 - `tests/`: browser scenarios and the synthetic AI server.
-- `docs/`: reviewed public engineering documentation and generic blank templates.
+- `docs/`: reviewed engineering documentation, generic blank templates, brand artwork and fictional-data screenshots.
 
 Original documents, private conversations, local design fixtures, operational output,
 AI traces and historical acceptance reports remain local. They are not deleted.
