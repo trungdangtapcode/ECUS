@@ -9,13 +9,19 @@ It does not contain operational shipment data or a copy of the local database.
 - `.env` and other local configuration, credentials and gateway access files.
 - `example/`, `statements/` and `plan/`, including original documents and conversations.
 - `.data/`, which contains uploaded evidence, AI input/output, exports and local reports.
-- `prototypes/`, whose historical fixtures and previews include customer-derived data.
+- Historical previews and reference-board downloads under `prototypes/ui-ux/{previews,research}/`.
+- Original prototype source snapshots under `.data/prototype-publish/`.
 - Unreviewed historical reports and screenshots under `docs/` and root `image*.png` files.
 - Database files and dumps, browser traces, archives, logs and generated build output.
 
 These files are preserved in the workspace. Ignoring them does not delete them. A Git
 clone will intentionally omit them. The two templates under `docs/templates/` are generic
 blank review examples, not original customer workbooks.
+
+The tracked `prototypes/ui-ux/` design studio uses fictional organizations, shipment
+identifiers and quantities. Original local fixtures were preserved outside Git before
+replacement. Its source and dependency lock are tracked; dependencies, generated builds,
+browser artifacts and historical previews remain excluded.
 
 The four reviewed PNGs under `docs/screenshots/` show the running application with
 fictional cases and generated documents in an isolated environment. They contain no

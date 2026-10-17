@@ -1,0 +1,373 @@
+[
+  {
+    "id": "hardware",
+    "code": "DEMO-NK-001",
+    "customer": "Doanh nghiệp Cơ khí A",
+    "initials": "CA",
+    "goods": "Thanh trượt đồ gỗ",
+    "type": "A12",
+    "route": [
+      "Shantou",
+      "Cát Lái"
+    ],
+    "country": "Trung Quốc",
+    "invoice": "DEMO-HW-INV-001",
+    "bill": "DEMO-HW-BL-001",
+    "container": "DEMO0000001",
+    "seal": "DEMOSEAL001",
+    "quantity": 1000,
+    "unit": "SET",
+    "price": "2.5",
+    "amount": "2.490,00",
+    "packages": "10 pallet · 200 carton",
+    "net": "2.800",
+    "gross": "3.000",
+    "hs": "83024290",
+    "hsDescription": "Phụ kiện bằng kim loại cơ bản dùng cho đồ nội thất",
+    "hsMissing": "Xác nhận vật liệu, công dụng và cấu tạo của bộ thanh trượt.",
+    "date": "17/06/2030",
+    "documents": [
+      {
+        "id": "hw-inv",
+        "kind": "invoice",
+        "title": "Commercial Invoice",
+        "ref": "DEMO-HW-INV-001",
+        "date": "03/06/2030",
+        "pages": 1,
+        "state": "review",
+        "detail": "Có khác biệt số lượng và thành tiền",
+        "physicalFile": "demo-hardware-invoice.pdf",
+        "pageFrom": 1,
+        "pageTo": 1
+      },
+      {
+        "id": "hw-pl",
+        "kind": "packing",
+        "title": "Packing List",
+        "ref": "DEMO-HW-INV-001",
+        "date": "03/06/2030",
+        "pages": 1,
+        "state": "ready",
+        "detail": "10 pallet · 1.000 bộ",
+        "physicalFile": "demo-hardware-packing.pdf",
+        "pageFrom": 1,
+        "pageTo": 1
+      },
+      {
+        "id": "hw-bl",
+        "kind": "bill",
+        "title": "Bill of Lading",
+        "ref": "DEMO-HW-BL-001",
+        "date": "07/06/2030",
+        "pages": 2,
+        "state": "ready",
+        "detail": "01 container · 3.000 kg",
+        "physicalFile": "demo-hardware-bill.pdf",
+        "pageFrom": 1,
+        "pageTo": 2
+      },
+      {
+        "id": "hw-an",
+        "kind": "arrival",
+        "title": "Arrival Notice",
+        "ref": "DEMO-HW-BL-001",
+        "date": "13/06/2030",
+        "pages": 1,
+        "state": "review",
+        "detail": "Ngày đến và tàu cần xác minh",
+        "physicalFile": "demo-hardware-arrival.pdf",
+        "pageFrom": 1,
+        "pageTo": 1
+      },
+      {
+        "id": "hw-co",
+        "kind": "origin",
+        "title": "C/O Form E",
+        "ref": "DEMO-HW-CO-001",
+        "date": "09/06/2030",
+        "pages": 1,
+        "state": "review",
+        "detail": "Bản scan · cần người dùng kiểm tra",
+        "physicalFile": "demo-hardware-origin.pdf",
+        "pageFrom": 1,
+        "pageTo": 1
+      }
+    ],
+    "issues": [
+      {
+        "id": "hw-quantity",
+        "kind": "error",
+        "title": "Tổng số lượng chưa khớp",
+        "field": "Số lượng",
+        "document": "invoice",
+        "values": [
+          "1.000 SET",
+          "1.020 SET"
+        ],
+        "labels": [
+          "Dòng hàng trên Invoice",
+          "Dòng TOTAL trên Invoice"
+        ],
+        "explanation": "Tổng trên invoice lớn hơn dòng hàng 20 bộ. Packing List ghi 1.000 bộ. Cần kiểm tra chứng từ trước khi chọn giá trị.",
+        "action": "Yêu cầu xác minh số lượng"
+      },
+      {
+        "id": "hw-amount",
+        "kind": "error",
+        "title": "Đơn giá và thành tiền có khác biệt",
+        "field": "Trị giá",
+        "document": "invoice",
+        "values": [
+          "2.500,00 USD",
+          "2.490,00 USD"
+        ],
+        "labels": [
+          "1.000 × 2,5",
+          "Thành tiền trên Invoice"
+        ],
+        "explanation": "Thành tiền ghi 2.490 USD khác phép nhân 1.000 × 2,5 = 2.500 USD. Cần xác minh số lượng, đơn giá và trị giá.",
+        "action": "Yêu cầu xác minh đơn giá"
+      },
+      {
+        "id": "hw-vessel",
+        "kind": "warning",
+        "title": "Thông tin tàu cần xác minh theo chặng",
+        "field": "Vận tải",
+        "document": "arrival",
+        "values": [
+          "SYNTHETIC FEEDER A / D001",
+          "SYNTHETIC FEEDER B / D002"
+        ],
+        "labels": [
+          "Bill of Lading",
+          "Arrival Notice"
+        ],
+        "explanation": "Tên tàu khác có thể do thay đổi chặng vận chuyển. Kiểm tra với hãng tàu; không mặc định là lỗi khai báo.",
+        "action": "Ghi nhận xác minh vận tải"
+      },
+      {
+        "id": "hw-packages",
+        "kind": "matched",
+        "title": "Quy đổi đóng gói phù hợp",
+        "field": "Đóng gói",
+        "document": "packing",
+        "values": [
+          "10 pallet × 20 carton",
+          "200 carton"
+        ],
+        "labels": [
+          "Packing List",
+          "Phụ lục B/L"
+        ],
+        "explanation": "10 pallet = 200 carton; mỗi carton có 5 bộ. Số lượng tổng cộng là 1.000 bộ. Hai cấp đóng gói tương đương.",
+        "action": "Đã đối chiếu đơn vị"
+      }
+    ],
+    "source": {
+      "exporter": "SYNTHETIC HARDWARE EXPORTER",
+      "manufacturer": "SYNTHETIC HARDWARE FACTORY",
+      "goods": "DRAWER SLIDE DEMO D01",
+      "invoiceTotal": 1020,
+      "packingNote": "10 PALLETS = 200 CARTONS · 5 SETS / CARTON · 1,000 SETS",
+      "originGoods": "SLIDE · 8302.42",
+      "vessels": {
+        "bill": "SYNTHETIC FEEDER A / D001",
+        "arrival": "SYNTHETIC FEEDER B / D002"
+      }
+    }
+  },
+  {
+    "id": "silica",
+    "code": "DEMO-NK-002",
+    "customer": "Doanh nghiệp Vật liệu B",
+    "initials": "VB",
+    "goods": "Hạt hút ẩm silica gel",
+    "type": "A11",
+    "route": [
+      "Jingtang",
+      "Cát Lái"
+    ],
+    "country": "Trung Quốc",
+    "invoice": "DEMO-SI-INV-001",
+    "bill": "DEMO-SI-BL-001",
+    "container": "DEMO0000002",
+    "seal": "DEMOSEAL002",
+    "quantity": 12000,
+    "unit": "KGM",
+    "price": "0.75",
+    "amount": "9.000,00",
+    "packages": "600 bao · 01 container",
+    "net": "12.000",
+    "gross": "12.180",
+    "hs": "28112290",
+    "hsDescription": "Silic dioxit — mã tham khảo trong tờ khai lịch sử",
+    "hsMissing": "Bổ sung thành phần, CAS và công dụng từ tài liệu kỹ thuật.",
+    "date": "28/08/2030",
+    "documents": [
+      {
+        "id": "sg-contract",
+        "kind": "contract",
+        "title": "Sales Contract",
+        "ref": "DEMO-SI-CON-001",
+        "pages": 1,
+        "state": "ready",
+        "detail": "Trang 1 trong PDF ghép SC & CI & PL",
+        "physicalFile": "demo-material-documents.pdf",
+        "pageFrom": 1,
+        "pageTo": 1
+      },
+      {
+        "id": "sg-inv",
+        "kind": "invoice",
+        "title": "Commercial Invoice",
+        "ref": "DEMO-SI-INV-001",
+        "date": "13/08/2030",
+        "pages": 1,
+        "state": "ready",
+        "detail": "Trang 2 trong PDF ghép SC & CI & PL",
+        "physicalFile": "demo-material-documents.pdf",
+        "pageFrom": 2,
+        "pageTo": 2
+      },
+      {
+        "id": "sg-pl",
+        "kind": "packing",
+        "title": "Packing List",
+        "ref": "DEMO-SI-INV-001",
+        "date": "13/08/2030",
+        "pages": 1,
+        "state": "ready",
+        "detail": "Trang 3 · 600 bao",
+        "physicalFile": "demo-material-documents.pdf",
+        "pageFrom": 3,
+        "pageTo": 3
+      },
+      {
+        "id": "sg-bl",
+        "kind": "bill",
+        "title": "Bill of Lading",
+        "ref": "DEMO-SI-BL-001",
+        "date": "16/08/2030",
+        "pages": 1,
+        "state": "ready",
+        "detail": "SYNTHETIC TRADER A / D101",
+        "physicalFile": "demo-material-bill.pdf",
+        "pageFrom": 1,
+        "pageTo": 1
+      },
+      {
+        "id": "sg-an",
+        "kind": "arrival",
+        "title": "Arrival Notice",
+        "ref": "DEMO-SI-BL-001",
+        "date": "27/08/2030",
+        "pages": 2,
+        "state": "review",
+        "detail": "SYNTHETIC TRADER B / D102",
+        "departure": "Nansha",
+        "physicalFile": "demo-material-arrival.pdf",
+        "pageFrom": 1,
+        "pageTo": 2
+      }
+    ],
+    "issues": [
+      {
+        "id": "sg-vessel",
+        "kind": "warning",
+        "title": "Tàu và cảng cần xác minh theo chặng",
+        "field": "Vận tải",
+        "document": "arrival",
+        "values": [
+          "SYNTHETIC TRADER A / D101",
+          "SYNTHETIC TRADER B / D102"
+        ],
+        "labels": [
+          "B/L · Jingtang",
+          "AN · Nansha"
+        ],
+        "explanation": "AN có thông tin chặng và cảng khác B/L. Xác nhận tàu đến và địa điểm dỡ/giao trước khi điền vào nháp.",
+        "action": "Ghi nhận xác minh vận tải"
+      },
+      {
+        "id": "sg-unit",
+        "kind": "matched",
+        "title": "Đơn vị và đơn giá đã quy đổi phù hợp",
+        "field": "Số lượng",
+        "document": "invoice",
+        "values": [
+          "12 MT × 750 USD/MT",
+          "12.000 KG × 0,75 USD/KG"
+        ],
+        "labels": [
+          "Sales Contract",
+          "Commercial Invoice"
+        ],
+        "explanation": "Hai cách thể hiện cùng tương đương 9.000 USD. Không có sai lệch khi quy đổi tấn sang kilogram.",
+        "action": "Đã đối chiếu đơn vị"
+      }
+    ],
+    "source": {
+      "exporter": "SYNTHETIC MATERIAL EXPORTER",
+      "goods": "SILICA GEL",
+      "invoiceTotal": 12000,
+      "vessels": {
+        "bill": "SYNTHETIC TRADER A / D101",
+        "arrival": "SYNTHETIC TRADER B / D102"
+      }
+    }
+  },
+  {
+    "id": "durian",
+    "code": "DEMO-XK-003",
+    "customer": "Doanh nghiệp Nông sản C",
+    "initials": "NC",
+    "goods": "Sầu riêng tươi",
+    "type": "B11",
+    "route": [
+      "Lào Cai",
+      "Hekou"
+    ],
+    "country": "Việt Nam",
+    "invoice": "DEMO-FR-INV-001",
+    "bill": "DEMO-FR-BL-001",
+    "container": "DEMO0000003",
+    "seal": "Chưa có dữ liệu",
+    "quantity": 8000,
+    "unit": "KGM",
+    "price": "3.2",
+    "amount": "25.600,00",
+    "packages": "800 thùng",
+    "net": "8.000",
+    "gross": "8.800",
+    "hs": "08106000",
+    "hsDescription": "Sầu riêng — tham khảo từ tờ khai xuất khẩu",
+    "hsMissing": "Cần bổ sung chứng từ nguồn cho tình huống minh họa này.",
+    "date": "11/05/2030",
+    "documents": [],
+    "issues": [
+      {
+        "id": "ct-reference",
+        "kind": "warning",
+        "title": "Hồ sơ xuất khẩu đang ở chế độ tham chiếu",
+        "field": "Phạm vi",
+        "document": "invoice",
+        "values": [
+          "Tờ khai XLS · TKX",
+          "Chưa có bộ chứng từ đầu vào"
+        ],
+        "labels": [
+          "Dữ liệu đã đọc",
+          "Thông tin còn thiếu"
+        ],
+        "explanation": "Tình huống minh họa chỉ có thông tin tổng quan, chưa có chứng từ nguồn. Không đủ điều kiện xác nhận dữ liệu hoặc xuất Excel.",
+        "action": "Ghi chú hồ sơ tham chiếu"
+      }
+    ],
+    "source": {
+      "exporter": "SYNTHETIC FRUIT EXPORTER",
+      "goods": "FRESH DURIAN",
+      "invoiceTotal": 8000,
+      "vessels": {}
+    }
+  }
+]

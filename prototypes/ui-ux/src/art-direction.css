@@ -1,0 +1,1114 @@
+/* Artwork and composition are independent of document and review state. */
+.gallery-intro h1.gallery-product-title {
+  max-width: 760px;
+  margin-top: 0;
+  font-size: clamp(28px, 3.4vw, 48px);
+  letter-spacing: -1px;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.shipment-cover {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 330px;
+  margin-bottom: 24px;
+}
+.cover-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.cover-copy {
+  position: relative;
+  z-index: 1;
+  padding: 34px 36px;
+  width: 58%;
+}
+.cover-caption {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 8px;
+  letter-spacing: 1.8px;
+}
+.cover-caption i {
+  width: 6px;
+  height: 6px;
+  background: var(--secondary);
+  transform: rotate(45deg);
+}
+.cover-copy h2 {
+  font-size: clamp(28px, 2.75vw, 43px);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -1.6px;
+  white-space: pre-line;
+  margin: 17px 0 24px;
+}
+.cover-case > span {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 0.7px;
+  opacity: 0.76;
+}
+.cover-case b {
+  font-family: Consolas, monospace;
+  font-size: 9px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+.cover-case strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+.cover-case p {
+  font-size: 10px;
+  margin: 5px 0 0;
+  opacity: 0.74;
+}
+.cover-action {
+  display: inline-flex;
+  gap: 20px;
+  align-items: center;
+  padding: 10px 0 6px;
+  margin-top: 15px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 500;
+}
+.cover-action svg {
+  transition: transform 200ms;
+}
+.cover-action:hover svg {
+  transform: translate(3px, -3px);
+}
+.cover-route {
+  position: absolute;
+  right: 30px;
+  bottom: 35px;
+  width: 33%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 12px;
+  z-index: 1;
+}
+.cover-route small {
+  display: block;
+  opacity: 0.65;
+  letter-spacing: 1px;
+  font-size: 7px;
+  margin-bottom: 7px;
+}
+.cover-route-line {
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 20px;
+}
+.cover-photo-credit {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 7px;
+  color: white;
+  opacity: 0.85;
+  text-decoration: none;
+}
+.cover-art-caption {
+  position: absolute;
+  right: 28px;
+  bottom: 102px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 7px;
+  letter-spacing: 1.6px;
+  color: #e7deffb3;
+}
+.cover-art-caption > span {
+  font-family: monospace;
+  font-size: 10px;
+}
+/* Harbor: coastal photography and warm navigation marks. */
+.cover-harbor {
+  background: var(--art-base);
+  color: #173e38;
+  border-radius: 2px 60px 2px 2px;
+  overflow: hidden;
+}
+.cover-harbor .cover-copy {
+  width: 57%;
+  padding: 32px 36px 36px;
+}
+.cover-harbor .cover-copy h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 500;
+}
+.cover-harbor .cover-photo {
+  position: absolute;
+  inset: 0 0 0 38%;
+  background: #48766b;
+  border-radius: 200px 0 0 0;
+  overflow: hidden;
+}
+.cover-harbor .cover-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% 42%;
+  opacity: 0.83;
+  filter: saturate(0.75);
+  transition: transform 800ms ease;
+}
+.cover-harbor .cover-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      var(--art-base) 0%,
+      color-mix(in srgb, var(--art-base) 44%, transparent) 24%,
+      transparent 70%
+    ),
+    linear-gradient(0deg, #133e38ed, transparent 65%);
+}
+.cover-harbor:hover .cover-photo img {
+  transform: scale(1.04);
+}
+.cover-harbor .compass-rose {
+  position: absolute;
+  width: 135px;
+  top: 13px;
+  right: 23px;
+  color: #fff9e5;
+  opacity: 0.7;
+  transform: rotate(12deg);
+  mix-blend-mode: screen;
+}
+.cover-harbor .cargo-artwork {
+  position: absolute;
+  width: 290px;
+  bottom: 50px;
+  right: 11%;
+  color: #fff;
+  opacity: 0.68;
+  filter: drop-shadow(0 10px 18px #0a342a55);
+  transform: rotate(-5deg);
+}
+.cover-harbor .cover-route {
+  color: #fff6e5;
+  width: 35%;
+  right: 35px;
+  bottom: 27px;
+}
+.cover-harbor .cover-action {
+  color: #175c4e;
+}
+[data-theme='harbor'] .workspace-main {
+  background: radial-gradient(ellipse at 90% 0, #e0eae07d, transparent 45%), var(--canvas);
+}
+[data-theme='harbor'] .register-totals {
+  border-top: 0;
+  padding: 5px 0 24px;
+}
+[data-theme='harbor'] .register-totals dd {
+  color: var(--accent);
+  font-family: 'Lora', serif;
+  font-style: italic;
+}
+[data-theme='harbor'] .register-totals > div:nth-child(2) dd {
+  color: #b16a48;
+}
+[data-theme='harbor'] .case-register {
+  padding: 24px 26px 20px;
+  background: var(--surface);
+  border-radius: 0 22px 0 0;
+  box-shadow: 0 7px 25px #25433305;
+}
+[data-theme='harbor'] .review-agenda {
+  padding-top: 23px;
+}
+[data-theme='harbor'] .review-agenda .register-heading::after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--secondary);
+  transform: rotate(30deg);
+}
+[data-theme='harbor'] .sidebar .brand-mark {
+  clip-path: none;
+  border-radius: 10px 3px 10px 3px;
+  box-shadow: 4px 4px 0 var(--secondary-soft);
+}
+/* Control: blended light, floating documents and a vertical status rail. */
+[data-theme='control'] .workspace-main {
+  background: radial-gradient(ellipse at 92% 12%, #d7ccf344, transparent 44%), var(--canvas);
+}
+[data-theme='control'][data-screen='overview'] .page-content {
+  padding-top: 26px;
+}
+[data-theme='control'] .overview-register {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 204px;
+  column-gap: 24px;
+}
+.cover-control {
+  margin-bottom: 28px;
+  min-height: 348px;
+  background: var(--art-base);
+  color: #f9f6ff;
+  border-radius: 20px 20px 60px 20px;
+  box-shadow: 0 18px 32px -22px #302050aa;
+}
+.cover-control .cover-art {
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 72% 80%, #7873c488 0%, transparent 52%),
+    linear-gradient(125deg, #20213e 4%, #34305b 53%, #8a74ba 100%);
+}
+.cover-control .cover-bloom {
+  position: absolute;
+  width: 74%;
+  height: 100%;
+  right: -15%;
+  top: -30%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #f6bdcfa6, #968af980 35%, transparent 69%);
+  filter: blur(22px);
+  mix-blend-mode: screen;
+  animation: bloom-drift 14s ease-in-out infinite alternate;
+}
+.cover-control .cover-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath filter='url(%23n)' opacity='.2' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+  opacity: 0.2;
+  mix-blend-mode: soft-light;
+}
+.cover-control .cover-copy {
+  width: 60%;
+  padding: 32px;
+}
+.cover-control .cover-copy h2 {
+  font-size: clamp(28px, 2.7vw, 40px);
+  font-weight: 500;
+}
+.cover-control .cover-caption {
+  color: #d5c8fa;
+}
+.cover-control .cover-case > span {
+  color: #d5caee;
+}
+.cover-control .cover-action {
+  color: #e0eebe;
+}
+.cover-control .route-orbits {
+  position: absolute;
+  width: 76%;
+  right: -11%;
+  top: 5%;
+  color: #e4dcff;
+  transform: rotate(-9deg);
+}
+.cover-control .document-sculpture {
+  position: absolute;
+  right: -3%;
+  top: 0;
+  height: 92%;
+  width: 55%;
+  filter: drop-shadow(0 12px 18px #0a042040);
+  transform: rotate(2deg);
+  transition: transform 600ms ease;
+}
+.cover-control:hover .document-sculpture {
+  transform: translateY(-6px) rotate(-2deg);
+}
+.cover-control .cover-route {
+  right: 30px;
+  bottom: 27px;
+  width: 35%;
+  font-size: 10px;
+  color: #e8e4f8;
+}
+[data-theme='control'] .register-totals {
+  margin: 0 0 28px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 0;
+}
+[data-theme='control'] .register-totals > div {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  padding: 14px 0 14px 15px;
+  border: 0;
+}
+[data-theme='control'] .register-totals > div + div {
+  border-top: 1px solid #c9c5dc;
+}
+[data-theme='control'] .register-totals > div::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(ellipse, #beb2dd55, transparent 69%);
+  z-index: 0;
+}
+[data-theme='control'] .register-totals dd {
+  position: relative;
+  min-width: 42px;
+  font-size: 43px;
+  letter-spacing: -2px;
+  color: #504c80;
+  z-index: 1;
+}
+[data-theme='control'] .register-totals dt {
+  position: relative;
+  font-size: 10px;
+  color: #67617c;
+  z-index: 1;
+}
+[data-theme='control'] .register-totals > div:nth-child(2) dd {
+  color: #b17751;
+}
+[data-theme='control'] .register-body {
+  grid-column: 1/-1;
+  grid-template-columns: minmax(0, 1fr) 245px;
+  gap: 22px;
+}
+[data-theme='control'] .case-register {
+  padding: 24px;
+  background: #ffffffb8;
+  border: 1px solid #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px #36275e06;
+}
+[data-theme='control'] .case-table.register-table th {
+  border-top: 0;
+  background: #eeeaf654;
+}
+[data-theme='control'] .case-table.register-table td {
+  padding-block: 20px;
+}
+[data-theme='control'] .review-agenda {
+  position: relative;
+  padding: 22px 20px;
+  border: 0;
+  border-radius: 2px 2px 28px 2px;
+  background: linear-gradient(145deg, #e9e2f4, #eeeaf480);
+}
+[data-theme='control'] .review-agenda::before {
+  content: '';
+  position: absolute;
+  width: 36px;
+  height: 12px;
+  background: #f7f2e3cc;
+  border-inline: 1px dashed #cbc4ae;
+  right: 22px;
+  top: -5px;
+  transform: rotate(7deg);
+}
+[data-theme='control'] .agenda-index {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  padding-top: 3px;
+  color: #8e7dad;
+}
+[data-theme='control'] .sidebar {
+  background: radial-gradient(ellipse at 5% 85%, #5a458a66, transparent 57%), var(--nav);
+  border-right: 0;
+}
+[data-theme='control'] .sidebar .workspace-nav > button.active {
+  border-radius: 9px;
+  background: linear-gradient(110deg, #7d69bd5c, #a99bcf1a);
+  box-shadow: inset 2px 0 #d3bdff;
+}
+[data-theme='control'] .sidebar .brand-mark {
+  color: #e8dfff;
+  background: #746296;
+  border: 1px solid #ffffff30;
+  transform: rotate(-6deg);
+  border-radius: 10px 3px 10px 3px;
+}
+[data-theme='control'] .sidebar-brand strong > span {
+  color: #d5bea2;
+}
+[data-theme='control'] .panel {
+  border-color: #e1ddea;
+  box-shadow: 0 3px 16px #36305304;
+}
+[data-theme='control'] .app-topbar {
+  background: #faf9fccc;
+  border-bottom-color: #e3ddec;
+}
+/* Ledger: paper, engraved transport artwork and a prototype stamp. */
+[data-theme='ledger'] .workspace-main {
+  background-image: radial-gradient(#6e614a12 0.55px, transparent 0.55px);
+  background-size: 5px 5px;
+}
+[data-theme='ledger'] .page-content {
+  max-width: 1420px;
+}
+[data-theme='ledger'][data-screen='overview'] .page-heading {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.cover-ledger {
+  min-height: 270px;
+  background: var(--art-paper);
+  border-block: 1px solid #c7beaa;
+  color: #354d3d;
+  margin-bottom: 0;
+  box-shadow:
+    0 6px 0 -3px #eee8db,
+    0 7px 0 -3px #c7beaa;
+}
+.cover-ledger::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 27%;
+  border-left: 1px dashed #bdb09a;
+}
+.cover-ledger::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--canvas);
+  left: -7px;
+  top: 50%;
+  box-shadow: 0 0 0 1px #c7beaa;
+}
+.cover-ledger .cover-copy {
+  padding: 27px 36px 27px 42px;
+  width: 50%;
+}
+.cover-ledger .cover-copy h2 {
+  font-family: 'Lora', serif;
+  font-size: clamp(25px, 2.3vw, 36px);
+  font-weight: 500;
+  margin-block: 15px 20px;
+  letter-spacing: -0.9px;
+}
+.cover-ledger .cover-caption {
+  color: #8d6546;
+  font-size: 8px;
+}
+.cover-ledger .cover-caption i {
+  width: 20px;
+  height: 1px;
+  transform: none;
+  background: #8d6546;
+}
+.cover-ledger .cargo-artwork {
+  position: absolute;
+  width: 340px;
+  right: 25%;
+  top: 35px;
+  color: #4c6653;
+  opacity: 0.3;
+  filter: grayscale(1) sepia(0.7);
+  mix-blend-mode: multiply;
+  transform: rotate(-3deg);
+}
+.archive-mark {
+  position: relative;
+  color: var(--art-glow);
+  width: 132px;
+  height: 132px;
+  transform: rotate(-15deg);
+}
+.archive-mark .compass-rose {
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+.archive-mark > span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 51px;
+  padding: 7px 0;
+  background: var(--art-paper);
+  border-block: 2px solid currentColor;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-align: center;
+}
+.cover-ledger .archive-mark {
+  position: absolute;
+  top: 32px;
+  right: 8%;
+}
+.cover-ledger .cover-route {
+  width: 20%;
+  right: 3.5%;
+  bottom: 35px;
+  font-size: 11px;
+}
+.cover-ledger .cover-binding {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 10px;
+  width: 7px;
+  background: radial-gradient(ellipse, #dfd5c5 2px, transparent 2.5px) 0 0/7px 19px;
+}
+[data-theme='ledger'] .register-totals {
+  margin-top: 29px;
+  padding: 15px 0;
+  border-top: 0;
+  border-bottom: 3px double #8f9786;
+}
+[data-theme='ledger'] .register-totals dd {
+  font-family: 'Lora', serif;
+  font-size: 32px;
+}
+[data-theme='ledger'] .case-register {
+  padding: 22px 26px;
+  background: #fffdf8b8;
+  border: 1px solid #d7d0bf;
+  position: relative;
+}
+[data-theme='ledger'] .case-register::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 25px;
+  width: 62px;
+  height: 8px;
+  background: #b7b09a;
+  transform: rotate(-2deg);
+  opacity: 0.5;
+}
+[data-theme='ledger'] .register-heading h2 {
+  font-size: 23px;
+}
+[data-theme='ledger'] .register-table tbody {
+  background: #fffdf8;
+}
+[data-theme='ledger'] .register-table td {
+  border-right: 1px solid #e5dfd2;
+}
+[data-theme='ledger'] .register-table td:last-child {
+  border-right: 0;
+}
+[data-theme='ledger'] .register-case-name > span {
+  letter-spacing: 1px;
+}
+[data-theme='ledger'] .ledger-navigation {
+  box-shadow: 0 4px 0 #c9b78f;
+}
+[data-theme='ledger'] .canonical-form {
+  background: #fffdf9;
+  border-top: 3px double #a9ab97;
+}
+/* Small illustrations continue through every workspace screen. */
+.sidebar-illustration {
+  position: relative;
+  overflow: clip;
+  min-height: 178px;
+  margin-top: auto;
+  margin-bottom: 12px;
+  padding-top: 127px;
+  text-align: center;
+  color: var(--nav-ink);
+  pointer-events: none;
+}
+.sidebar-illustration > span {
+  display: block;
+  position: relative;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.sidebar-illustration > small {
+  display: block;
+  position: relative;
+  font-size: 8px;
+  margin-top: 5px;
+  opacity: 0.6;
+}
+.sidebar-illustration .cargo-artwork {
+  position: absolute;
+  top: 2px;
+  width: 185px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+}
+.sidebar-illustration .compass-rose {
+  position: absolute;
+  width: 90px;
+  left: 5px;
+  top: 0;
+  opacity: 0.22;
+  transform: rotate(-15deg);
+}
+.sidebar-illustration .route-orbits {
+  position: absolute;
+  width: 230px;
+  top: -12px;
+  left: -10px;
+  color: #d1bdfd;
+  transform: rotate(-28deg);
+}
+[data-theme='control'] .sidebar-illustration .compass-rose {
+  top: 12px;
+  left: 55px;
+  opacity: 0.65;
+  color: #c9b8ec;
+}
+.workspace .sidebar-bottom {
+  margin-top: 0;
+}
+.nav-collapsed .sidebar-illustration {
+  display: none;
+}
+.nav-collapsed .sidebar-bottom {
+  margin-top: auto;
+}
+[data-theme='harbor'] .page-heading .eyebrow::before {
+  content: '';
+  display: inline-block;
+  margin-right: 9px;
+  width: 17px;
+  height: 2px;
+  background: var(--secondary);
+  transform: rotate(-30deg);
+  vertical-align: middle;
+}
+[data-theme='control'] .page-heading .eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  border: 1px solid var(--accent);
+  transform: rotate(45deg);
+}
+[data-theme='ledger'] .page-heading .eyebrow {
+  letter-spacing: 1.5px;
+}
+[data-theme='ledger'] .page-heading h1 {
+  font-family: 'Lora', serif;
+}
+/* Comparison board artwork is original or licensed, never copied reference UI. */
+.concept-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.concept-art > .compass-rose {
+  position: absolute;
+  width: 180px;
+  right: -50px;
+  top: -38px;
+  color: #fff3ce;
+  opacity: 0.55;
+  transform: rotate(25deg);
+}
+.concept-art > .document-sculpture {
+  position: absolute;
+  width: 285px;
+  right: -61px;
+  top: -76px;
+  opacity: 0.8;
+  transform: rotate(20deg);
+}
+.concept-art-direction {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.25px;
+}
+.concept-harbor .concept-preview {
+  background:
+    linear-gradient(110deg, #1d685ded, #215e4c66),
+    url('./assets/port-vancouver.jpg') center/cover;
+  border-radius: 0 48px 0 0;
+}
+.concept-control .concept-preview {
+  background:
+    radial-gradient(ellipse at 82% 10%, #deb9dbaa, transparent 60%),
+    radial-gradient(ellipse at 55% 95%, #9e83e8aa, transparent 60%), #292547;
+}
+.concept-control .concept-preview .miniature {
+  transform: perspective(850px) rotateY(-9deg) rotateX(5deg) rotate(-5deg) translateY(22px);
+  box-shadow: 17px 25px 30px #09061b55;
+}
+.concept-control .concept-preview:hover .miniature {
+  transform: perspective(850px) rotateY(-3deg) rotateX(0) rotate(-2deg) translateY(10px);
+}
+.concept-ledger .concept-preview {
+  background: repeating-linear-gradient(0deg, transparent 0 22px, #bfb39233 23px 24px), #e9dfc7;
+}
+.concept-ledger .concept-preview::before {
+  border-color: #76806855;
+  box-shadow:
+    0 0 0 34px #62715a08,
+    0 0 0 68px #62715a06;
+}
+.concept-ledger .concept-art > .compass-rose {
+  color: #8c6242;
+  opacity: 0.7;
+}
+.concept-ledger .miniature {
+  border-radius: 0;
+  outline: 1px solid #60705555;
+  outline-offset: 5px;
+}
+.concept-ledger .concept-body {
+  background: #fffdf5;
+}
+.concept-control .concept-body {
+  background: #faf8ff;
+}
+.concept-card {
+  overflow: visible;
+}
+.concept-preview {
+  overflow: hidden;
+  border-radius: 14px 14px 0 0;
+}
+.concept-body {
+  border-radius: 0 0 14px 14px;
+}
+.gallery .concept-control .concept-letter {
+  transform: rotate(-8deg);
+  background: #665291;
+  box-shadow: 3px 3px 0 #d7c4ee;
+}
+.gallery .concept-ledger .concept-letter {
+  border-radius: 50%;
+  background: transparent;
+  color: #52634c;
+  border: 1px solid #788774;
+  box-shadow: none;
+}
+@keyframes bloom-drift {
+  from {
+    transform: translate(-3%, 4%) scale(0.95);
+  }
+  to {
+    transform: translate(9%, -6%) scale(1.1);
+  }
+}
+@keyframes route-flow {
+  to {
+    stroke-dashoffset: -96;
+  }
+}
+@keyframes scan-breathe {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.orbit-trace {
+  animation: route-flow 20s linear infinite;
+}
+.scan-stroke {
+  animation: scan-breathe 4s ease-in-out infinite;
+}
+@media (max-width: 1350px) {
+  [data-theme='control'] .register-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  [data-theme='control'] .review-agenda ol {
+    gap: 20px;
+  }
+  [data-theme='control'] .review-agenda .register-heading {
+    margin-bottom: 12px;
+  }
+  [data-theme='control'] .review-agenda li > button {
+    padding-bottom: 5px;
+  }
+  [data-theme='control'] .agenda-note {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+  .cover-control .cover-copy {
+    padding-inline: 26px;
+  }
+}
+@media (max-width: 1100px) {
+  .sidebar-illustration {
+    display: none;
+  }
+  .workspace .sidebar-bottom {
+    margin-top: auto;
+  }
+  [data-theme='control'] .overview-register {
+    grid-template-columns: minmax(0, 1fr) 180px;
+    gap: 0 18px;
+  }
+  .cover-copy h2 {
+    font-size: 31px;
+  }
+  .cover-ledger .cargo-artwork {
+    width: 270px;
+    right: 23%;
+    top: 65px;
+  }
+  .cover-ledger .archive-mark {
+    right: 6%;
+    width: 115px;
+  }
+}
+@media (max-width: 800px) {
+  [data-theme='control'] .overview-register {
+    display: block;
+  }
+  [data-theme='control'] .register-totals {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-bottom: 1px solid var(--border);
+  }
+  [data-theme='control'] .register-totals > div {
+    display: block;
+    padding: 5px 12px 16px;
+    border: 0;
+  }
+  [data-theme='control'] .register-totals dd {
+    font-size: 32px;
+    margin-top: 10px;
+  }
+  [data-theme='control'] .register-totals dt {
+    min-height: 33px;
+  }
+  .cover-copy {
+    padding: 27px;
+  }
+  .cover-ledger .cover-copy {
+    width: 65%;
+  }
+  .cover-ledger .cargo-artwork {
+    display: none;
+  }
+  .cover-ledger::before {
+    right: 31%;
+  }
+  .cover-ledger .cover-route {
+    width: 24%;
+  }
+  .cover-ledger .archive-mark {
+    right: 6%;
+  }
+  .cover-control .document-sculpture {
+    right: -5%;
+  }
+}
+@media (max-width: 540px) {
+  .shipment-cover {
+    min-height: 420px;
+  }
+  .cover-copy,
+  .cover-harbor .cover-copy,
+  .cover-control .cover-copy {
+    padding: 25px 23px;
+    width: 100%;
+  }
+  .cover-copy h2,
+  .cover-control .cover-copy h2 {
+    font-size: 32px;
+    max-width: 100%;
+  }
+  .cover-caption {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .cover-case {
+    max-width: 72%;
+  }
+  .cover-case strong {
+    font-size: 12px;
+  }
+  .cover-case b {
+    display: block;
+    margin: 5px 0 0;
+  }
+  .cover-harbor .cover-photo {
+    inset: 0 0 0 45%;
+    opacity: 0.65;
+    border-radius: 150px 0 0 0;
+  }
+  .cover-harbor .cover-photo::after {
+    background:
+      linear-gradient(90deg, #eaf0e8, #eaf0e8cc 40%, transparent),
+      linear-gradient(0deg, #133e38, transparent 50%);
+  }
+  .cover-harbor .cargo-artwork {
+    width: 160px;
+    right: -19px;
+    bottom: 44px;
+    opacity: 0.55;
+  }
+  .cover-harbor .compass-rose {
+    width: 85px;
+    top: auto;
+    bottom: 130px;
+    right: -12px;
+    opacity: 0.6;
+  }
+  .cover-photo-credit {
+    top: auto;
+    bottom: 10px;
+    right: 10px;
+    font-size: 6px;
+  }
+  .cover-harbor .cover-route {
+    color: #234e40;
+    width: auto;
+    right: 26px;
+    left: 24px;
+    bottom: 31px;
+    font-size: 11px;
+  }
+  .cover-harbor .cover-route > span:last-child {
+    color: #fff7e4;
+  }
+  .cover-control .document-sculpture {
+    top: auto;
+    bottom: 39px;
+    right: -44px;
+    width: 170px;
+    height: auto;
+    opacity: 0.62;
+  }
+  .cover-control .route-orbits {
+    width: 130%;
+    right: -55%;
+    top: 24%;
+  }
+  .cover-control .cover-route {
+    width: auto;
+    left: 24px;
+    right: 30px;
+    bottom: 25px;
+  }
+  .cover-art-caption {
+    display: none;
+  }
+  [data-theme='harbor'] .case-register,
+  [data-theme='control'] .case-register,
+  [data-theme='ledger'] .case-register {
+    padding: 20px 15px;
+  }
+  [data-theme='harbor'] .register-totals {
+    padding-top: 3px;
+  }
+  [data-theme='control'] .register-totals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  [data-theme='control'] .register-totals > div {
+    display: flex;
+    padding: 6px 0 14px;
+    gap: 10px;
+  }
+  [data-theme='control'] .register-totals dt {
+    min-height: 0;
+  }
+  [data-theme='control'] .register-totals dd {
+    margin: 0;
+  }
+  [data-theme='control'] .review-agenda ol {
+    display: block;
+  }
+  [data-theme='control'] .review-agenda li + li {
+    border: 0;
+    border-top: 1px solid #cfc4df;
+    padding: 15px 0 0;
+    margin-top: 15px;
+  }
+  .cover-ledger {
+    min-height: 400px;
+  }
+  .cover-ledger .cover-copy {
+    width: 100%;
+    padding: 26px 24px 26px 28px;
+  }
+  .cover-ledger .cover-copy h2 {
+    font-size: 29px;
+  }
+  .cover-ledger .cover-case {
+    max-width: 100%;
+  }
+  .cover-ledger::before {
+    right: auto;
+    bottom: 70px;
+    top: auto;
+    left: 0;
+    width: 100%;
+    border: 0;
+    border-top: 1px dashed #bdb09a;
+  }
+  .cover-ledger .archive-mark {
+    top: 210px;
+    right: 0;
+    width: 76px;
+    height: 76px;
+    opacity: 0.55;
+  }
+  .cover-ledger .archive-mark > span {
+    font-size: 8px;
+    top: 27px;
+    letter-spacing: 1px;
+    padding-block: 4px;
+  }
+  .cover-ledger .cover-route {
+    width: auto;
+    left: 29px;
+    right: 29px;
+    bottom: 23px;
+  }
+  .concept-art > .document-sculpture {
+    width: 240px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-bloom,
+  .orbit-trace,
+  .scan-stroke {
+    animation: none !important;
+  }
+  .shipment-cover *,
+  .concept-preview .miniature {
+    transition: none !important;
+  }
+  .cover-control:hover .document-sculpture,
+  .cover-harbor:hover .cover-photo img {
+    transform: none;
+  }
+}

@@ -64,15 +64,19 @@ test-results/
 /example/
 /statements/
 /plan/
-/prototypes/
+/prototypes/*
+!/prototypes/ui-ux/
+/prototypes/ui-ux/previews/
+/prototypes/ui-ux/research/
 /image[0-9]*.*
 /image-*/
 
-# Publish only explicitly reviewed engineering documentation and blank templates.
+# Publish only explicitly reviewed documentation and blank templates.
 /docs/*
 !/docs/development.md
 !/docs/repository-privacy.md
 !/docs/runtime-architecture.md
+!/docs/user-guide.vi.md
 !/docs/templates/
 /docs/templates/*
 !/docs/templates/internal-review-v1.xlsx

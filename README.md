@@ -9,6 +9,8 @@ Excel form. The workflow is **create a case → upload documents → extract sou
 proposals → reconcile differences → confirm consolidated values → export Excel**.
 The product uses the Harbor interface and supports Vietnamese and English.
 
+For the browser workflow, see the [Vietnamese user guide](docs/user-guide.vi.md).
+
 ![Precheck Harbor brand illustration with shipping documents and a port](docs/brand/precheck-cover.png)
 
 Brand artwork generated with imagegen:
@@ -214,7 +216,8 @@ Use `down -v` only for disposable test projects. Preserve the main application v
 - `infra/`: Compose environments, reverse proxy and optional review gateway.
 - `scripts/`: reference imports, form imports, contract generation and Git safety checks.
 - `tests/`: browser scenarios and the synthetic AI server.
-- `docs/`: reviewed engineering documentation, generic blank templates, brand artwork and fictional-data screenshots.
+- `prototypes/ui-ux/`: three standalone design alternatives with fictional shipment fixtures.
+- `docs/`: operator guides, reviewed engineering documentation, generic blank templates, brand artwork and fictional-data screenshots.
 
 Original documents, private conversations, local design fixtures, operational output,
 AI traces and historical acceptance reports remain local. They are not deleted.
