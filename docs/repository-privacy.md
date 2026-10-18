@@ -4,6 +4,11 @@ The tracked repository contains application source, synthetic tests, generic ref
 definitions, dependency locks, generated API contracts and reviewed technical documentation.
 It does not contain operational shipment data or a copy of the local database.
 
+The reusable engineering playbook, bootstrap plan and instruction template are explicitly
+allowlisted technical documents. They describe generic practices and synthetic examples,
+not private planning history. Do not broaden the allowlist to publish historical local
+notes or original source material when reusing these guides.
+
 ## Files that remain local
 
 - `.env` and other local configuration, credentials and gateway access files.

@@ -86,3 +86,11 @@ remove volumes only for disposable test projects.
 The application does not submit declarations to customs, certify legal correctness or
 establish formal business approval. See [development](development.md) for conventions
 and [repository privacy](repository-privacy.md) for the publication boundary.
+
+## Reusing the architecture
+
+The [engineering playbook](engineering-playbook.md) explains reusable decisions and
+their limits. The [bootstrap plan](project-bootstrap-plan.md) sequences a new project,
+and the [instruction template](project-instructions-template.md) provides adaptable
+repository conventions. Proposed improvements in those guides are not claims about
+features already implemented here.

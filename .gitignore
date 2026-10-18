@@ -74,6 +74,9 @@ test-results/
 # Publish only explicitly reviewed documentation and blank templates.
 /docs/*
 !/docs/development.md
+!/docs/engineering-playbook.md
+!/docs/project-bootstrap-plan.md
+!/docs/project-instructions-template.md
 !/docs/repository-privacy.md
 !/docs/runtime-architecture.md
 !/docs/user-guide.vi.md

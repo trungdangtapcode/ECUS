@@ -1,5 +1,22 @@
 # Development guide
 
+For reusable rationale and tradeoffs, read the [engineering playbook](engineering-playbook.md).
+For a new repository, use the [bootstrap plan](project-bootstrap-plan.md) and adapt the
+[instruction and decision templates](project-instructions-template.md). These guides
+separate recommended practices from the current [runtime architecture](runtime-architecture.md).
+
+## Plan and finish a change
+
+Start from the operator's behavior, the server invariant and the smallest independent
+verification that can prove the result. Implement a vertical slice through schema,
+service, API, UI and output when those layers are affected. Preserve original evidence
+and historical artifacts. Keep temporary analysis and operational inputs outside Git.
+
+After implementation, report what changed, which checks ran and what remains unverified.
+For AI-assisted flows, distinguish accepted proposals, source-value choices, manual
+corrections and actual output comparison. A successful mock response does not establish
+live model accuracy, and a completed job does not establish business correctness.
+
 ## Add a backend feature
 
 1. Add a focused module under `services/api/src/ecus_api/modules/` with schemas, service, router and models as needed. Prefer concrete functions over speculative abstractions.
@@ -30,6 +47,17 @@ Tests use `httpx.MockTransport`. Running a provider benchmark is a separate deli
 
 Use `uv add --project services/api <package>` for runtime Python dependencies and `uv add --project services/api --group dev <package>` for development dependencies. Use `npm install --workspace @ecus/web <package>` or the appropriate workspace for JavaScript dependencies. Commit the updated lockfiles.
 
-`make check` runs Python lint/format/type checks, web lint/types, and contract drift checks. `make test` runs backend and locale tests. Browser tests exercise the real PostgreSQL-backed case flow using the isolated Compose project described in the root README.
+`make check` runs Python lint/format/type checks, web lint/types, and contract drift checks.
+`make test` runs backend and frontend unit tests. Run `npm run build` for the production
+frontend. Browser tests exercise the real PostgreSQL-backed case flow using the isolated
+Compose project described in the root README; run them for operator-flow changes, not
+for documentation-only edits. Inspect the actual downloaded artifact when export changes.
 
-Do not modify the original planning PDFs, chat export or customer examples. Keep all new source code, comments and developer documentation in English; Vietnamese is confined to localization resources and intentionally preserved business source material.
+Use tests that protect an invariant or a failure/recovery path. Avoid tests that merely
+repeat the implementation. Keep paid live evaluations separate from default checks;
+record their scope and manual interventions. Always clean up disposable Compose projects
+in `finally`, including on failure, without stopping operational or unrelated services.
+
+Do not modify the original planning PDFs, chat export or customer examples. Keep new
+source code, comments and technical documentation in English. Localized product copy
+belongs in locale resources; operator guides may use the operator's language.

@@ -24,9 +24,9 @@ the interface rather than AI extraction accuracy.
 
 ![Workspace overview with case status and review priorities](docs/screenshots/workspace.png)
 
-| Source reconciliation | Excel export history |
-| --- | --- |
-| Compare document values beside the highlighted PDF and select an existing source value. | Download an immutable workbook from its own export record. |
+| Source reconciliation                                                                                                       | Excel export history                                                                                                        |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Compare document values beside the highlighted PDF and select an existing source value.                                     | Download an immutable workbook from its own export record.                                                                  |
 | [![Source values synchronized with PDF evidence](docs/screenshots/reconciliation.png)](docs/screenshots/reconciliation.png) | [![Confirmed workbook records with download actions](docs/screenshots/excel-export.png)](docs/screenshots/excel-export.png) |
 
 <details>
@@ -241,3 +241,18 @@ python3 scripts/check_git_safety.py --history
 See [privacy rules](docs/repository-privacy.md), [runtime architecture](docs/runtime-architecture.md)
 and [development conventions](docs/development.md). The original private planning and
 review notes are intentionally not part of a public clone.
+
+## Reuse the engineering approach
+
+These guides explain the decisions behind the implementation and how to adapt them
+to another project without copying operational data or assuming every dependency is needed:
+
+- [Engineering playbook](docs/engineering-playbook.md): business boundaries, evidence,
+  contracts, code organization, AI diagnosis, review UX, testing and tradeoffs.
+- [Project bootstrap plan](docs/project-bootstrap-plan.md): phases with concrete exit
+  evidence, from independent output references to reproducible deployment.
+- [Reusable instructions and decision templates](docs/project-instructions-template.md):
+  an adaptable `AGENTS.md`, architecture decision record and feature worksheet.
+
+The runtime architecture describes supported behavior. The reusable guides identify
+future improvements separately; they do not claim the system implements them already.
