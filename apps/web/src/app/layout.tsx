@@ -1,20 +1,30 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { CircleHelp, FileCheck2, PanelLeftClose, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Link, NavLink, Outlet, useMatch, useSearchParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import { supportedLocales } from "../lib/i18n";
 import { navigation } from "./navigation";
 import { CargoArtwork } from "../design/harbor/cargo-artwork";
 import { CompassRose } from "../design/harbor/maritime-details";
+import { TabIndicator } from "../design/motion";
+import { useEnterMotion, useMotionRecipe } from "../design/motion-hooks";
 
 function Guide({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
   const dialog = useRef<HTMLDialogElement>(null);
+  const effects = useMotionRecipe();
   useEffect(() => {
     dialog.current?.showModal();
   }, []);
   return (
-    <dialog className="case-dialog" ref={dialog} onCancel={onClose} aria-labelledby="guide-title">
+    <motion.dialog
+      className="case-dialog"
+      ref={dialog}
+      onCancel={onClose}
+      aria-labelledby="guide-title"
+      {...effects.reveal()}
+    >
       <div className="dialog-heading">
         <h2 id="guide-title">{t("harborApp.helpTitle")}</h2>
         <button className="icon-button" onClick={onClose} aria-label={t("common.close")}>
@@ -26,7 +36,7 @@ function Guide({ onClose }: { onClose: () => void }) {
           <li key={step}>{step}</li>
         ))}
       </ol>
-    </dialog>
+    </motion.dialog>
   );
 }
 
@@ -37,6 +47,11 @@ export function Layout() {
   const [collapsed, setCollapsed] = useState(false);
   const [help, setHelp] = useState(false);
   const section = search.get("section") ?? "documents";
+  const { pathname } = useLocation();
+  const content = useEnterMotion<HTMLElement>(
+    `${pathname}:${section}:${search.get("view") ?? ""}`,
+    true,
+  );
   const label = activeCase
     ? `harborApp.${section === "rules" || section === "audit" ? "overview" : section}`
     : "harborApp.overview";
@@ -46,7 +61,7 @@ export function Layout() {
         {t("navigation.skip")}
       </a>
       <div className={`workspace layout-harbor ${collapsed ? "nav-collapsed" : ""}`}>
-        <aside className="sidebar">
+        <motion.aside className="sidebar" layout="size">
           <Link to="/" className="sidebar-brand" aria-label={t("harborApp.intro")}>
             <span className="brand-mark">
               <FileCheck2 size={23} />
@@ -69,8 +84,13 @@ export function Layout() {
               );
               return entry.route ? (
                 <NavLink key={entry.id} to={entry.route} end title={name}>
-                  {icon}
-                  <span>{name}</span>
+                  {({ isActive }) => (
+                    <>
+                      {isActive && <TabIndicator id="workspace-navigation" navigation />}
+                      {icon}
+                      <span>{name}</span>
+                    </>
+                  )}
                 </NavLink>
               ) : activeCase ? (
                 <Link
@@ -80,6 +100,9 @@ export function Layout() {
                   aria-current={section === entry.section ? "page" : undefined}
                   title={name}
                 >
+                  {section === entry.section && (
+                    <TabIndicator id="workspace-navigation" navigation />
+                  )}
                   {icon}
                   <span>{name}</span>
                 </Link>
@@ -115,7 +138,7 @@ export function Layout() {
               <PanelLeftClose size={17} />
             </button>
           </div>
-        </aside>
+        </motion.aside>
         <div className="workspace-main">
           <header className="app-topbar">
             <div className="breadcrumbs">
@@ -138,7 +161,7 @@ export function Layout() {
               </select>
             </div>
           </header>
-          <main id="main-content" className="page-content" tabIndex={-1}>
+          <main id="main-content" className="page-content" tabIndex={-1} ref={content}>
             <Outlet />
           </main>
           <footer className="workspace-footer">

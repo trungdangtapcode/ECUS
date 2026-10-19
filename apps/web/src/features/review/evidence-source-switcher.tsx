@@ -1,6 +1,8 @@
 import type { ReviewWorkspace } from "@ecus/api-client";
+import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useMotionRecipe } from "../../design/motion-hooks";
 
 type Observation = ReviewWorkspace["readiness"]["comparisons"][number]["observations"][number];
 
@@ -18,6 +20,7 @@ export function EvidenceSourceSwitcher({
   onSelect: (source: Observation) => void;
 }) {
   const { t } = useTranslation();
+  const effects = useMotionRecipe();
   if (observations.length < 2) return null;
 
   return (
@@ -30,13 +33,15 @@ export function EvidenceSourceSwitcher({
           )?.filename;
           const value = `${source.normalized} ${source.unit}`.trim();
           return (
-            <button
+            <motion.button
               type="button"
               key={source.id}
               data-source-id={source.id}
               aria-pressed={source.id === selectedId}
               aria-label={t("review.sourceChoice", { value, file: filename, page: source.page })}
               onClick={() => onSelect(source)}
+              whileHover={effects.reduced ? undefined : { x: 3 }}
+              whileTap={effects.press}
             >
               <span>
                 <strong title={value}>{value}</strong>
@@ -45,7 +50,7 @@ export function EvidenceSourceSwitcher({
                 </small>
               </span>
               <ChevronRight size={16} aria-hidden="true" />
-            </button>
+            </motion.button>
           );
         })}
       </div>

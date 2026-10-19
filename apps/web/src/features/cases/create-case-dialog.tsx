@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useMotionRecipe } from "../../design/motion-hooks";
 import type { FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -13,6 +15,7 @@ export function CreateCaseDialog({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
   const { path } = useDesign();
   const dialog = useRef<HTMLDialogElement>(null);
+  const effects = useMotionRecipe();
   const referenceInput = useRef<HTMLInputElement>(null);
   const profiles = useQuery(profilesQuery);
   const [procedure, setProcedure] = useState<string | null>(null);
@@ -45,7 +48,13 @@ export function CreateCaseDialog({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <dialog ref={dialog} className="case-dialog" onCancel={onClose} aria-labelledby="create-title">
+    <motion.dialog
+      ref={dialog}
+      className="case-dialog"
+      onCancel={onClose}
+      aria-labelledby="create-title"
+      {...effects.reveal()}
+    >
       <div className="dialog-heading">
         <div>
           <h2 id="create-title">{t("cases.formTitle")}</h2>
@@ -108,6 +117,6 @@ export function CreateCaseDialog({ onClose }: { onClose: () => void }) {
           </Button>
         </div>
       </form>
-    </dialog>
+    </motion.dialog>
   );
 }

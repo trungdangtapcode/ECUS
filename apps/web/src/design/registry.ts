@@ -1,3 +1,13 @@
+export const motionSettings = {
+  enter: { duration: 0.58, ease: [0.22, 1, 0.36, 1] as const },
+  spring: { type: "spring" as const, stiffness: 360, damping: 30, mass: 0.9 },
+  stagger: 0.075,
+  travel: 36,
+  lift: 28,
+  hoverLift: -4,
+  pressScale: 0.97,
+};
+
 // The approved Harbor presentation. Business state belongs to feature modules.
 export const designs = {
   harbor: {
@@ -21,6 +31,10 @@ export const designs = {
       radius: "9px",
       headingFont: '"Be Vietnam Pro", sans-serif',
       density: "16px",
+      motionFast: "180ms",
+      motionEnter: `${motionSettings.enter.duration * 1000}ms`,
+      motionStagger: `${motionSettings.stagger * 1000}ms`,
+      motionEase: "cubic-bezier(0.22, 1, 0.36, 1)",
     },
   },
 } as const;

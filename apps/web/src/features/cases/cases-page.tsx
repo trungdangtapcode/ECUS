@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Archive, ArrowRight, FolderPlus, Plus, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -10,6 +11,8 @@ import { CreateCaseDialog } from "./create-case-dialog";
 import { ShipmentCover } from "../../design/harbor/shipment-cover";
 import { reviewQuery } from "../review/queries";
 import { workflowStatus } from "../review/workflow-status";
+import { AnimatedCount, TabIndicator } from "../../design/motion";
+import { useMotionRecipe } from "../../design/motion-hooks";
 
 export function CasesPage() {
   const { t, i18n } = useTranslation();
@@ -18,6 +21,7 @@ export function CasesPage() {
   const [search, setSearch] = useState("");
   const [params, setParams] = useSearchParams();
   const archived = params.get("view") === "archived";
+  const effects = useMotionRecipe();
   const query = useQuery(casesQuery(offset, archived));
   const items = query.data?.items ?? [];
   const reviews = useQueries({
@@ -92,10 +96,16 @@ export function CasesPage() {
         {!archived && (
           <dl className="register-totals" aria-label={t("harborApp.pageScope")}>
             {counts.map((count, index) => (
-              <div key={labels[index]}>
+              <motion.div
+                key={labels[index]}
+                {...effects.reveal(index + 1)}
+                whileHover={effects.hover}
+              >
                 <dt>{t(labels[index]!)}</dt>
-                <dd>{count === undefined ? "—" : String(count).padStart(2, "0")}</dd>
-              </div>
+                <dd>
+                  <AnimatedCount value={count} />
+                </dd>
+              </motion.div>
             ))}
           </dl>
         )}
@@ -108,7 +118,11 @@ export function CasesPage() {
               </span>
             </div>
             <div className="register-tools">
-              <div className="register-filters" role="group" aria-label={t("cases.scope")}>
+              <div
+                className="register-filters motion-tabs"
+                role="group"
+                aria-label={t("cases.scope")}
+              >
                 {[false, true].map((value) => (
                   <button
                     key={String(value)}
@@ -120,7 +134,10 @@ export function CasesPage() {
                     }}
                   >
                     {value && <Archive size={14} />}
-                    {t(value ? "cases.archived" : "cases.active")}
+                    {archived === value && <TabIndicator id="case-filter" />}
+                    <span className="motion-tab-label">
+                      {t(value ? "cases.archived" : "cases.active")}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -171,50 +188,66 @@ export function CasesPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {visible.map((item) => (
-                        <tr key={item.id}>
-                          <td>
-                            <Link
-                              className="register-case-name"
-                              to={`/cases/${item.id}`}
-                              aria-label={t("cases.open", { reference: item.reference })}
-                            >
-                              <strong>{item.title}</strong>
-                              <span>{item.reference}</span>
-                            </Link>
-                          </td>
-                          <td>
-                            <span className="register-procedure">{item.procedure}</span>
-                          </td>
-                          <td>{date.format(new Date(item.created_at))}</td>
-                          <td>
-                            <span
-                              className="register-status"
-                              data-tone={
-                                reviews[items.findIndex((record) => record.id === item.id)]?.data
-                                  ?.readiness.approved
-                                  ? "complete"
-                                  : "review"
-                              }
-                            >
-                              {t(
-                                archived
-                                  ? "cases.archived"
-                                  : `caseWorkflow.${workflowStatus(reviews[items.findIndex((record) => record.id === item.id)]?.data)}`,
-                              )}
-                            </span>
-                          </td>
-                          <td>
-                            <Link
-                              className="register-open"
-                              to={archived ? `/cases/${item.id}` : `/cases/${item.id}/review`}
-                              aria-label={`${t("review.open")} · ${item.reference}`}
-                            >
-                              <ArrowRight size={17} />
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
+                      <AnimatePresence>
+                        {visible.map((item, index) => (
+                          <motion.tr
+                            key={item.id}
+                            layout="position"
+                            {...effects.reveal(index)}
+                            exit={{
+                              opacity: 0,
+                              x: effects.reduced ? 0 : -24,
+                              pointerEvents: "none",
+                            }}
+                            whileHover={
+                              effects.reduced
+                                ? undefined
+                                : { x: 6, backgroundColor: "var(--accent-soft)" }
+                            }
+                          >
+                            <td>
+                              <Link
+                                className="register-case-name"
+                                to={`/cases/${item.id}`}
+                                aria-label={t("cases.open", { reference: item.reference })}
+                              >
+                                <strong>{item.title}</strong>
+                                <span>{item.reference}</span>
+                              </Link>
+                            </td>
+                            <td>
+                              <span className="register-procedure">{item.procedure}</span>
+                            </td>
+                            <td>{date.format(new Date(item.created_at))}</td>
+                            <td>
+                              <span
+                                className="register-status"
+                                data-tone={
+                                  reviews[items.findIndex((record) => record.id === item.id)]?.data
+                                    ?.readiness.approved
+                                    ? "complete"
+                                    : "review"
+                                }
+                              >
+                                {t(
+                                  archived
+                                    ? "cases.archived"
+                                    : `caseWorkflow.${workflowStatus(reviews[items.findIndex((record) => record.id === item.id)]?.data)}`,
+                                )}
+                              </span>
+                            </td>
+                            <td>
+                              <Link
+                                className="register-open"
+                                to={archived ? `/cases/${item.id}` : `/cases/${item.id}/review`}
+                                aria-label={`${t("review.open")} · ${item.reference}`}
+                              >
+                                <ArrowRight size={17} />
+                              </Link>
+                            </td>
+                          </motion.tr>
+                        ))}
+                      </AnimatePresence>
                     </tbody>
                   </table>
                 </div>
@@ -260,7 +293,11 @@ export function CasesPage() {
               </div>
               <ol>
                 {agenda.map(({ item, count }, index) => (
-                  <li key={item.id}>
+                  <motion.li
+                    key={item.id}
+                    {...effects.reveal(index + 2)}
+                    whileHover={effects.reduced ? undefined : { x: 6 }}
+                  >
                     <Link to={`/cases/${item.id}/review?section=compare`}>
                       <span className="agenda-index">{String(index + 1).padStart(2, "0")}</span>
                       <span className="agenda-copy">
@@ -272,7 +309,7 @@ export function CasesPage() {
                         </span>
                       </span>
                     </Link>
-                  </li>
+                  </motion.li>
                 ))}
               </ol>
               {pendingReviews && <p role="status">{t("common.loading")}</p>}

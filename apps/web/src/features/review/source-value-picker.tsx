@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { motion } from "framer-motion";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { ReviewWorkspace } from "@ecus/api-client";
 import { useTranslation } from "react-i18next";
@@ -7,6 +8,7 @@ import { api } from "../../lib/api";
 import { Button } from "../../components/ui/button";
 import { ErrorState } from "../../components/error-state";
 import { read, reviewKey } from "./queries";
+import { useMotionRecipe } from "../../design/motion-hooks";
 
 type Comparison = ReviewWorkspace["readiness"]["comparisons"][number];
 type Observation = Comparison["observations"][number];
@@ -28,6 +30,7 @@ export function SourceValuePicker({
 }) {
   const { t } = useTranslation();
   const [confirming, setConfirming] = useState(false);
+  const effects = useMotionRecipe();
   if (
     !item.observations.length ||
     !data.workspace.template?.mappings.some((mapping) => mapping.field === item.field)
@@ -46,18 +49,20 @@ export function SourceValuePicker({
           )?.filename;
           const value = `${entry.normalized} ${entry.unit}`.trim();
           return (
-            <button
+            <motion.button
               type="button"
               key={entry.id}
               aria-pressed={entry.id === source?.id}
               aria-label={t("review.sourceChoice", { value, file: filename, page: entry.page })}
               onClick={() => onPreview(entry)}
+              whileHover={effects.reduced ? undefined : { x: 4 }}
+              whileTap={effects.press}
             >
               <strong title={value}>{value}</strong>
               <small title={filename}>
                 {filename} · {t("review.page")} {entry.page}
               </small>
-            </button>
+            </motion.button>
           );
         })}
       </div>

@@ -35,6 +35,16 @@ Add user-facing strings to both locale JSON files. Prefer interpolation over con
 
 Reference values come from the API. Labels can be localized by stable reference code; use the supplied English name as fallback for new codes. Do not repeat procedure allowlists in frontend validation.
 
+Framer Motion timing, spring parameters and travel distances belong in the presentation
+registry. Shared layout indicators connect selected navigation items; content hooks animate
+existing elements rather than remounting feature state on navigation. Keep document
+scroll containers and source selection stable. New motion must honor reduced-motion
+preferences, including preference changes while an animation is running. Verify tab
+changes preserve unsaved state and avoid automatic mutations or extra processing requests.
+Decorative loops pause outside the viewport and stop for reduced motion. Default motion
+configuration is shared through `MotionRoot`; feature modules do not maintain separate
+timing constants. Inspect actual intermediate transforms in browser tests, not only class names.
+
 ## Add an AI workflow
 
 Create a feature-owned Pydantic schema with explicit nullable fields and `extra="forbid"`. Call the `StructuredAI` interface from a service, not from an HTTP handler. Specify source page/region identifiers in the input and validate returned references. Do not treat model-provided coordinates or HS codes as validated evidence.

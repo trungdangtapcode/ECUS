@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,7 @@ import { ErrorState } from "../../components/error-state";
 import { media } from "./media";
 import { CompassRose, RouteOrbits } from "./maritime-details";
 import { CargoArtwork } from "./cargo-artwork";
+import { useEnterMotion, useMotionRecipe, useScrollReveal } from "../motion-hooks";
 
 export function Landing() {
   const { t } = useTranslation();
@@ -17,6 +19,9 @@ export function Landing() {
   const copy = t("workbench", { returnObjects: true }) as typeof vi.workbench;
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
+  const effects = useMotionRecipe();
+  const stepDetail = useEnterMotion<HTMLDivElement>(step);
+  const sections = useScrollReveal<HTMLElement>();
   const [sampleId, setSampleId] = useState("");
   const casesQueryResult = useQuery(casesQuery(0));
   const cases = casesQueryResult.data?.items ?? [];
@@ -45,9 +50,9 @@ export function Landing() {
           <ArrowUpRight size={16} />
         </button>
       </header>
-      <main className="landing-main" id="main-content">
+      <main className="landing-main" id="main-content" ref={sections}>
         <section className="landing-hero">
-          <div className="landing-hero-copy">
+          <motion.div className="landing-hero-copy" {...effects.reveal()}>
             <p className="landing-eyebrow">
               <span />
               {text.tagline}
@@ -68,8 +73,8 @@ export function Landing() {
               </a>
             </div>
             <p className="landing-demo-note">{text.demoNote}</p>
-          </div>
-          <div className="landing-hero-art">
+          </motion.div>
+          <motion.div className="landing-hero-art" {...effects.reveal(2)}>
             {
               <>
                 <div className="landing-port">
@@ -88,7 +93,7 @@ export function Landing() {
                 </div>
               </>
             }
-          </div>
+          </motion.div>
         </section>
         <div className="landing-document-belt">
           <p>{text.documentsLabel}</p>
@@ -146,6 +151,7 @@ export function Landing() {
             </div>
             <div
               className="landing-step-detail"
+              ref={stepDetail}
               id="step-detail"
               role="tabpanel"
               aria-labelledby={`step-${step}`}

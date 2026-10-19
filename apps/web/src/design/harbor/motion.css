@@ -1,0 +1,89 @@
+/* Framer Motion owns transforms and presence; CSS supplies presentation and focus states. */
+.theme-root .page-content {
+  overflow-x: clip;
+}
+.theme-root :is(.motion-tabs button, .workspace-nav > a) {
+  position: relative;
+  isolation: isolate;
+}
+.motion-tab-indicator {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 3px 3px 0 0;
+  pointer-events: none;
+}
+.motion-nav-indicator {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 6px 14px 14px 6px;
+  background: var(--accent);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 20%, transparent);
+  pointer-events: none;
+}
+.theme-root .layout-harbor .workspace-nav > a.active {
+  background: transparent;
+  box-shadow: none;
+  color: var(--ui-accent-ink);
+}
+
+.theme-root .layout-harbor .workspace-nav > a > .motion-nav-indicator {
+  display: block;
+}
+.theme-root .review-tabs .button[aria-current="page"] {
+  box-shadow: none;
+}
+.theme-root :is(.comparison-filters, .register-filters) button[aria-pressed="true"] {
+  border-bottom-color: transparent;
+}
+.theme-root .motion-tabs .button:hover,
+.theme-root .motion-tabs .button:active {
+  transform: none;
+}
+.theme-root [data-motion-button] {
+  transition:
+    background-color var(--motion-fast),
+    color var(--motion-fast),
+    border-color var(--motion-fast),
+    box-shadow var(--motion-fast);
+}
+.theme-root
+  :is(
+    .workspace-nav > a,
+    .document-row,
+    .harbor-issue-list button,
+    .evidence-source-options button
+  ) {
+  transition:
+    background-color var(--motion-fast),
+    color var(--motion-fast),
+    border-color var(--motion-fast);
+}
+.theme-root :is(input, textarea, select) {
+  transition:
+    border-color var(--motion-fast),
+    box-shadow var(--motion-fast);
+}
+.motion-tab-label {
+  position: relative;
+}
+.theme-root .register-table tbody tr {
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .theme-root .case-dialog::backdrop {
+    animation: motion-backdrop var(--motion-enter) ease-out;
+  }
+}
+@keyframes motion-backdrop {
+  from {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
+  to {
+    background-color: #132d324f;
+    backdrop-filter: blur(5px);
+  }
+}

@@ -38,7 +38,7 @@ the interface rather than AI extraction accuracy.
 
 ## Stack and scope
 
-- React, TypeScript, Vite, TanStack Query and a generated OpenAPI client.
+- React, TypeScript, Vite, TanStack Query, Framer Motion and a generated OpenAPI client.
 - FastAPI, Pydantic, SQLAlchemy, Alembic and PostgreSQL.
 - Configurable OpenAI-compatible AI transport and versioned prompts.
 - Local Tesseract OCR with word positions for scanned PDF evidence.

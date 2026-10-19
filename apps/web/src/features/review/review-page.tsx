@@ -13,6 +13,7 @@ import { api } from "../../lib/api";
 import { caseQuery } from "../cases/queries";
 import { CaseActions } from "../cases/case-actions";
 import { lazy, Suspense, useState } from "react";
+import { motion } from "framer-motion";
 import type { FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ReviewMapping, ReviewWorkspace } from "@ecus/api-client";
@@ -21,6 +22,8 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ErrorState } from "../../components/error-state";
 import { Button } from "../../components/ui/button";
 import { useDesign } from "../../design/context";
+import { TabIndicator } from "../../design/motion";
+import { useMotionRecipe } from "../../design/motion-hooks";
 import { read, encodeFile, reviewActions, reviewFileUrl, reviewKey, reviewQuery } from "./queries";
 import { ConfigurationPanel } from "./configuration-panel";
 import { AITracePanel } from "./ai-trace-panel";
@@ -115,6 +118,7 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
     ["documents", "compare", "canonical", "export", "rules", "audit"].includes(requestedTab)
       ? requestedTab
       : "documents";
+  const effects = useMotionRecipe();
   const setTab = (section: string) =>
     setSearch((previous) => {
       previous.set("section", section);
@@ -289,15 +293,17 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
 
   return (
     <div className="review-workbench canonical-workspace">
-      <nav className="review-tabs" aria-label={t("review.title")}>
+      <nav className="review-tabs motion-tabs" aria-label={t("review.title")}>
         {["documents", "compare", "canonical", "export", "rules", "audit"].map((key) => (
           <Button
             key={key}
             variant={tab === key ? "primary" : "secondary"}
             aria-current={tab === key ? "page" : undefined}
             onClick={() => setTab(key)}
+            whileHover={{ y: 0 }}
           >
-            {t(`review.${key}`)}
+            {tab === key && <TabIndicator id="review-tabs" />}
+            <span className="motion-tab-label">{t(`review.${key}`)}</span>
           </Button>
         ))}
       </nav>
@@ -363,9 +369,12 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                 {documents
                   .filter((item) => !item.withdrawn)
                   .map((item, index) => (
-                    <button
+                    <motion.button
                       className={`document-row ${doc?.id === item.id ? "active" : ""}`}
                       key={item.id}
+                      {...effects.reveal(index)}
+                      whileHover={effects.reduced ? undefined : { x: 6 }}
+                      whileTap={effects.press}
                       onClick={() => {
                         setDocumentId(item.id);
                         setPage(1);
@@ -387,7 +396,7 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                       </span>
                       <span className="document-number">{String(index + 1).padStart(2, "0")}</span>
                       <ArrowRight size={16} />
-                    </button>
+                    </motion.button>
                   ))}
               </div>
             )}
@@ -671,7 +680,10 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                 onChange={(event) => setFieldSearch(event.target.value)}
               />
             </label>
-            <div className="comparison-filters" aria-label={t("processing.filterLabel")}>
+            <div
+              className="comparison-filters motion-tabs"
+              aria-label={t("processing.filterLabel")}
+            >
               {[
                 "attention",
                 ...(workspace.ai_reconciliation ? ["equivalent"] : []),
@@ -688,14 +700,17 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                     setFieldSearch("");
                   }}
                 >
-                  {t(`processing.filters.${filter}`)}
+                  {comparisonFilter === filter && <TabIndicator id="comparison-filter" />}
+                  <span className="motion-tab-label">{t(`processing.filters.${filter}`)}</span>
                 </button>
               ))}
             </div>
             <div className="harbor-issue-list" aria-label={t("harborApp.attention")}>
               {displayedComparisons.map((item) => (
-                <button
+                <motion.button
                   key={item.field}
+                  whileHover={effects.reduced ? undefined : { x: 5 }}
+                  whileTap={effects.press}
                   className={`${item.field === activeComparison?.field ? "active" : ""} ${item.source_values_differ && !item.resolved ? "has-source-conflict" : ""}`}
                   aria-pressed={item.field === activeComparison?.field}
                   onClick={() => {
@@ -728,14 +743,18 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                     )}
                   </span>
                   <ChevronRight size={15} />
-                </button>
+                </motion.button>
               ))}
             </div>
             {!displayedComparisons.length && (
               <p className="review-hint">{t("processing.filterEmpty")}</p>
             )}
             {(activeComparison ? [activeComparison] : []).map((comparison) => (
-              <article className="review-comparison" key={comparison.field}>
+              <motion.article
+                className="review-comparison"
+                key={comparison.field}
+                {...effects.reveal()}
+              >
                 <div className="review-section-heading">
                   <h3>{fieldLabel(comparison.field)}</h3>
                   <span className={`review-status status-${comparison.status.toLowerCase()}`}>
@@ -984,7 +1003,7 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                     </tbody>
                   </table>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </section>
         )}

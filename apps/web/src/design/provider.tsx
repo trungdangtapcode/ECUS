@@ -10,6 +10,8 @@ import "./harbor/landing.css";
 import "./harbor/consolidation.css";
 import "./harbor/documents.css";
 import "./harbor/product.css";
+import "./harbor/motion.css";
+import { MotionRoot } from "./motion";
 
 const tokens = designs.harbor.tokens;
 const variables = Object.fromEntries(
@@ -67,15 +69,17 @@ export function DesignProvider({ children }: { children: ReactNode }) {
         },
       }}
     >
-      <div
-        className="design-root theme-root"
-        data-design="harbor"
-        data-theme="harbor"
-        data-screen={screen}
-        style={style}
-      >
-        {children}
-      </div>
+      <MotionRoot>
+        <div
+          className="design-root theme-root"
+          data-design="harbor"
+          data-theme="harbor"
+          data-screen={screen}
+          style={style}
+        >
+          {children}
+        </div>
+      </MotionRoot>
     </DesignContext.Provider>
   );
 }

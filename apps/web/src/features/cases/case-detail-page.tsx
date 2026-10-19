@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { ArrowLeft, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
@@ -8,11 +9,13 @@ import { useDesign } from "../../design/context";
 import { reviewQuery } from "../review/queries";
 import { workflowStatus } from "../review/workflow-status";
 import { CaseActions } from "./case-actions";
+import { useMotionRecipe } from "../../design/motion-hooks";
 
 export function CaseDetailPage() {
   const { caseId = "" } = useParams();
   const { path } = useDesign();
   const { t, i18n } = useTranslation();
+  const effects = useMotionRecipe();
   const query = useQuery(caseQuery(caseId));
   const review = useQuery(reviewQuery(caseId));
   const item = query.data;
@@ -26,7 +29,7 @@ export function CaseDetailPage() {
       {query.isError && <ErrorState error={query.error} onRetry={() => void query.refetch()} />}
       {item && (
         <>
-          <section className="page-heading">
+          <motion.section className="page-heading" {...effects.reveal()}>
             <div>
               <p className="eyebrow">{item.reference}</p>
               <h1>{item.title}</h1>
@@ -36,8 +39,8 @@ export function CaseDetailPage() {
                 item.archived_at ? "cases.archived" : `caseWorkflow.${workflowStatus(review.data)}`,
               )}
             </span>
-          </section>
-          <section className="register detail-card">
+          </motion.section>
+          <motion.section className="register detail-card" {...effects.reveal(1)}>
             <h2>{t("cases.detailTitle")}</h2>
             {!item.archived_at && (
               <Link className="button button-primary" to={path(`/cases/${caseId}/review`)}>
@@ -71,7 +74,7 @@ export function CaseDetailPage() {
                 </div>
               )}
             </div>
-          </section>
+          </motion.section>
           <CaseActions item={item} />
         </>
       )}
