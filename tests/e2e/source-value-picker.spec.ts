@@ -96,6 +96,23 @@ test("Quick source values stay synchronized with PDF evidence and preserve manua
   const picker = page.getByRole("region", { name: en.review.quickSourceValue });
   const viewer = page.getByRole("navigation", { name: en.review.switchSource });
   const candidate = picker.getByLabel(en.review.sourceCandidateValue);
+  // Full-width source choices must not add horizontal scrollbars during hover or press.
+  for (const selector of [".evidence-source-options", ".source-picker-options"]) {
+    const options = page.locator(selector);
+    const choice = options.getByRole("button").last();
+    await choice.hover();
+    await expect
+      .poll(() =>
+        choice.evaluate(
+          (element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m11,
+        ),
+      )
+      .toBeLessThan(1);
+    expect(await options.evaluate((element) => element.scrollWidth - element.clientWidth)).toBe(0);
+    await page.mouse.down();
+    expect(await options.evaluate((element) => element.scrollWidth - element.clientWidth)).toBe(0);
+    await page.mouse.up();
+  }
   await viewer.getByRole("button", { name: /ALPHA TERMINAL.*source-a.pdf/ }).click();
   await expect(candidate).toHaveText("ALPHA TERMINAL");
   await picker.getByRole("button", { name: /BETA TERMINAL.*source-b.pdf/ }).click();

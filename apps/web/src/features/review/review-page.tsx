@@ -372,8 +372,8 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                     <motion.button
                       className={`document-row ${doc?.id === item.id ? "active" : ""}`}
                       key={item.id}
-                      {...effects.reveal(index)}
-                      whileHover={effects.reduced ? undefined : { x: 6 }}
+                      {...effects.reveal(index, { contained: true })}
+                      whileHover={effects.hoverInset}
                       whileTap={effects.press}
                       onClick={() => {
                         setDocumentId(item.id);
@@ -709,7 +709,7 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
               {displayedComparisons.map((item) => (
                 <motion.button
                   key={item.field}
-                  whileHover={effects.reduced ? undefined : { x: 5 }}
+                  whileHover={effects.hoverInset}
                   whileTap={effects.press}
                   className={`${item.field === activeComparison?.field ? "active" : ""} ${item.source_values_differ && !item.resolved ? "has-source-conflict" : ""}`}
                   aria-pressed={item.field === activeComparison?.field}

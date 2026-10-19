@@ -44,6 +44,11 @@ changes preserve unsaved state and avoid automatic mutations or extra processing
 Decorative loops pause outside the viewport and stop for reduced motion. Default motion
 configuration is shared through `MotionRoot`; feature modules do not maintain separate
 timing constants. Inspect actual intermediate transforms in browser tests, not only class names.
+Keep edge-to-edge rows inside their scrollable bounds: use contained reveal masks and
+inward hover scales for list controls. Table rows reveal without translating their layout;
+their padded action icons can move independently. Do not hide scrollbars to cover animation
+overflow: narrow data tables still need horizontal scrolling. Sample scroll dimensions
+during entry, filtering, hover, focus and press, not just after the animation settles.
 
 Use the presentation registry's spacing tokens for inline items, form groups, sections
 and responsive panel insets. A panel that paints its own surface needs an inner gutter;

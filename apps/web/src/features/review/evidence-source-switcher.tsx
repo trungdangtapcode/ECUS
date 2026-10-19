@@ -40,7 +40,7 @@ export function EvidenceSourceSwitcher({
               aria-pressed={source.id === selectedId}
               aria-label={t("review.sourceChoice", { value, file: filename, page: source.page })}
               onClick={() => onSelect(source)}
-              whileHover={effects.reduced ? undefined : { x: 3 }}
+              whileHover={effects.hoverInset}
               whileTap={effects.press}
             >
               <span>

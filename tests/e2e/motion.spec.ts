@@ -143,7 +143,7 @@ test("workspace rows visibly stagger and respond to hover without changing recor
     const start = performance.now();
     function sample() {
       const row = document.querySelector(".register-table tbody tr");
-      if (row) samples.push(new DOMMatrixReadOnly(getComputedStyle(row).transform).m42);
+      if (row) samples.push(Number(getComputedStyle(row).opacity));
       if (performance.now() - start < 2500) requestAnimationFrame(sample);
     }
     requestAnimationFrame(sample);
@@ -154,30 +154,30 @@ test("workspace rows visibly stagger and respond to hover without changing recor
   await expect
     .poll(() =>
       page.evaluate(() =>
-        Math.max(0, ...(window as unknown as { motionRowSamples: number[] }).motionRowSamples),
+        Math.min(1, ...(window as unknown as { motionRowSamples: number[] }).motionRowSamples),
       ),
     )
-    .toBeGreaterThan(8);
+    .toBeLessThan(0.8);
   await expect
-    .poll(() =>
-      first.evaluate((element) =>
-        Math.abs(new DOMMatrixReadOnly(getComputedStyle(element).transform).m42),
-      ),
-    )
-    .toBeLessThan(0.1);
+    .poll(() => first.evaluate((element) => Number(getComputedStyle(element).opacity)))
+    .toBe(1);
   const before = await (await request.get("/api/v1/cases?limit=100")).json();
   await first.hover();
   await expect
     .poll(() =>
-      first.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41),
+      first
+        .locator(".register-open svg")
+        .evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41),
     )
-    .toBeGreaterThan(4);
+    .toBeGreaterThan(2);
   await page.mouse.move(0, 0);
   await expect
     .poll(() =>
-      first.evaluate((element) =>
-        Math.abs(new DOMMatrixReadOnly(getComputedStyle(element).transform).m41),
-      ),
+      first
+        .locator(".register-open svg")
+        .evaluate((element) =>
+          Math.abs(new DOMMatrixReadOnly(getComputedStyle(element).transform).m41),
+        ),
     )
     .toBeLessThan(0.1);
   expect(await (await request.get("/api/v1/cases?limit=100")).json()).toEqual(before);

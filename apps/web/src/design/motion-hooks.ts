@@ -7,9 +7,15 @@ export function useMotionRecipe() {
   const reduced = useMotionPreference();
   return {
     reduced,
-    reveal: (index = 0) => ({
-      initial: reduced ? (false as const) : { opacity: 0, y: motionSettings.lift },
-      animate: { opacity: 1, y: 0 },
+    reveal: (index = 0, options?: { contained: boolean }) => ({
+      initial: reduced
+        ? (false as const)
+        : options?.contained
+          ? { opacity: 0, clipPath: "inset(0 0 100% 0)" }
+          : { opacity: 0, y: motionSettings.lift },
+      animate: options?.contained
+        ? { opacity: 1, clipPath: "inset(0 0 0% 0)" }
+        : { opacity: 1, y: 0 },
       transition: {
         ...motionSettings.enter,
         duration: reduced ? 0 : motionSettings.enter.duration,
@@ -17,6 +23,7 @@ export function useMotionRecipe() {
       },
     }),
     hover: reduced ? undefined : { y: motionSettings.hoverLift },
+    hoverInset: reduced ? undefined : { scale: motionSettings.hoverInset },
     press: reduced ? undefined : { scale: motionSettings.pressScale },
   };
 }

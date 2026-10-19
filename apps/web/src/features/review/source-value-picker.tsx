@@ -55,7 +55,7 @@ export function SourceValuePicker({
               aria-pressed={entry.id === source?.id}
               aria-label={t("review.sourceChoice", { value, file: filename, page: entry.page })}
               onClick={() => onPreview(entry)}
-              whileHover={effects.reduced ? undefined : { x: 4 }}
+              whileHover={effects.hoverInset}
               whileTap={effects.press}
             >
               <strong title={value}>{value}</strong>

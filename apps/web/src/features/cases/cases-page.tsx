@@ -192,17 +192,15 @@ export function CasesPage() {
                         {visible.map((item, index) => (
                           <motion.tr
                             key={item.id}
-                            layout="position"
-                            {...effects.reveal(index)}
+                            {...effects.reveal(index, { contained: true })}
                             exit={{
                               opacity: 0,
-                              x: effects.reduced ? 0 : -24,
                               pointerEvents: "none",
                             }}
                             whileHover={
                               effects.reduced
                                 ? undefined
-                                : { x: 6, backgroundColor: "var(--accent-soft)" }
+                                : { backgroundColor: "var(--accent-soft)" }
                             }
                           >
                             <td>
@@ -296,7 +294,7 @@ export function CasesPage() {
                   <motion.li
                     key={item.id}
                     {...effects.reveal(index + 2)}
-                    whileHover={effects.reduced ? undefined : { x: 6 }}
+                    whileHover={effects.hoverInset}
                   >
                     <Link to={`/cases/${item.id}/review?section=compare`}>
                       <span className="agenda-index">{String(index + 1).padStart(2, "0")}</span>

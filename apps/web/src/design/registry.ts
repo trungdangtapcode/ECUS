@@ -5,6 +5,7 @@ export const motionSettings = {
   travel: 36,
   lift: 28,
   hoverLift: -4,
+  hoverInset: 0.985,
   pressScale: 0.97,
 };
 

@@ -364,6 +364,8 @@
 }
 .register-case-name {
   display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
   padding: 0;
   border: 0;
   border-radius: 0;
