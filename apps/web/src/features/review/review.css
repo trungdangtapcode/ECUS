@@ -374,6 +374,8 @@
   padding-left: 1.5rem;
 }
 .review-audit li {
+  display: grid;
+  gap: var(--space-inline);
   margin-bottom: 1.5rem;
   overflow-wrap: anywhere;
 }
@@ -414,6 +416,35 @@
   padding: 0;
   margin: 0;
   min-width: 0;
+}
+.review-settings-stack {
+  display: grid;
+  gap: var(--space-group);
+  margin-top: var(--space-section);
+}
+.review-settings-stack > :is(h3, .review-form, .review-comparison) {
+  margin-block: 0;
+}
+.review-settings-stack > h3 {
+  margin-top: var(--space-inline);
+}
+.review-document-inspector {
+  display: grid;
+  gap: var(--space-group);
+  margin-top: var(--space-section);
+}
+.review-document-inspector > .back-link {
+  justify-self: start;
+  margin: 0;
+}
+.review-document-inspector > .button {
+  justify-self: start;
+}
+.review-section > .review-hint + :is(.review-field-search, .canonical-pagination) {
+  margin-top: var(--space-group);
+}
+.review-export-gate > h3 {
+  margin-bottom: 0;
 }
 .review-comparison summary {
   cursor: pointer;
@@ -595,7 +626,15 @@
   color: #7a4136;
 }
 .export-coverage {
+  display: grid;
+  gap: var(--space-group);
   margin: 20px 0;
+}
+.export-coverage > :is(h3, .review-missing-warning) {
+  margin: 0;
+}
+.export-coverage > .button {
+  justify-self: start;
 }
 .export-coverage > p {
   max-width: 75ch;

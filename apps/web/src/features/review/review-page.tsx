@@ -408,7 +408,7 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
             {!doc ? (
               <p>{t("review.empty")}</p>
             ) : (
-              <>
+              <div className="review-document-inspector">
                 <div className="review-form-grid">
                   <label>
                     {t("review.document")}
@@ -650,7 +650,7 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
                     </form>
                   </details>
                 </div>
-              </>
+              </div>
             )}
           </section>
         )}
@@ -1145,22 +1145,24 @@ function ReviewWorkbench({ caseId, data }: { caseId: string; data: ReviewWorkspa
             <p className="info-note">{t("rules.scope")}</p>
             <div className="review-export-gate">
               <h3>{t(readiness.eligible ? "review.ready" : "review.blocked")}</h3>
-              <ul>
-                {readiness.blockers.map((blocker) => {
-                  const index = blocker.lastIndexOf(":");
-                  const key = index < 0 ? blocker : blocker.slice(index + 1);
-                  return (
-                    <li key={blocker}>
-                      {index < 0 ? "" : `${fieldLabel(blocker.slice(0, index))}: `}
-                      {t(
-                        key === "MISSING_REQUIRED" || key === "EXTRACTION_UNCERTAIN"
-                          ? `workbench.statuses.${key}`
-                          : `review.blockers.${key}`,
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+              {!!readiness.blockers.length && (
+                <ul>
+                  {readiness.blockers.map((blocker) => {
+                    const index = blocker.lastIndexOf(":");
+                    const key = index < 0 ? blocker : blocker.slice(index + 1);
+                    return (
+                      <li key={blocker}>
+                        {index < 0 ? "" : `${fieldLabel(blocker.slice(0, index))}: `}
+                        {t(
+                          key === "MISSING_REQUIRED" || key === "EXTRACTION_UNCERTAIN"
+                            ? `workbench.statuses.${key}`
+                            : `review.blockers.${key}`,
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
               <ExportCoverage data={data} onReview={() => setTab("canonical")} />
               {reasonInput}
               <div className="review-actions">

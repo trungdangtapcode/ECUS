@@ -45,6 +45,13 @@ Decorative loops pause outside the viewport and stop for reduced motion. Default
 configuration is shared through `MotionRoot`; feature modules do not maintain separate
 timing constants. Inspect actual intermediate transforms in browser tests, not only class names.
 
+Use the presentation registry's spacing tokens for inline items, form groups, sections
+and responsive panel insets. A panel that paints its own surface needs an inner gutter;
+flat table rows can align with that gutter without another layer of padding. Give
+instructions, field groups and actions explicit separation instead of relying on browser
+paragraph margins, which the base stylesheet resets. Verify narrow layouts and preserve
+independent evidence scrolling when changing the workbench structure.
+
 ## Add an AI workflow
 
 Create a feature-owned Pydantic schema with explicit nullable fields and `extra="forbid"`. Call the `StructuredAI` interface from a service, not from an HTTP handler. Specify source page/region identifiers in the input and validate returned references. Do not treat model-provided coordinates or HS codes as validated evidence.

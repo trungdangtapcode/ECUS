@@ -42,7 +42,7 @@ export function ConfigurationPanel({ caseId, data }: { caseId: string; data: Rev
       <h2>{t("rules.title")}</h2>
       <p className="info-note">{t("rules.scope")}</p>
       {mutation.isError && <ErrorState error={mutation.error} />}
-      <fieldset className="review-controls" disabled={mutation.isPending}>
+      <fieldset className="review-controls review-settings-stack" disabled={mutation.isPending}>
         <label>
           {t("review.reason")}
           <textarea

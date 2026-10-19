@@ -166,8 +166,11 @@
 }
 .theme-root .detail-card {
   border-radius: 0 22px 0 0;
-  padding: 28px;
+  padding: var(--panel-inset);
   background: var(--surface);
+}
+.theme-root .detail-card > .button {
+  margin-top: var(--space-section);
 }
 .theme-root .review-workbench {
   gap: 20px;
@@ -190,6 +193,7 @@
   box-shadow: inset 0 -2px var(--accent);
 }
 .theme-root .review-section {
+  padding: var(--panel-inset);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 9px;
@@ -509,7 +513,17 @@
   color: white;
 }
 .theme-root .canonical-sheet {
-  background: white;
+  padding: var(--panel-inset);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.theme-root .canonical-sheet > .canonical-columns {
+  padding-top: 0;
+  margin-bottom: var(--space-section);
+}
+.theme-root .canonical-columns h2 {
+  margin: 0;
 }
 .theme-root .canonical-selection-reason {
   margin: 14px 0 0;
